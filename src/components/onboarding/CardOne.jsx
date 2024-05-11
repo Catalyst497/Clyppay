@@ -4,7 +4,7 @@ import image from "../../assets/image.png";
 
 function CardOne() {
   return (
-    <div>
+    <div className = "grid place-items-center h-screen">
       <Card
         title="Crypto Agency Banking"
         body="Receive cash payment for your crypto

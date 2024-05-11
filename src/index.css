@@ -2,35 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    /* white background and black text */
+    --background: 0 0% 99%;
+    --foreground: 60 1% 28%;
+    --foreground-bold: 210 10% 16%;
 
+    /* white background and black text */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 60 1% 28%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    /* --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%; */
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    /*orange background and white text */
+    --primary: 35 83% 53%;
+    --primary-foreground: 0 0% 99%;
 
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
+    /* grey background and white text */
+    --muted: 212 28% 86%;
+    --muted-foreground: 0, 0%, 99%;
 
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 237, 18%, 79%;
+    /* --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%; */
 
-    --accent: 0 0% 96.1%;
+    /* --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
 
     --destructive: 340, 100%, 61%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 98%; */
 
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    /* --ring: 0 0% 3.9%; */
 
     --radius: 0.5rem;
   }

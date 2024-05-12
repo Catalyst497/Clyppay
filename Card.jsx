@@ -1,7 +1,9 @@
+import image from "../../assets/image.png";
+import { ChevronRight } from "react-feather";
 import { useState } from "react";
 
-export default function Card({ slides }) {
-  const [activeIndex, setActiveIndex] = useState(4);
+export default function Card({ title, body, numSlides }) {
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleDotClick = (index) => {
     setActiveIndex(index);
@@ -24,29 +26,24 @@ export default function Card({ slides }) {
         id="image-container"
         className="bg-gradient overflow-hidden max-h-[450px]"
       >
-        <img
-          src={slides[activeIndex].image}
-          alt="ya"
-          className="object-contain "
-        />
+        <img src={image} alt="ya" className="object-contain w-full" />
       </div>
 
       <div className="w-full flex flex-col items-center ">
-        <h2 className="text-foreground-bold font-semibold text-xl">
-          {slides[activeIndex].title}
-        </h2>
+        <h2 className="text-foreground-bold font-semibold text-xl">{title}</h2>
         <div className="max-w-[50%]">
           {" "}
-          <p className="text-base font-normal text-center">
-            {slides[activeIndex].body}
-          </p>
+          <p className="text-base font-normal text-center">{body}</p>
         </div>
         <div>{/* pagination here*/}</div>
       </div>
 
       <div className="grid grid-cols-2 px-2">
         <div className="flex justify-between">
-          <button onClick={goToPrevSlide}>Back </button>
+          <button onClick={goToPrevSlide}>
+            <ChevronRight />
+            Back{" "}
+          </button>
           <div>Next</div>
         </div>
         <div className="grid align-self-end">

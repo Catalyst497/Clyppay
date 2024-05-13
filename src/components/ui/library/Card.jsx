@@ -17,18 +17,18 @@ const Card = React.forwardRef(
 );
 Card.displayName = "Card";
 
-// const CardHeader = React.forwardRef(
-//   function CardHeader({ className, ...props }, ref) {
-//     return (
-//       <div
-//         ref={ref}
-//         className={cn("flex flex-col space-y-1.5 p-6", className)}
-//         {...props}
-//       />
-//     );
-//   }
-// );
-// CardHeader.displayName = "CardHeader";
+const CardHeader = React.forwardRef(
+  function CardHeader({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        className={cn("flex flex-col space-y-1.5 py-3", className)}
+        {...props}
+      />
+    );
+  }
+);
+CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef(
   function CardTitle({ className, ...props }, ref) {
@@ -81,4 +81,4 @@ CardDescription.displayName = "CardDescription";
 // );
 // CardFooter.displayName = "CardFooter";
 
-export { Card, CardTitle, CardDescription};
+export { Card, CardTitle, CardDescription, CardHeader }

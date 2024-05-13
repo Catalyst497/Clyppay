@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Card, CardDescription, CardTitle } from "@/components/ui/library/Card"
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/library/Card"
 
 
 export default function Cards({ slides }) {
@@ -36,7 +36,8 @@ export default function Cards({ slides }) {
                 </div>
             </div>
 
-            <div className="flex w-full flex-col items-center py-2 ">
+            <div className="flex w-full flex-col items-center ">
+                <CardHeader>
                 <CardTitle>
                     {slides[activeIndex].title}
                 </CardTitle>
@@ -46,6 +47,8 @@ export default function Cards({ slides }) {
                         {slides[activeIndex].body}
                     </CardDescription>
                 </div>
+                </CardHeader>
+                
                 <div>{/* pagination here*/}</div>
             </div>
 

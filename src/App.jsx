@@ -1,9 +1,9 @@
-import Cards from "./components/onboarding/Cards"
+import Onboarding from "@/pages/Onboarding";
 
 function App() {
 
   return (
-        <Cards/>
+        <Onboarding/>
     )
 }
 

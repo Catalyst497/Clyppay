@@ -3,7 +3,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/li
 
 
 export default function Cards({ slides }) {
-    const [activeIndex, setActiveIndex] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(2)
 
     const handleDotClick = (index) => {
         setActiveIndex(index)

@@ -1,7 +1,7 @@
 import Cards from "@/components/onboarding/Cards"
 import Header from "@/components/ui/Header"
 import { Fragment } from "react"
-import { Card } from "@/components/ui/Card"
+import { Card } from "@/components/ui/library/Card"
 import { slides } from "@/pages/Onboarding/data";
 
 function Onboarding() {

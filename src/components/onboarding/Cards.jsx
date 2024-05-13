@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Card, CardDescription, CardTitle } from "@/components/ui/Card"
+import { Card, CardDescription, CardTitle } from "@/components/ui/library/Card"
 
 
 export default function Cards({ slides }) {

@@ -13,7 +13,7 @@ export default function Modal({ children }) {
     return (
         <Dialog>
             <DialogTrigger>Open</DialogTrigger>
-            <DialogContent>
+            <DialogContent className = "overflow-y-scroll max-h-[90%] side-scroller">
                 <div
                     id="image-container"
                     className="flex  w-full justify-center "
@@ -22,7 +22,7 @@ export default function Modal({ children }) {
                         <img
                             src={user}
                             alt="user information"
-                            className="object-contain h-16 w-16"
+                            className="object-contain h-12 w-12"
                         />
        
                 </div>

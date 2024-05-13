@@ -1,7 +1,7 @@
-import LoginModal from "@/components/auth/LoginModal"
+import SignupModal from "@/components/auth/SignupModal"
 
 export default function Dashboard(){
     return(
-<LoginModal />
+<SignupModal />
     )
 }

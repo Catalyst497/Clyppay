@@ -3,8 +3,9 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 function App() {
 
   return (
-        // <Onboarding/>
-        <Dashboard />
+        <Onboarding/>
+
+        // <Dashboard />
     )
 }
 

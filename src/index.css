@@ -26,11 +26,12 @@
 
     /*orange background and white text */
     --primary: 35 83% 53%;
+    --primary-dark: 35 90% 53%;
     --primary-foreground: 0 0% 99%;
 
     /* grey background and white text */
     --muted: 212 28% 86%;
-    --muted-foreground: 0, 0%, 99%;
+    --muted-foreground: 0, 0%, 80%;
 
     /* --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%; */
@@ -79,11 +80,12 @@
   }
 }
 
-/* .backdrop::after {
-  position: absolute;
-  content: url("/gradient-backdrop.svg");
-  inset: 0;
-  z-index: 1;
-  opacity: 1;
-  overflow: hidden;
-} */
+.side-scroller::-webkit-scrollbar {
+  width: 5px; /* Width of scrollbar */
+  height: 5px; /* Height of scrollbar */
+}
+
+.side-scroller::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of scrollbar thumb */
+  border-radius: 5px; /* Rounded edges for thumb */
+}

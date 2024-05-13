@@ -36,12 +36,12 @@ export default function Cards({ slides }) {
                 </div>
             </div>
 
-            <div className="flex w-full flex-col items-center ">
+            <div className="flex w-full flex-col items-center text-center ">
                 <CardHeader>
                 <CardTitle>
                     {slides[activeIndex].title}
                 </CardTitle>
-                <div className="max-w-[50%]">
+                <div className="max-w-[70%] md:max-w-[60%] self-center">
                     {" "}
                     <CardDescription className = "text-center">
                         {slides[activeIndex].body}

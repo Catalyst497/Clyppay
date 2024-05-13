@@ -1,52 +1,59 @@
-import Modal from "@/components/ui/Modal"
-import {
-    CardTitle,
-    CardDescription,
-    CardHeader,
-} from "@/components/ui/library/Card"
-import { Input, Label } from "@/components/ui/library/Field"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { Button } from "@/components/ui/library/Button"
-import AppleIcon from "@/assets/Vector1.svg"
-import Google from "@/assets/google.svg"
-import { FaFacebookF } from "react-icons/fa"
+import Modal from "@/components/ui/Modal";
+import { CardTitle, CardDescription, CardHeader } from "@/components/ui/library/Card";
+import { Input, Label } from "@/components/ui/library/Field";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/library/Button";
+import AppleIcon from "@/assets/Vector1.svg";
+import Google from "@/assets/google.svg";
+import { FaFacebookF } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { evaluatePasswordStrength } from "@/lib/passwordStrengthChecker";
+
+// Verification schema for zod
+const formSchema = z.object({
+    email: z.string().email("Invalid email address").trim(),
+    password: z.string().min(8, "Password must be at least 8 characters long").max(20, "Password must be less than 20 characters").trim(),
+    confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirm, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+});
 
 export default function SignupModal() {
-    const formSchema = z
-        .object({
-            email: z.string().email("Invalid email address").trim(),
-            password: z
-                .string()
-                .min(8, "Password must be at least 8 characters long")
-                .max(20, "Password must be less than 20 characters")
-                .trim(),
-            confirmPassword: z.string(),
-        })
-        .refine((data) => data.password === data.confirm, {
-            message: "Passwords don't match",
-            path: ["confirmPassword"],
-        })
-
+    // Using the react hook form
+    // Functions: to connect zod and fields (register), to watch for changes in a field and submit
+    // State: form state
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(formSchema) })
+        watch,
+    } = useForm({ resolver: zodResolver(formSchema) });
 
+    // State to store password strength
+    const [strength, setStrength] = useState({ text: "Weak", color: "red" });
+
+    // Watches password and checks strength
+    const password = watch("password");
+    useEffect(() => {
+        const result = evaluatePasswordStrength(password);
+        setStrength(result);
+    }, [password]);
+
+    // Submitting if passed (checks internally handled)
     const onSubmit = (data) => {
-        console.log(data)
-    }
+        console.log(data);
+    };
 
     return (
         <Modal>
-            <div className="mx-auto max-w-[90%] md:max-w-[70%]">
+            <div className="mx-auto max-w-[90%] md:max-w-[70%] ">
                 <CardHeader>
                     <CardTitle>Create your account</CardTitle>
                     <CardDescription>
-                        To create an account with Clyppay, please put in your
-                        email address in the field below
+                        To create an account with Clyppay, please put in your email address in the field below
                     </CardDescription>
                 </CardHeader>
 
@@ -59,7 +66,7 @@ export default function SignupModal() {
                         placeholder="example@gmail.com"
                     />
                     {errors.email && (
-                        <span className="text-red-500">
+                        <span className="text-red-500 text-sm">
                             {errors.email.message}
                         </span>
                     )}
@@ -74,7 +81,7 @@ export default function SignupModal() {
                         placeholder="Enter Your Password"
                     />
                     {errors.password && (
-                        <span className="text-red-500">
+                        <span className="text-red-500 text-sm">
                             {errors.password.message}
                         </span>
                     )}
@@ -89,7 +96,7 @@ export default function SignupModal() {
                         placeholder="Confirm Your Password"
                     />
                     {errors.confirmPassword && (
-                        <span className="text-red-500">
+                        <span className="text-red-500 text-sm">
                             {errors.confirmPassword.message}
                         </span>
                     )}
@@ -98,7 +105,7 @@ export default function SignupModal() {
                 <div className="align-center flex w-full justify-between">
                     <span>Password Strength</span>
                     <span></span>
-                    <span>Weak</span>
+                    <span style={{ color: strength.color }}>{strength.text}</span>
                 </div>
                 <div>
                     <p>Must contain at least</p>
@@ -142,5 +149,5 @@ export default function SignupModal() {
                 </div>
             </div>
         </Modal>
-    )
+    );
 }

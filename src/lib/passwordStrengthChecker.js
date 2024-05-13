@@ -1,53 +1,26 @@
-function evaluatePasswordStrength(password) {
-    let score = 0;
-  ​
-//   Score: 0-2 (Weak password)
-// Score: 3 (Medium password)
-// Score: 4-5 (Strong password)
-    if (!password) return '';
-  ​
-    // Check password length
-    if (password.length > 8) score += 1;
-    // Contains lowercase
-    if (/[a-z]/.test(password)) score += 1;
-    // Contains uppercase
-    if (/[A-Z]/.test(password)) score += 1;
-    // Contains numbers
-    if (/\d/.test(password)) score += 1;
-    // Contains special characters
-    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+export function evaluatePasswordStrength(password) {
+  let score = 0;
+  let strength = '';
+  let color = '';
 
+  // Check password length
+  if (password?.length >= 8) score += 1;
+  // Contains lowercase character
+  if (/[a-z]/.test(password)) score += 1;
+  // Contains special character
+  if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score += 1;
 
-    switch (score) {
-      case 0:
-      case 1:
-      case 2:
-      return "Weak";
-    case 3:
-      return "Medium";
-    case 4:
-    case 5:
-      return "Strong";
-    }
+  // Determine strength and color based on score
+  if (score === 0 || password?.length < 8) {
+      strength = 'Weak';
+      color = 'red';
+  } else if (score === 1) {
+      strength = 'Medium';
+      color = 'yellow';
+  } else if (score >= 2) {
+      strength = 'Strong';
+      color = 'green';
   }
 
-
-  function PasswordStrengthIndicator({ password }) {
-    const strength = evaluatePasswordStrength(password);
-
-    let colorClass = '';
-    switch (strength) {
-        case 'Weak':
-            colorClass = 'text-red-500'; // Apply red color for weak passwords
-            break;
-        case 'Medium':
-            colorClass = 'text-yellow-500'; // Apply yellow color for medium passwords
-            break;
-        case 'Strong':
-            colorClass = 'text-green-500'; // Apply green color for strong passwords
-            break;
-        default:
-            colorClass = ''; // No color
-    }
-
-  }
+  return { strength, color };
+}

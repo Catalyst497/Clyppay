@@ -1,58 +1,84 @@
-import { useState } from "react";
+import React from "react";
+import { cn } from "@/lib/utils";
 
-export default function Card({ slides }) {
-  const [activeIndex, setActiveIndex] = useState(4);
-
-  const handleDotClick = (index) => {
-    setActiveIndex(index);
-  };
-
-  const goToNextSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % numSlides);
-  };
-
-  const goToPrevSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex - 1 + numSlides) % numSlides);
-  };
-
-  return (
-    <div
-      id="card-container"
-      className="bg-card text-card-foreground w-[580px] rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden"
-    >
+const Card = React.forwardRef(
+  function Card({ className, ...props }, ref) {
+    return (
       <div
-        id="image-container"
-        className="bg-gradient overflow-hidden max-h-[450px]"
-      >
-        <img
-          src={slides[activeIndex].image}
-          alt="ya"
-          className="object-contain "
-        />
-      </div>
+        ref={ref}
+        className={cn(
+          "rounded-lg relative  bg-card text-card-foreground shadow-md",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+Card.displayName = "Card";
 
-      <div className="w-full flex flex-col items-center ">
-        <h2 className="text-foreground-bold font-semibold text-xl">
-          {slides[activeIndex].title}
-        </h2>
-        <div className="max-w-[50%]">
-          {" "}
-          <p className="text-base font-normal text-center">
-            {slides[activeIndex].body}
-          </p>
-        </div>
-        <div>{/* pagination here*/}</div>
-      </div>
+// const CardHeader = React.forwardRef(
+//   function CardHeader({ className, ...props }, ref) {
+//     return (
+//       <div
+//         ref={ref}
+//         className={cn("flex flex-col space-y-1.5 p-6", className)}
+//         {...props}
+//       />
+//     );
+//   }
+// );
+// CardHeader.displayName = "CardHeader";
 
-      <div className="grid grid-cols-2 px-2">
-        <div className="flex justify-between">
-          <button onClick={goToPrevSlide}>Back </button>
-          <div>Next</div>
-        </div>
-        <div className="grid align-self-end">
-          <button>Skip</button>
-        </div>
-      </div>
-    </div>
-  );
-}
+const CardTitle = React.forwardRef(
+  function CardTitle({ className, ...props }, ref) {
+    return (
+      <h2
+        ref={ref}
+        className={cn(
+          "text-xl relative text-foreground-bold font-semibold leading-none tracking-tight",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+CardTitle.displayName = "CardTitle";
+
+const CardDescription = React.forwardRef(
+  function CardDescription({ className, ...props }, ref) {
+    return (
+      <p
+        ref={ref}
+        className={cn("text-base font-normal", className)}
+        {...props}
+      />
+    );
+  }
+);
+CardDescription.displayName = "CardDescription";
+
+// const CardContent = React.forwardRef(
+//   function CardContent({ className, ...props }, ref) {
+//     return (
+//       <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+//     );
+//   }
+// );
+// CardContent.displayName = "CardContent";
+
+// const CardFooter = React.forwardRef(
+//   function CardFooter({ className, ...props }, ref) {
+//     return (
+//       <div
+//         ref={ref}
+//         className={cn("flex items-center p-6 pt-0", className)}
+//         {...props}
+//       />
+//     );
+//   }
+// );
+// CardFooter.displayName = "CardFooter";
+
+export { Card, CardTitle, CardDescription};

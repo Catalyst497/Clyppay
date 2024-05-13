@@ -4,8 +4,10 @@ import React from "react"
 
 function Header() {
     return (
-        <div className="h-20  w-full  bg-background">
-            <img src={Logo} alt="Clyppay" />
+        <div className="  flex px-10  h-[96px] w-full items-center bg-background  shadow-md">
+         
+                <img src={Logo} alt="Clyppay" />
+          
         </div>
     )
 }

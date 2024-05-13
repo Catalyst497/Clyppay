@@ -40,8 +40,8 @@ export default function Cards({ slides }) {
                 </div>
             </div>
 
-            <div id = "content" className="flex flex-col">
-            <div id = "body" className="flex flex-1 w-full flex-col items-center text-center ">
+            <div id = "content" className="">
+            <div id = "body" className="flex w-full flex-col items-center text-center ">
                 <CardHeader>
                     <CardTitle>{slides[activeIndex].title}</CardTitle>
                     <div className="max-w-[70%] self-center md:max-w-[60%]">
@@ -61,7 +61,7 @@ export default function Cards({ slides }) {
                 </div>
             </div>
 
-            <div id = "footer" className="grid mt-auto grid-cols-2  px-2">
+            <div id = "footer" className="grid grid-cols-2 self-end px-2">
                 <div className="flex justify-between ">
                     <span className="grid place-content-center rounded-full bg-primary px-1.5 py-2.5 hover:cursor-pointer">
                         <button
@@ -70,7 +70,6 @@ export default function Cards({ slides }) {
                             disabled={numSlides <= 1}
                         >
                             <FaChevronLeft size={24} />
-                            Next
                         </button>
                     </span>
 

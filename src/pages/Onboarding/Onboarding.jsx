@@ -1,4 +1,4 @@
-import Cards from "@/components/onboarding/Cards"
+import Cards from "@/components/custom/Cards"
 import Header from "@/components/ui/Header"
 import { Fragment } from "react"
 import { Card } from "@/components/ui/library/Card"

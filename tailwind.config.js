@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   // darkMode: ["class"],
+  mode: 'jit',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}", // Include your React components here
@@ -29,14 +30,18 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
 
-        gradient:
-          "linear-gradient(90deg, #f0cb94 30%, #e9ba77 50%, #fce4c2 100%)",
+
 
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
       },
+
+      backgroundImage: {
+        'gradient': 'linear-gradient(180deg, #f0cb94 30%, #e9ba77 50%, #fce4c2 100%)',
+      },
+
       fontSize:{
         sm: '0.8rem', //12.8px
         base: '1rem', //16px,

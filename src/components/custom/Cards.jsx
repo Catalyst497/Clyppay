@@ -1,36 +1,23 @@
-import { useState } from "react"
-import {
-    Card,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/library/Card"
-import DotNavigation from "@/components/ui/DotNavigation"
-
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
+import { useState } from "react";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/library/Card";
+import DotNavigation from "@/components/ui/DotNavigation";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function Cards({ slides }) {
-    const [activeIndex, setActiveIndex] = useState(2)
-    const numSlides = slides.length
-
-    const handleDotClick = (index) => {
-        setActiveIndex(index)
-    }
+    const [activeIndex, setActiveIndex] = useState(0);
+    const numSlides = slides.length;
 
     const goToNextSlide = () => {
-        setActiveIndex((prevIndex) => (prevIndex + 1) % numSlides)
-    }
+        setActiveIndex((prevIndex) => (prevIndex + 1) % numSlides);
+    };
 
     const goToPrevSlide = () => {
-        setActiveIndex((prevIndex) => (prevIndex - 1 + numSlides) % numSlides)
-    }
+        setActiveIndex((prevIndex) => (prevIndex - 1 + numSlides) % numSlides);
+    };
 
     return (
-        <Card className="h-full w-[580px] overflow-hidden">
-            <div
-                id="image-container"
-                className="flex h-2/3 w-full justify-center overflow-hidden bg-gradient"
-            >
+        <Card className="h-full w-[300px] md:w-[580px] overflow-hidden flex flex-col justify-between">
+            <div className="flex h-1/2 md:h-3/5 w-full justify-center overflow-hidden bg-gradient">
                 <div className="grid w-1/2 place-content-center">
                     <img
                         src={slides[activeIndex].image}
@@ -40,12 +27,10 @@ export default function Cards({ slides }) {
                 </div>
             </div>
 
-            <div id = "content" className="">
-            <div id = "body" className="flex w-full flex-col items-center text-center ">
+            <div className="flex w-full flex-col items-center text-center">
                 <CardHeader>
                     <CardTitle>{slides[activeIndex].title}</CardTitle>
                     <div className="max-w-[70%] self-center md:max-w-[60%]">
-                        {" "}
                         <CardDescription className="text-center">
                             {slides[activeIndex].body}
                         </CardDescription>
@@ -53,7 +38,6 @@ export default function Cards({ slides }) {
                 </CardHeader>
 
                 <div>
-                    {" "}
                     <DotNavigation
                         activeIndex={activeIndex}
                         numSlides={numSlides}
@@ -61,37 +45,34 @@ export default function Cards({ slides }) {
                 </div>
             </div>
 
-            <div id = "footer" className="grid grid-cols-2 self-end px-2">
-                <div className="flex justify-between ">
-                    <span className="grid place-content-center rounded-full bg-primary px-1.5 py-2.5 hover:cursor-pointer">
+            <div className="flex justify-between px-6 py-4 text-primary">
+                <div className="flex justify-between w-[75%] md:w-[50%]">
+                    <span className="flex items-center hover:cursor-pointer gap-4">
                         <button
-                            className="hover:bg-primary-dark mr-2 text-primary-foreground hover:cursor-pointer"
+                            className="grid place-content-center rounded-full px-2 py-2 bg-primary hover:bg-primary-dark text-primary-foreground"
                             onClick={goToPrevSlide}
                             disabled={numSlides <= 1}
-                        >
-                            <FaChevronLeft size={24} />
+                        > 
+                            <FaChevronLeft size={20} />
                         </button>
+                        Back
                     </span>
 
-                    <span className="grid place-content-center rounded-full bg-primary px-1.5 py-2.5 hover:cursor-pointer">
+                    <span className="flex items-center gap-4 hover:cursor-pointer">
+                        Next
                         <button
-                            className="hover:bg-primary-dark ml-2 text-primary-foreground  hover:cursor-pointer"
+                            className="grid place-content-center rounded-full px-2 py-2 bg-primary hover:bg-primary-dark text-primary-foreground"
                             onClick={goToNextSlide}
                             disabled={numSlides <= 1}
                         >
-                            <FaChevronRight size={24} />
+                            <FaChevronRight size={20} />
                         </button>{" "}
                     </span>
                 </div>
-                <div className=" hover:cursor-pointeralign-self-end grid">
+                <div className="hover:cursor-pointer justify-end flex">
                     <button>Skip</button>
                 </div>
             </div>
-            </div>
-
-            
-
-           
         </Card>
-    )
+    );
 }

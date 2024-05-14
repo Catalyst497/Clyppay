@@ -11,15 +11,18 @@ export function evaluatePasswordStrength(password) {
   if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score += 1;
 
   // Determine strength and color based on score
+//   Light Red: #FF8080
+// Light Yellow: #FFFF80
+// Light Green: #80FF80
   if (score === 0 || password?.length < 8) {
       strength = 'Weak';
-      color = 'red';
+      color = '#FF8080';
   } else if (score === 1) {
       strength = 'Medium';
-      color = 'yellow';
+      color = '#FFFF80';
   } else if (score >= 2) {
       strength = 'Strong';
-      color = 'green';
+      color = '#80FF80';
   }
 
   return { strength, color };

@@ -14,12 +14,20 @@ import { evaluatePasswordStrength } from "@/lib/passwordStrengthChecker";
 // Verification schema for zod
 const formSchema = z.object({
     email: z.string().email("Invalid email address").trim(),
-    password: z.string().min(8, "Password must be at least 8 characters long").max(20, "Password must be less than 20 characters").trim(),
+    password: z.string()
+        .min(8, "Password must be at least 8 characters long")
+        .max(20, "Password must be less than 20 characters")
+        .regex(/[A-Z]/, "Password must contain an uppercase letter")
+        .regex( /[!@#$%^&*]/, "Password must contain at least 1 special character")
+       ,
+
     confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirm, {
+}).refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
 });
+
+
 
 export default function SignupModal() {
     // Using the react hook form
@@ -29,18 +37,34 @@ export default function SignupModal() {
         register,
         handleSubmit,
         formState: { errors },
-        watch,
+        
     } = useForm({ resolver: zodResolver(formSchema) });
 
     // State to store password strength
     const [strength, setStrength] = useState({ text: "Weak", color: "red" });
-
+    const [criteria,setCriteria]= useState({
+        length: false,
+        upperCase: false,
+        special: false,   
+    })
     // Watches password and checks strength
-    const password = watch("password");
-    useEffect(() => {
-        const result = evaluatePasswordStrength(password);
+    function handlePasswordChange(e){
+        const password = e.target.value
+        const result = evaluatePasswordStrength(password)
+    
+        console.log(result);
         setStrength(result);
-    }, [password]);
+
+        const hasupperCase = /[A-Z]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*]/.test(password);
+
+        // Update criteria state
+        setCriteria({
+            length: password.length >= 8,
+            upperCase: hasupperCase,
+            special: hasSpecialChar,
+        });
+    }
 
     // Submitting if passed (checks internally handled)
     const onSubmit = (data) => {
@@ -79,6 +103,7 @@ export default function SignupModal() {
                         name="password"
                         type="password"
                         placeholder="Enter Your Password"
+                        onChange = {handlePasswordChange}
                     />
                     {errors.password && (
                         <span className="text-red-500 text-sm">
@@ -109,16 +134,19 @@ export default function SignupModal() {
                 </div>
                 <div>
                     <p>Must contain at least</p>
-                    <p> 8 characters</p>
-                    <p>1 lower case character</p>
-                    <p>1 special character</p>
-                </div>
+                    <p style={{ textDecoration: criteria.length ? "line-through" : "none" }}>8 characters</p>
+    <p style={{ textDecoration: criteria.upperCase? "line-through" : "none" }}>1 upper case character</p>
+    <p style={{ textDecoration: criteria.special ? "line-through" : "none" }}>1 special character</p>
+  </div>
 
                 <Button
-                    className="mt-4"
+              
                     size="full"
+                    className={`mt-4` }
+
                     onClick={handleSubmit(onSubmit)}
-                >
+                    
+               >
                     Sign Up
                 </Button>
                 <div className="align-center flex w-full  flex-col justify-center gap-5 text-center">

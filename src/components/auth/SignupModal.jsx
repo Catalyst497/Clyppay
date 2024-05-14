@@ -10,6 +10,7 @@ import Google from "@/assets/google.svg";
 import { FaFacebookF } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { evaluatePasswordStrength } from "@/lib/passwordStrengthChecker";
+import ProgressBar from "@/components/ui/ProgressBar";
 
 // Verification schema for zod
 const formSchema = z.object({
@@ -41,7 +42,7 @@ export default function SignupModal() {
     } = useForm({ resolver: zodResolver(formSchema) });
 
     // State to store password strength
-    const [strength, setStrength] = useState({ text: "Weak", color: "red" });
+    const [passwordStrength, setPasswordStrength] = useState({ strength: "Weak", color: "red" });
     const [criteria,setCriteria]= useState({
         length: false,
         upperCase: false,
@@ -51,9 +52,8 @@ export default function SignupModal() {
     function handlePasswordChange(e){
         const password = e.target.value
         const result = evaluatePasswordStrength(password)
-    
-        console.log(result);
-        setStrength(result);
+
+        setPasswordStrength(result);
 
         const hasupperCase = /[A-Z]/.test(password);
         const hasSpecialChar = /[!@#$%^&*]/.test(password);
@@ -127,13 +127,16 @@ export default function SignupModal() {
                     )}
                 </fieldset>
 
-                <div className="align-center flex w-full justify-between">
-                    <span>Password Strength</span>
-                    <span></span>
-                    <span style={{ color: strength.color }}>{strength.text}</span>
+                <div className="items-center py-3 flex w-full justify-between">
+                    <span className="text-base">Password Strength</span>
+                   <div className="w-1/3" ><ProgressBar {...passwordStrength} /></div>
+ 
+
+                    
+                    <span style={{ color: passwordStrength.color }}>{passwordStrength.strength}</span>
                 </div>
-                <div>
-                    <p>Must contain at least</p>
+                <div className="text-sm flex flex-col gap-2">
+                    <p className="font-bold">Must contain at least</p>
                     <p style={{ textDecoration: criteria.length ? "line-through" : "none" }}>8 characters</p>
     <p style={{ textDecoration: criteria.upperCase? "line-through" : "none" }}>1 upper case character</p>
     <p style={{ textDecoration: criteria.special ? "line-through" : "none" }}>1 special character</p>

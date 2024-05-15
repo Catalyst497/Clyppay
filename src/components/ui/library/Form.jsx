@@ -41,3 +41,13 @@ Label.displayName = LabelPrimitive.Root.displayName
 
 export { Label , Input}
 
+
+const FieldSet = React.forwardRef(({ className, label, children, ...props }, ref) => (
+    <FieldsetPrimitive.Root {...props} ref={ref} className={cn("mb-4", className)}>
+      <LabelPrimitive.Root htmlFor={props.name}>{label}</LabelPrimitive.Root>
+      {children}
+    </FieldsetPrimitive.Root>
+  ));
+  FieldSet.displayName = "FieldSet";
+
+  

@@ -1,6 +1,6 @@
 import Modal from "@/components/ui/Modal";
 import { CardTitle, CardDescription, CardHeader } from "@/components/ui/library/Card";
-import { Input, Label } from "@/components/ui/library/Field";
+import { Input, Label } from "@/components/ui/library/Form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

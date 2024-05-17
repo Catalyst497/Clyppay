@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/library/Card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/shadcn/Card";
 import DotNavigation from "@/components/ui/DotNavigation";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 

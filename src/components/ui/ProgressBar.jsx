@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress } from './library/Progress';
+import { Progress } from '../shadcn/Progress';
 
 export default function ProgressBar({ color, strength }) {
     let width;

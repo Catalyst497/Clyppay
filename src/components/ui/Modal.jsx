@@ -6,7 +6,7 @@ import {
     DialogTrigger,
     DialogContent,
  
-} from "@/components/ui/library/Dialog"
+} from "@/components/shadcn/Dialog"
 import user from "@/assets/user.svg"
 
 export default function Modal({ children }) {

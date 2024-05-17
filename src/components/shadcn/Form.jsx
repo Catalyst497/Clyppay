@@ -39,15 +39,25 @@ const Label = React.forwardRef(({ className, ...props }, ref) => (
 ))
 Label.displayName = LabelPrimitive.Root.displayName
 
-export { Label , Input}
+
+const fieldsetVariants = cva(
+    "mb-4 border border-input rounded-md p-4"
+
+);
+
+const Fieldset = React.forwardRef(({ className, children, legend, ...props }, ref) => {
+    return (
+        <fieldset ref={ref} className={cn(fieldsetVariants(), className)} {...props}>
+            {legend && <legend className="text-lg font-medium">{legend}</legend>}
+            {children}
+        </fieldset>
+    );
+});
+Label.displayName = "Fieldset"
+
+export { Label , Input,Fieldset}
 
 
-const FieldSet = React.forwardRef(({ className, label, children, ...props }, ref) => (
-    <FieldsetPrimitive.Root {...props} ref={ref} className={cn("mb-4", className)}>
-      <LabelPrimitive.Root htmlFor={props.name}>{label}</LabelPrimitive.Root>
-      {children}
-    </FieldsetPrimitive.Root>
-  ));
-  FieldSet.displayName = "FieldSet";
+
 
   

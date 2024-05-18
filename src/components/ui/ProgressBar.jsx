@@ -17,7 +17,7 @@ export default function ProgressBar({ color, strength }) {
         default:
             width = 10;
     }
-console.log(strength);
+// console.log(strength);
   
     return (
         <Progress

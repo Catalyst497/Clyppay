@@ -11,7 +11,7 @@ import user from "@/assets/icons/user.svg"
 export default function Modal({ children, shouldOpen = true}) {
     return (
         <Dialog defaultOpen = {shouldOpen}>
-            <DialogTrigger>Open</DialogTrigger>
+            <DialogTrigger>Signup modal</DialogTrigger>
             <DialogContent className="side-scroller min-h-[60%] max-h-[80%] overflow-y-scroll">
                 <div>
                     <div

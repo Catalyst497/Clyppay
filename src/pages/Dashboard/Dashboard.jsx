@@ -1,4 +1,4 @@
-import SignupModal from "@/components/custom/auth/SignupModal"
+import SignupModal from "@/components/custom/signup/SignupModal"
 import LoginModal from "@/components/custom/auth/LoginModal"
 import ConfirmEmail from "@/components/custom/auth/ConfirmEmail"
 import SubmitDocuments from "@/components/custom/auth/Id/SubmitDocuments"

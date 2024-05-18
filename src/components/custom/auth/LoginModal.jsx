@@ -5,9 +5,9 @@ import {
     CardHeader,
 } from "@/components/shadcn/Card"
 import InputField from "@/components/ui/InputField"
-import { formSchema } from "./Schema"
+import { formSchema } from "../signup/Schema"
 import { Button } from "@/components/shadcn/Button"
-import useFormLogic from "./useFormLogic"
+import useFormLogic from "../signup/useFormLogic"
 import { Checkbox } from "@/components/shadcn/FormElements"
 import SocialLoginSection from "@/components/ui/SocialLogin"
 

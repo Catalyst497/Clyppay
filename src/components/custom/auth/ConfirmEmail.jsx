@@ -5,9 +5,9 @@ import {
     CardHeader,
 } from "@/components/shadcn/Card"
 import image from "@/assets/images/email_illustration.svg"
-import { formSchema } from "./Schema"
+import { formSchema } from "../signup/Schema"
 import { Button } from "@/components/shadcn/Button"
-import useFormLogic from "./useFormLogic"
+import useFormLogic from "../signup/useFormLogic"
 
 export default function ConfirmEmail() {
     const { handleSubmit } = useFormLogic(formSchema)

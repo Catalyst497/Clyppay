@@ -2,8 +2,9 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { evaluatePasswordStrength } from "@/lib/passwordStrengthChecker"
+import { formSchema } from "./Schema"
 
-const useFormLogic = (formSchema, onSubmit) => {
+const useFormLogic = () => {
     const {
         register,
         handleSubmit,
@@ -20,6 +21,30 @@ const useFormLogic = (formSchema, onSubmit) => {
         special: false,
     })
 
+    
+    async function onSubmit(data) {
+        // Your API call logic here
+        console.log(data)
+        try {
+            // const response = await fetch("/api/endpoint", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(data),
+            // })
+            // if (!response.ok) {
+            //     throw new Error("Network response was not ok")
+            // }
+            // const result = await response.json()
+            
+            console.log(result)
+        } catch (error) {
+            console.error("Error:", error)
+        }
+    }
+
+    
     const handlePasswordChange = (e) => {
         const password = e.target.value
         const result = evaluatePasswordStrength(password)
@@ -36,13 +61,15 @@ const useFormLogic = (formSchema, onSubmit) => {
         })
     }
 
+    
     return {
         register,
         errors,
         passwordStrength,
         criteria,
         handlePasswordChange,
-        handleSubmit,
+        handleSubmit: handleSubmit(onSubmit),
+
     }
 }
 

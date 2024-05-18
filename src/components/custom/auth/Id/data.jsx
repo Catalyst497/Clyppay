@@ -1,6 +1,6 @@
-import front from "@/assets/front.svg"
-import back from "@/assets/back.svg"
-import selfie from "@/assets/selfie.svg"
+import front from "@/assets/images/front.svg"
+import back from "@/assets/images/back.svg"
+import selfie from "@/assets/images/selfie.svg"
 
 const slides = [
     {

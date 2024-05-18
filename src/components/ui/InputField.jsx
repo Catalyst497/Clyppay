@@ -1,4 +1,6 @@
-import { Input, Label, Fieldset } from "@/components/shadcn/Form"
+import { Input, Label, Fieldset } from "@/components/shadcn/FormElements"
+
+
 
 export default function InputField({name,type, register,placeholder,onChange,errors}) {
     return (

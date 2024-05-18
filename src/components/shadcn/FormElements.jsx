@@ -4,22 +4,44 @@ import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
 import { Check } from "lucide-react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { cva } from "class-variance-authority"
+import { Eye, EyeOff } from "lucide-react"
+import { useState } from "react"
 
 const Input = React.forwardRef(
-    ({ type, className, placeholder, ...props }, ref) => {
+    ({ type, className, placeholder,  ...props }, ref) => {
+        const [showPassword, setShowPassword] = useState(false);
+
+
+        
+    const toggleShowPassword = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+      };
         return (
-            <>
+            <div className="relative">
                 <input
-                    type={type}
+                  type={showPassword ? 'text' : type}
                     className={cn(
-                        "focus-visible:ring-ring flex h-10 w-full rounded-full border border-input bg-background px-3 py-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                        "flex h-10 w-full rounded-full border border-input bg-background px-3 py-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50",
                         className,
                     )}
                     placeholder={placeholder}
                     ref={ref}
                     {...props}
                 />
-            </>
+                {type === "password" && (
+                    <button
+                        type="button"
+                        onClick={toggleShowPassword}
+                        className="absolute inset-y-0 right-0 flex items-center pr-3"
+                    >
+                        {showPassword ? (
+                            <EyeOff className="h-5 w-5 text-gray-500" />
+                        ) : (
+                            <Eye className="h-5 w-5 text-gray-500" />
+                        )}
+                    </button>
+                )}
+            </div>
         )
     },
 )
@@ -63,7 +85,7 @@ const Checkbox = React.forwardRef(function ({ className, ...props }, ref) {
         <CheckboxPrimitive.Root
             ref={ref}
             className={cn(
-                "focus-visible:ring-ring peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+                "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
                 className,
             )}
             {...props}
@@ -78,7 +100,5 @@ const Checkbox = React.forwardRef(function ({ className, ...props }, ref) {
 })
 
 Checkbox.displayName = CheckboxPrimitive.Root.displayName
-
-
 
 export { Label, Checkbox, Input, Fieldset }

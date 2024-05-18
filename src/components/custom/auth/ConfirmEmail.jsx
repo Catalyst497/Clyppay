@@ -4,7 +4,7 @@ import {
     CardDescription,
     CardHeader,
 } from "@/components/shadcn/Card"
-import image from "@/assets/email_illustration.svg"
+import image from "@/assets/images/email_illustration.svg"
 import { formSchema } from "./Schema"
 import { Button } from "@/components/shadcn/Button"
 import useFormLogic from "./useFormLogic"

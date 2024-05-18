@@ -105,7 +105,7 @@ export default function SignupModal() {
             
 
                 <Button size="full" className={`mt-4`} onClick={handleSubmit}>
-                    Sign Up
+                    Log in
                 </Button>
 
                 <SocialLoginSection />

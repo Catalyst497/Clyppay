@@ -1,6 +1,6 @@
 import { FaFacebookF } from "react-icons/fa";
-import AppleIcon from "@/assets/Vector1.svg";
-import GoogleIcon from "@/assets/google.svg";
+import AppleIcon from "@/assets/images/Vector1.svg";
+import GoogleIcon from "@/assets/icons/google.svg";
 
 function SocialLoginSection() {
   return (

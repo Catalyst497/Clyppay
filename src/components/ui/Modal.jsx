@@ -6,11 +6,11 @@ import {
     DialogTrigger,
     DialogContent,
 } from "@/components/shadcn/Dialog"
-import user from "@/assets/user.svg"
+import user from "@/assets/icons/user.svg"
 
-export default function Modal({ children }) {
+export default function Modal({ children, shouldOpen = true}) {
     return (
-        <Dialog>
+        <Dialog defaultOpen = {shouldOpen}>
             <DialogTrigger>Open</DialogTrigger>
             <DialogContent className="side-scroller min-h-[60%] max-h-[80%] overflow-y-scroll">
                 <div>

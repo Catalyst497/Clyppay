@@ -8,7 +8,7 @@ import InputField from "@/components/ui/InputField"
 import { formSchema } from "./Schema"
 import { Button } from "@/components/shadcn/Button"
 import useFormLogic from "./useFormLogic"
-import { Checkbox } from "@/components/shadcn/Form"
+import { Checkbox } from "@/components/shadcn/FormElements"
 import SocialLoginSection from "@/components/ui/SocialLogin"
 
 export default function SignupModal() {

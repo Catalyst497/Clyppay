@@ -1,9 +1,9 @@
-import banking from "@/assets/agency-banking.svg";
-import watch from "@/assets/watch_tutorial.svg";
-import easy from "@/assets/easy_to_use.svg";
-import savings from "@/assets/savings.svg";
-import secure from "@/assets/Data_security.svg";
-import trade from "@/assets/trade_assets.svg";
+import banking from "@/assets/images/agency-banking.svg";
+import watch from "@/assets/images/watch_tutorial.svg";
+import easy from "@/assets/images/easy_to_use.svg";
+import savings from "@/assets/images/savings.svg";
+import secure from "@/assets/images/Data_security.svg";
+import trade from "@/assets/images/trade_assets.svg";
 
 
 export const slides = [

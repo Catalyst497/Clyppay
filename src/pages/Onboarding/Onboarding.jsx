@@ -1,4 +1,4 @@
-import Cards from "@/components/custom/Cards"
+import Cards from "@/components/custom/onboarding/Cards"
 import Header from "@/components/ui/Header"
 import { Fragment } from "react"
 import { Card } from "@/components/shadcn/Card"
@@ -12,8 +12,6 @@ function Onboarding() {
                 <Card className=" shadow-lg  mt-20 flex h-4/5 w-4/6 justify-center">
                     <div  className="absolute -translate-y-12 h-full w-fit">
                     <Cards slides={slides} />
-                  
-                   
                     </div>
                 </Card>
             </div>

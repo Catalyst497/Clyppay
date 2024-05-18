@@ -3,7 +3,7 @@ import watch from "@/assets/watch_tutorial.svg";
 import easy from "@/assets/easy_to_use.svg";
 import savings from "@/assets/savings.svg";
 import secure from "@/assets/Data_security.svg";
-import assets from "@/assets/assets.svg";
+import trade from "@/assets/trade_assets.svg";
 
 
 export const slides = [
@@ -15,7 +15,7 @@ export const slides = [
     },
     {
       id: 2,
-      image: assets,
+      image: trade,
       title: "Trade and Swap Crypto Assets",
       body: "Dive into the world of crypto with our seamless platform for buying, selling, and swapping digital assets.",
     },

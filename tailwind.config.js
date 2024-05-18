@@ -25,7 +25,10 @@ export default {
                 input: "hsl(var(--input))",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
+            
+                    // red: "rgb(var(--red))",
 
+                
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",

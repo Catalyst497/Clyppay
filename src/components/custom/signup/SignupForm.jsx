@@ -1,4 +1,3 @@
-import Modal from "@/components/ui/Modal"
 import {
     CardTitle,
     CardDescription,
@@ -9,9 +8,8 @@ import { Button } from "@/components/shadcn/Button"
 import useFormLogic from "./useFormLogic"
 import ProgressBar from "@/components/ui/ProgressBar"
 import SocialLoginSection from "@/components/ui/SocialLogin"
-import { useState } from "react";
 
-export default function SignupModal() {
+export default function SignupForm() {
     const {
         register,
         handleSubmit,
@@ -21,9 +19,8 @@ export default function SignupModal() {
         handlePasswordChange,
     } = useFormLogic()
 
-
     return (
-        <Modal>
+        <>
             <CardHeader>
                 <CardTitle>Create your account</CardTitle>
                 <CardDescription>
@@ -108,6 +105,6 @@ export default function SignupModal() {
             </Button>
 
             <SocialLoginSection />
-        </Modal>
+        </>
     )
 }

@@ -1,4 +1,4 @@
-import SignupModal from "@/components/custom/signup/SignupModal"
+import SignupParent from "@/components/custom/signup/Parent"
 import LoginModal from "@/components/custom/auth/LoginModal"
 import ConfirmEmail from "@/components/custom/auth/ConfirmEmail"
 import SubmitDocuments from "@/components/custom/auth/Id/SubmitDocuments"
@@ -6,7 +6,7 @@ import SubmitDocuments from "@/components/custom/auth/Id/SubmitDocuments"
 export default function Dashboard(){
     return(
 <>
-<SignupModal />
+<SignupParent />
 {/* <LoginModal /> */}
 {/* <ConfirmEmail /> */}
 {/* <SubmitDocuments /> */}

@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-const useMultistepForm = (initialSteps) => {
+const useMultistepForm = (steps) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [formValues, setFormValues] = useState(initialSteps);
 
-  const currentStep = formValues[currentStepIndex];
+
+  const currentStep = steps[currentStepIndex];
 
   const goToNextStep = () => {
     setCurrentStepIndex((prevIndex) =>
-      prevIndex < formValues.length - 1 ? prevIndex + 1 : prevIndex
+      prevIndex < steps.length - 1 ? prevIndex + 1 : prevIndex
     );
   };
 
@@ -16,6 +16,9 @@ const useMultistepForm = (initialSteps) => {
     setCurrentStepIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : prevIndex
     );
+  };
+  const goTo = (index) => {
+    setCurrentStepIndex(index) 
   };
 
   const updateFormValues = (updatedStepValues) => {

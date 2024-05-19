@@ -8,10 +8,11 @@ import {
 } from "@/components/shadcn/Dialog"
 import user from "@/assets/icons/user.svg"
 
-export default function Modal({ children, shouldOpen = true}) {
+export default function Modal({ name, children,  isOpen, onClose}) {
     return (
-        <Dialog defaultOpen = {shouldOpen}>
-            <DialogTrigger>Signup modal</DialogTrigger>
+        <Dialog >
+            {<DialogTrigger>{name} modal</DialogTrigger>}
+   
             <DialogContent className="side-scroller min-h-[60%] max-h-[80%] overflow-y-scroll">
                 <div>
                     <div

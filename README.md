@@ -7,5 +7,5 @@ https://www.figma.com/file/f03I9S6djNLzEPQi3rfv0H/Clyp-Redesign?type=design&node
 https://documenter.getpostman.com/view/34832393/2sA3JQ4KPe
 
 ## Issues: 
-- [ ] - Animation of card
-- [ ] - How to trigger the modal popup
+- [ ]  Animation of card
+- [ ]  How to trigger the modal popup

@@ -9,7 +9,14 @@ import useFormLogic from "./useFormLogic"
 import ProgressBar from "@/components/ui/ProgressBar"
 import SocialLoginSection from "@/components/ui/SocialLogin"
 
-export default function SignupForm() {
+export default function SignupForm({ next, updateFields, formData }) {
+    async function onSubmit(data) {
+        // Your API call logic here
+        updateFields(data)
+        console.log(data)
+        next();
+    }
+
     const {
         register,
         handleSubmit,
@@ -17,7 +24,7 @@ export default function SignupForm() {
         passwordStrength,
         criteria,
         handlePasswordChange,
-    } = useFormLogic()
+    } = useFormLogic(onSubmit)
 
     return (
         <>
@@ -35,6 +42,7 @@ export default function SignupForm() {
                 register={register}
                 placeholder="example@gmail.com"
                 onChange={null}
+                defaultValue={formData.email || ""} // Prefill with existing form data
                 errors={errors}
             />
 
@@ -43,6 +51,7 @@ export default function SignupForm() {
                 type="password"
                 register={register}
                 placeholder="Enter Your Password"
+                defaultValue={formData.password || ""} // Prefill with existing form data
                 onChange={handlePasswordChange}
                 errors={errors}
             />
@@ -51,6 +60,7 @@ export default function SignupForm() {
                 name="confirmPassword"
                 type="password"
                 register={register}
+                // defaultValue={formData.confirmPassword || ""} // Prefill with existing form data
                 placeholder="Confirm Your Password"
                 onChange={null}
                 errors={errors}

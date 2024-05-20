@@ -23,8 +23,6 @@ const useFormLogic = (onSubmit) => {
 
     
    
-
-    
     const handlePasswordChange = (e) => {
         const password = e.target.value
         const result = evaluatePasswordStrength(password)

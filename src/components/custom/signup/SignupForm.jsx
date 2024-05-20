@@ -3,17 +3,17 @@ import {
     CardDescription,
     CardHeader,
 } from "@/components/shadcn/Card"
-import InputField from "@/components/ui/InputField"
+import InputField from "@/components/reusables/InputField"
 import { Button } from "@/components/shadcn/Button"
 import useFormLogic from "./useFormLogic"
-import ProgressBar from "@/components/ui/ProgressBar"
-import SocialLoginSection from "@/components/ui/SocialLogin"
+import ProgressBar from "@/components/reusables/ProgressBar"
+import SocialLoginSection from "@/components/reusables/SocialLogin"
 
 export default function SignupForm({ next, updateFields, formData }) {
     async function onSubmit(data) {
         // Your API call logic here
-        console.log("submittted")
         updateFields(data)
+        console.log(data)
         next();
     }
 
@@ -110,10 +110,7 @@ export default function SignupForm({ next, updateFields, formData }) {
                 </div>
             </div>
 
-            {/* <Button size="full" className={`mt-4`} onClick={handleSubmit}>
-                Log in
-            </Button> */}
-            <Button size="full" className={`mt-4`} onClick={onSubmit}>
+            <Button size="full" className={`mt-4`} onClick={handleSubmit}>
                 Log in
             </Button>
 

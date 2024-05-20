@@ -5,8 +5,8 @@ import {
 } from "@/components/shadcn/Card"
 import { Button } from "@/components/shadcn/Button"
 import useFormLogic from "./useFormLogic"
-import SelectField from "@/components/ui/SelectField"
-import RadioField from "@/components/ui/RadioField"
+import SelectField from "@/components/reusables/SelectField"
+import RadioField from "@/components/reusables/RadioField"
 
 
 export default function KYC({ next, updateFields, formData }) {

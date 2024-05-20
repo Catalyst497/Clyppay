@@ -3,7 +3,7 @@ import {
     CardDescription,
     CardHeader,
 } from "@/components/shadcn/Card"
-import InputField from "@/components/ui/InputField"
+import InputField from "@/components/reusables/InputField"
 import { Button } from "@/components/shadcn/Button"
 import useFormLogic from "./useFormLogic"
 

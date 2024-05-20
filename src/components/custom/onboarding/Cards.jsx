@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/shadcn/Card"
-import DotNavigation from "@/components/ui/DotNavigation"
+import DotNavigation from "@/components/reusables/DotNavigation"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { Link } from "react-router-dom"
 

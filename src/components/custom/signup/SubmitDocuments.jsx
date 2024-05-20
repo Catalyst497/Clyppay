@@ -1,4 +1,3 @@
-import Modal from "@/components/ui/Modal"
 import {
     CardTitle,
     CardDescription,
@@ -7,7 +6,7 @@ import {
 
 import { Button } from "@/components/shadcn/Button"
 import React, {useState} from "react"
-import slides from "../auth/Id/data"
+import slides from "./data"
 export default function SubmitDocuments({updateFields, formData, closeModal}) {
  
     const [activeIndex, setActiveIndex] = useState(0);

@@ -1,9 +1,9 @@
 import useMultistepForm from "@/hooks/useMultistepForm";
 import { useState } from "react";
-import Modal from "@/components/ui/Modal";
+import Modal from "@/components/reusables/Modal";
 import SignupForm from "./SignupForm";
 import ConfirmEmail from "./ConfirmEmail";
-import EnterOtp from "./EnterOtp";
+import EnterOtp from "../../reusables/EnterOtp";
 import KYC from "./KYC";
 import IdCardForm from "./IdCardForm";
 import SubmitDocuments from "./SubmitDocuments";

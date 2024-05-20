@@ -9,3 +9,6 @@ https://documenter.getpostman.com/view/34832393/2sA3JQ4KPe
 ## Issues: 
 - [ ]  Animation of card
 - [ ]  How to trigger the modal popup
+- [ ]  CLose of modal popup error
+- [ ]  Login function (google etc)
+- [ ]  COnfirm email request

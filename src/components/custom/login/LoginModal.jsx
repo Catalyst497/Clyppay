@@ -12,8 +12,8 @@ import SocialLoginSection from "@/components/ui/SocialLogin"
 export default function SignupForm({ next, updateFields, formData }) {
     async function onSubmit(data) {
         // Your API call logic here
-        console.log("submittted")
         updateFields(data)
+        console.log(data)
         next();
     }
 
@@ -110,10 +110,7 @@ export default function SignupForm({ next, updateFields, formData }) {
                 </div>
             </div>
 
-            {/* <Button size="full" className={`mt-4`} onClick={handleSubmit}>
-                Log in
-            </Button> */}
-            <Button size="full" className={`mt-4`} onClick={onSubmit}>
+            <Button size="full" className={`mt-4`} onClick={handleSubmit}>
                 Log in
             </Button>
 

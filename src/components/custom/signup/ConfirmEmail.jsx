@@ -5,15 +5,22 @@ import {
     CardHeader,
 } from "@/components/shadcn/Card"
 import image from "@/assets/images/email_illustration.svg"
-import { formSchema } from "./Schema"
 import { Button } from "@/components/shadcn/Button"
-import useFormLogic from "./useFormLogic"
 
-export default function ConfirmEmail({ formData }) {
-    const { handleSubmit } = useFormLogic(formSchema)
+export default function ConfirmEmail({ formData,next }) {
+
+    const handleResendEmail = () => {
+        console.log("resend email..")
+    }
+    const handleSubmit = () => {
+        //api request to confirm email.
+        next();
+    }
+    
+
 
     return (
-        <div className="flex  flex-col justify-between">
+        <>
             
                 
                     <div className="w-full">
@@ -26,11 +33,11 @@ export default function ConfirmEmail({ formData }) {
              
           
           
-            <div className="text-center mt-5 md:mt-0 lg:text-left ">
-                <CardHeader>
+            <div className="  mt-5 md:mt-0 ">
+                <CardHeader className = "text-center lg:text-left" >
                     <CardTitle>Confirm your email</CardTitle>
                     <CardDescription>
-                        We just sent you an email to {formData.email}
+                        We just sent you an email to <b>{formData.email}</b>
                     </CardDescription>
                 </CardHeader>
 
@@ -38,11 +45,11 @@ export default function ConfirmEmail({ formData }) {
                     Log in
                 </Button>
 
-                <div className=" text-sm md:text-sm">
-                    <a className="text-primary mr-1">I didn’t receive </a>
+                <div className="text-center text-sm md:text-sm">
+                    <button className="text-primary mr-1" onClick={handleResendEmail}>I didn’t receive </button>
                     <span className=""> any email</span>
                 </div>
             </div>
-        </div>
+        </>
     )
 }

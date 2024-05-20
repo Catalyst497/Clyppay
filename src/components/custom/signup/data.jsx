@@ -8,7 +8,7 @@ const slides = [
         title: "Submit documents",
         subtext: "We are required by law to verify your identity by collecting your ID and selfie"
        , 
-       image: {front},
+       image: front,
         imageTitle: "Front of ID",
         imageBody: "Take a photo of the front of your ID in full showing all details",
     },
@@ -17,7 +17,7 @@ const slides = [
         title: "Submit documents",
         subtext: "We are required by law to verify your identity by collecting your ID and selfie"
        , 
-       image: {back},
+       image: back,
         imageTitle: "Back of ID",
         imageBody: "Take a photo of the back of your ID in full showing all details",
     },
@@ -25,7 +25,7 @@ const slides = [
         index: 3,
         title: "Selfie Verification",
         subtext: "We will compare the photo in your document with your selfie to confirm your identity"
-       , image: {selfie},
+       , image: selfie,
         imageTitle: "Your face",
         imageBody: "Place your face in front of the camera",
     },
@@ -33,7 +33,7 @@ const slides = [
         index: 4,
         title: "Selfie Verification",
         subtext: "We will compare the photo in your document with your selfie to confirm your identity"
-       , image: {selfie},
+       , image: selfie,
         imageTitle: "Verification Pending",
         imageBody: "Your verification is being processed, you will receive a notification once verified.",
     },

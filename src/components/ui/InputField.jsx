@@ -2,6 +2,7 @@ import { Input, Label, Fieldset } from "@/components/shadcn/FormElements"
 
 export default function InputField({
     name,
+    label,
     type,
     register,
     placeholder,
@@ -14,7 +15,7 @@ export default function InputField({
         <Fieldset>
             <Label className="capitalize" htmlFor={name}>
                 {" "}
-                {name}{" "}
+                {label ? label : name}{" "}
             </Label>
             <Input
                 {...register(name)}

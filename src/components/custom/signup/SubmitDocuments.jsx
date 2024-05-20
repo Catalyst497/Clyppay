@@ -7,17 +7,26 @@ import {
 
 import { Button } from "@/components/shadcn/Button"
 import React, {useState} from "react"
-import slides from "./data"
-export default function SubmitDocuments() {
+import slides from "../auth/Id/data"
+export default function SubmitDocuments({updateFields, formData, closeModal}) {
  
     const [activeIndex, setActiveIndex] = useState(0);
 
     const goToNextSlide = () => {
         setActiveIndex((prevIndex) => (prevIndex + 1));
     };
+    const handleCapture = () => {
+        goToNextSlide();
+        if(activeIndex === slides.length - 1){
+                closeModal()
+        }
+    };
+    const handleRetake = () => {
+       console.log("retake")
+    };
 
     return (
-        <Modal>
+        <>
             <CardHeader>
                 <CardTitle>Submit documents</CardTitle>
                 <CardDescription>
@@ -40,9 +49,15 @@ export default function SubmitDocuments() {
                         </CardDescription>
             </div>
 
-            <Button size="full" className={`my-4`} onClick={goToNextSlide}>
+            <Button size="full" className={`my-4`} onClick={handleCapture}>
                Capture
             </Button>
-        </Modal>
+            {activeIndex === 2 && (
+
+            <Button size="full" variant = "outline" className={``} onClick={handleRetake}>
+               Retake
+            </Button>
+            )}
+        </>
     )
 }

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Modal from "@/components/reusables/Modal";
 import SignupForm from "./SignupForm";
 import ConfirmEmail from "./ConfirmEmail";
-import EnterOtp from "./EnterOtp";
+import EnterOtp from "@/components/reusables/EnterOtp";
 import KYC from "./KYC";
 import IdCardForm from "./IdCardForm";
 import SubmitDocuments from "./SubmitDocuments";

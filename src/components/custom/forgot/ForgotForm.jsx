@@ -11,17 +11,25 @@ import Modal from "@/components/reusables/Modal";
 import useFormLogic from "./useFormLogic"; 
 import SocialLoginSection from "@/components/reusables/SocialLogin";
 
-export default function LoginForm() {
-    const { register, handleSubmit, errors, submitting, submitError } = useFormLogic(
-        async (data) => {
-            // Callback function after successful form submission
-            console.log("Form submitted successfully");
-            console.log("Data from server:", data); // Data received from the API
-        }
-    );
+export default function ForgotForm({next}) {
+    async function onSubmit(data) {
+        // Your API call logic here
+        // updateFields(data)
+        console.log(data)
+        next();
+    }
+   const [submitting,setSubmitting] = useState()
+    const {
+        register,
+        handleSubmit,
+        errors,
+    } = useFormLogic(onSubmit)
+    function handleLoginRedirect(){
+        return("redirecting..")
+    }
 
     return (
-        <Modal name="Login">
+
             <>
                 <CardHeader>
                     <CardTitle>Forgot Password ?</CardTitle>
@@ -51,13 +59,13 @@ export default function LoginForm() {
                     {submitting ? "Sending code..." : "Send code"}
                 </Button>
 
-                <div className="text-center text-sm md:text-sm">
+                <div className="text-center text-sm md:text-sm py-5">
                     <span className="">Remember Password?</span>
-                    <button className="text-primary mr-1" onClick={handleResendEmail}>Login</button>
+                    <button className="text-primary mr-1" onClick={handleLoginRedirect}>Login</button>
                 </div>
 
-                <SocialLoginSection />
+           
             </>
-        </Modal>
+        
     );
 }

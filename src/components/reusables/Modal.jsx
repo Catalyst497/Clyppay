@@ -8,7 +8,7 @@ import user from "@/assets/icons/user.svg";
 export default function Modal({ name, children, isOpen, closeModal,handleOpen }) {
     return (
         <Dialog open={isOpen} onOpenChange={(isOpen) => {
-            if (!isOpen && closeModal) {
+            if (!isOpen) {
                 closeModal();
             }
         }}>

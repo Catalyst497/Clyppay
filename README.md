@@ -12,3 +12,15 @@ https://documenter.getpostman.com/view/34832393/2sA3JQ4KPe
 - [ ]  CLose of modal popup error
 - [ ]  Login function (google etc)
 - [ ]  COnfirm email request
+
+## Similar projects
+https://github.com/SahilSagvekar/react-admin-dashboard
+
+
+https://github.com/TailAdmin/free-react-tailwind-admin-dashboard
+
+https://github.com/estevanmaito/windmill-dashboard-react
+
+https://github.com/minimal-ui-kit/material-kit-react
+
+https://tailadmin.com/blog/react-admin-dashboard

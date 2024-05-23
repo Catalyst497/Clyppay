@@ -24,3 +24,8 @@ https://github.com/estevanmaito/windmill-dashboard-react
 https://github.com/minimal-ui-kit/material-kit-react
 
 https://tailadmin.com/blog/react-admin-dashboard
+
+## Later on
+- Typescript
+- Accessibilty and performance check + caching + lazy loading
+  

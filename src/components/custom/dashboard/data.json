@@ -1,0 +1,147 @@
+[
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "quantity": 2.5,
+      "price_per_unit": 38000,
+      "total_value": 95000,
+      "percentage_change": "+2.7%"
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "quantity": 10,
+      "price_per_unit": 2500,
+      "total_value": 25000,
+      "percentage_change": "-1.5%"
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple",
+      "symbol": "XRP",
+      "quantity": 5000,
+      "price_per_unit": 1.5,
+      "total_value": 7500,
+      "percentage_change": "+5.2%"
+    },    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "quantity": 2.5,
+      "price_per_unit": 38000,
+      "total_value": 95000,
+      "percentage_change": "+2.7%"
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "quantity": 10,
+      "price_per_unit": 2500,
+      "total_value": 25000,
+      "percentage_change": "-1.5%"
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple",
+      "symbol": "XRP",
+      "quantity": 5000,
+      "price_per_unit": 1.5,
+      "total_value": 7500,
+      "percentage_change": "+5.2%"
+    },
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "quantity": 2.5,
+      "price_per_unit": 38000,
+      "total_value": 95000,
+      "percentage_change": "+2.7%"
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "quantity": 10,
+      "price_per_unit": 2500,
+      "total_value": 25000,
+      "percentage_change": "-1.5%"
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple",
+      "symbol": "XRP",
+      "quantity": 5000,
+      "price_per_unit": 1.5,
+      "total_value": 7500,
+      "percentage_change": "+5.2%"
+    },
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "quantity": 2.5,
+      "price_per_unit": 38000,
+      "total_value": 95000,
+      "percentage_change": "+2.7%"
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "quantity": 10,
+      "price_per_unit": 2500,
+      "total_value": 25000,
+      "percentage_change": "-1.5%"
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple",
+      "symbol": "XRP",
+      "quantity": 5000,
+      "price_per_unit": 1.5,
+      "total_value": 7500,
+      "percentage_change": "+5.2%"
+    },
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "quantity": 2.5,
+      "price_per_unit": 38000,
+      "total_value": 95000,
+      "percentage_change": "+2.7%"
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "quantity": 10,
+      "price_per_unit": 2500,
+      "total_value": 25000,
+      "percentage_change": "-1.5%"
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple",
+      "symbol": "XRP",
+      "quantity": 5000,
+      "price_per_unit": 1.5,
+      "total_value": 7500,
+      "percentage_change": "+5.2%"
+    },
+    
+    {
+      "id": "litecoin",
+      "name": "Litecoin",
+      "symbol": "LTC",
+      "quantity": 20,
+      "price_per_unit": 150,
+      "total_value": 3000,
+      "percentage_change": "-0.8%"
+    }
+  ]
+  

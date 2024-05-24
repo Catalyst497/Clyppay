@@ -8,27 +8,9 @@ import {
 import DotNavigation from "@/components/reusables/DotNavigation"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { Link } from "react-router-dom"
-
+import useSlideLogic from "@/hooks/useSlideLogic"
 export default function Cards({ slides }) {
-    const [activeIndex, setActiveIndex] = useState(0)
-    const numSlides = slides.length
-
-    const goToNextSlide = () => {
-        setActiveIndex((prevIndex) =>
-            prevIndex !== numSlides - 1
-                ? prevIndex + (1 % numSlides)
-                : prevIndex,
-        )
-    }
-
-    const goToPrevSlide = () => {
-        setActiveIndex((prevIndex) =>
-            prevIndex !== 0
-                ? prevIndex - 1 + (numSlides % numSlides)
-                : prevIndex,
-        )
-    }
-
+   const {numSlides,activeIndex,goToNextSlide,goToPrevSlide}  = useSlideLogic(slides)
     return (
         <Card className="flex h-full w-[300px] flex-col justify-between overflow-hidden md:w-[580px]">
             <div className="flex h-1/2 w-full justify-center overflow-hidden bg-gradient md:h-3/5">

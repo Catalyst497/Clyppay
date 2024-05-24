@@ -4,12 +4,12 @@ import {
     CardDescription,
     CardHeader,
 } from "@/components/shadcn/Card";
-import InputField from "@/components/reusables/InputField";
+import InputField from "@/components/ui/InputField";
 import { Button } from "@/components/shadcn/Button";
 import { useState } from "react";
-import Modal from "@/components/reusables/Modal";
+import Modal from "@/components/ui/Modal";
 import useFormLogic from "./useFormLogic"; 
-import SocialLoginSection from "@/components/reusables/SocialLogin";
+import SocialLoginSection from "@/components/ui/SocialLogin";
 
 export default function LoginForm() {
     const { register, handleSubmit, errors, submitting, submitError } = useFormLogic(

@@ -5,13 +5,14 @@ import Clyphub from "./Clyphub"
 import HomeTab from "./HomeTab"
 import StatisticsTab from "./StatisticsTab"
 import Header from "@/components/reusables/Header"
+import { useAuth } from "@/context/AuthContext"
 
 export default function Dashboard() {
+  const  {user} = useAuth();
     return (
         <div
-            className="bg-muted-lightest
-"
-        >
+          
+ >
             <Header />
             <div className="flex space-x-5">
                 <Sidebar />

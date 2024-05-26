@@ -10,9 +10,7 @@ import { useAuth } from "@/context/AuthContext"
 export default function Dashboard() {
   const  {user} = useAuth();
     return (
-        <div
-          
- >
+        <div>
             <Header />
             <div className="flex space-x-5">
                 <Sidebar />

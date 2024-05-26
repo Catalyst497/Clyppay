@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 
 // Create a context for authentication
-const AuthContext = createContext();
+const MenusContext = createContext();
 
 const initialModalState = {
   loginModal: false,
@@ -9,10 +9,9 @@ const initialModalState = {
   resetModal: false,
   forgotModal: false,
 };
-export const AuthProvider = ({ children }) => {
+export const MenusProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [openModals, setOpenModals] = useState(initialModalState);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const login = (name) =>
     // setOpenModals((prev)=> ({
     //   ...prev,
@@ -24,11 +23,11 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isSidebarOpen, login, logout, openModals, setOpenModals, setIsSidebarOpen}}
+      value={{ user, login, logout, openModals, setOpenModals }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useMenus = () => useContext(MenusContext);

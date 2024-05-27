@@ -8,17 +8,20 @@ import {
 import Header from "@/components/shared/custom/Header"
 import Dashboard from "@/pages/Dashboard"
 import Onboarding from "@/pages/Onboarding/Onboarding"
+import { headerHeight } from "@/lib/Constants";
+
 
 function App() {
     return (
         <Router>
             <Header />
-
-            <Routes>
-                <Route path="/" element={<Navigate to="/onboarding" />} />
-                <Route path="/onboarding" element={<Onboarding />} />
-                <Route path="/dashboard/*" element={<Dashboard />} />
-            </Routes>
+            <div style = {{marginTop:headerHeight }} className={` pb-8 md:pb-16`}>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/onboarding" />} />
+                    <Route path="/onboarding" element={<Onboarding />} />
+                    <Route path="/dashboard/*" element={<Dashboard />} />
+                </Routes>
+            </div>
         </Router>
     )
 }

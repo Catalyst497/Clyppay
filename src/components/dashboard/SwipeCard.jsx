@@ -12,7 +12,7 @@ import { useState } from "react";
 import useSlideLogic from "@/hooks/useSlideLogic";
 
 function SwipeCard() {
-  const [index, setCurrIndex] = useState(0);
+  const [index, setCurrIndex] = useState(1);
   const { numSlides, activeIndex, goToNextSlide, goToPrevSlide } =
     useSlideLogic(<Crypto />, <Fiat />);
 
@@ -46,32 +46,36 @@ function Crypto() {
       <div></div>
       <div className="flex items-center justify-between">
         <div>
+       
           <p className="text-sm font-light">Total Crypto Balance</p>
           <h3 className="text-xl font-bold text-primary">0.000007123</h3>
-          <div>
-            <LuEye size={20} />
           </div>
-        </div>
+         
+          <div>
+            <LuEye size={24} />
+          </div>
+       
       </div>
+
       <div className="flex items-center justify-center space-x-5">
-        <div className="bg-muted-lightest flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
-          <img className="w-[40px]" src={send} />
+        <div className="bg-muted flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
+          {/* <img className="w-[40px]" src={send} /> */}
           <p>Send</p>
         </div>
         <div className="bg-muted-lightest flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
-          <img className="w-[40px]" src={receive} />
+          {/* <img className="w-[40px]" src={receive} /> */}
           <p>Receive</p>
         </div>
         <div className="bg-muted-lightest flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
-          <img className="w-[40px]" src={send} />
+          {/* <img className="w-[40px]" src={send} /> */}
           <p>Buy</p>
         </div>
         <div className="bg-muted-lightest flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
-          <img className="w-[40px]" src={sell} />
+          {/* <img className="w-[40px]" src={sell} /> */}
           <p>Sell</p>
         </div>
         <div className="bg-muted-lightest flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
-          <img className="w-[40px]" src={swap} />
+          {/* <img className="w-[80px]" src={swap} /> */}
           <p>Swap</p>
         </div>
       </div>
@@ -92,7 +96,7 @@ function Fiat() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center space-x-5">
+      <div className="flex items-center justify-center space-x-2">
         <div className="bg-muted-lightest flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
           <img className="w-[40px]" src={send} />
           <p>Send</p>

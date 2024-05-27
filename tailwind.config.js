@@ -45,6 +45,7 @@ export default {
                   
                   
                     lighter: "hsl(var(--muted-lighter))",
+                    lightest: "hsl(var(--muted-lightest))",
                     foreground: "hsl(var(--muted-foreground))",
                 },
             },

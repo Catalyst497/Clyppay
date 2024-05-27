@@ -12,3 +12,5 @@ export const initialModalState = {
     forgotModal: "forgot",
 
  }
+
+ export const headerHeight = '96px'

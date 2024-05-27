@@ -4,7 +4,7 @@ import Pagination from '@/components/shared/custom/Pagination'; // Adjust the im
 import { PortfolioItem } from '@/components/shared/custom/PortfolioItem'; // Adjust the import path as needed
 import { Card, CardTitle } from '@/components/shared/shadcn/card';
 
-const itemsPerPage = 2;
+const itemsPerPage = 8;
 
 const Portfolio = () => {
   const [currentPage, setCurrentPage] = useState(1);

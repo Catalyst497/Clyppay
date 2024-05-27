@@ -60,11 +60,11 @@ export default function Dashboard() {
     return (
         <div className="flex space-x-5">
             <Sidebar />
-            <div className="ml-64 flex-grow p-4">
+            <div className="ml-64 p-4  gap-4">
                 {renderModal()}
                 <Routes>
-                    <Route path="/" element={<HomeTab />} />
-                    <Route path="home" element={<HomeTab />} />
+                    <Route path="/*" element={<HomeTab />} />
+                    <Route path="home/*" element={<HomeTab />} />
                     <Route path="statistics" element={<StatisticsTab />} />
                     <Route path="clyphub" element={<Clyphub />} />
                 </Routes>

@@ -22,7 +22,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
+        sm: "h-9 rounded-full px-3",
         lg: "h-11 rounded-md px-8",
         full: "h-12 w-full rounded-full text-center", 
         icon: "h-10 w-10",
@@ -52,4 +52,10 @@ const Button = React.forwardRef(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+function ButtonPill ({children}){
+  return (
+    <Button  size = "sm" className = "px-7">{children}</Button>
+  )
+}
+
+export { Button, buttonVariants,ButtonPill };

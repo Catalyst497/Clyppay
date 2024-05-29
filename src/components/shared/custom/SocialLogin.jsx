@@ -3,21 +3,9 @@ import AppleIcon from "@/assets/images/Vector1.svg";
 import GoogleIcon from "@/assets/icons/google.svg";
 import { Link } from "react-router-dom";
 import { initialModalState, modalNames } from "@/lib/Constants";
-import PropTypes from 'prop-types';
-import { useModal } from "@/context/ModalContext";
+import PropTypes from "prop-types";
 
-
-
-
-function SocialLoginSection({tagline,linkText,to}) {
-    const {setOpenModals} = useModal()
-  //enventually use reducer
-const handleModalRedirect = () => {
-  if(modalNames.loginModal === to) return setOpenModals({...initialModalState, loginModal: true, })
-  if(modalNames.signupModal === to) return setOpenModals({...initialModalState, signupModal: true, })
-  if(modalNames.forgotModal === to) return setOpenModals({...initialModalState, forgotModal: true, })
-  if(modalNames.resetModal === to) return setOpenModals({...initialModalState, resetModal: true, })
-}
+function SocialLoginSection({ tagline, linkText, to }) {
   return (
     <div className="align-center flex w-full flex-col justify-center gap-5 text-center">
       <div className="mt-4 flex items-center">
@@ -40,8 +28,9 @@ const handleModalRedirect = () => {
       </div>
       <div>
         {tagline}
-        <button onClick={handleModalRedirect} className="font-light text-primary ml-1">{linkText}</button>
-       
+        <Link to={to} className="font-light text-primary ml-1">
+          {linkText}
+        </Link>
       </div>
     </div>
   );
@@ -54,8 +43,8 @@ SocialLoginSection.propTypes = {
     modalNames.loginModal,
     modalNames.signupModal,
     modalNames.resetModal,
-    modalNames.forgotModal
-]).isRequired,
+    modalNames.forgotModal,
+  ]).isRequired,
 };
 
 export default SocialLoginSection;

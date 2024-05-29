@@ -36,15 +36,6 @@ function SocialLoginSection({ tagline, linkText, to }) {
   );
 }
 
-SocialLoginSection.propTypes = {
-  tagline: PropTypes.string,
-  linkText: PropTypes.string.isRequired,
-  to: PropTypes.oneOf([
-    modalNames.loginModal,
-    modalNames.signupModal,
-    modalNames.resetModal,
-    modalNames.forgotModal,
-  ]).isRequired,
-};
+
 
 export default SocialLoginSection;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import cryptoPortfolio from './data.json';
+import {cryptoPortfolio} from './PortfolioData';
 import Pagination from '@/components/shared/custom/Pagination'; // Adjust the import path as needed
 import { PortfolioItem } from '@/components/shared/custom/PortfolioItem'; // Adjust the import path as needed
 import { Card, CardTitle } from '@/components/shared/shadcn/card';

@@ -43,7 +43,7 @@ export default function Cards({ slides }) {
 
             <div className="flex justify-between px-6 py-4 text-primary">
                 <div className="flex w-[75%] justify-between md:w-[50%]">
-                    <span className="flex items-center gap-4 hover:cursor-pointer">
+                    <span className="flex uppercase items-center gap-4 hover:cursor-pointer">
                         <button
                             className={`grid place-content-center rounded-full px-2 py-2 ${activeIndex !== 0 ? "bg-primary" : "bg-muted"} hover:bg-primary-dark text-primary-foreground`}
                             onClick={goToPrevSlide}
@@ -54,7 +54,7 @@ export default function Cards({ slides }) {
                         Back
                     </span>
 
-                    <span className="flex items-center gap-4 hover:cursor-pointer">
+                    <span className="flex uppercase items-center gap-4 hover:cursor-pointer">
                         Next
                         <button
                             className={`grid place-content-center rounded-full px-2 py-2 ${activeIndex !== numSlides - 1 ? "bg-primary" : "bg-muted"} hover:bg-primary-dark text-primary-foreground`}
@@ -65,8 +65,8 @@ export default function Cards({ slides }) {
                         </button>{" "}
                     </span>
                 </div>
-                <div className="flex justify-end hover:cursor-pointer">
-                    <Link to={"/dashboard"}> Skip</Link>
+                <div className="flex uppercase justify-end hover:cursor-pointer">
+                    <Link to={"/login"}> Skip</Link>
                 </div>
             </div>
         </Card>

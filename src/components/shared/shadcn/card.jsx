@@ -36,7 +36,7 @@ const CardTitle = React.forwardRef(
       <h2
         ref={ref}
         className={cn(
-          "text-lg md:text-xl relative text-foreground-bold  font-bold leading-none tracking-tight",
+          "text-lg md:text-xl relative text-foreground-bold pb-5 font-bold leading-none tracking-tight",
           className
         )}
         {...props}
@@ -58,6 +58,18 @@ const CardDescription = React.forwardRef(
   }
 );
 CardDescription.displayName = "CardDescription";
+
+function FormCard ({children}){
+  return(
+    <Card className = "max-w-[550px] border rounded-xl py-7">
+      <div className="w-[90%] md:w-[80%] mx-auto">
+    {children}
+        
+      </div>
+</Card>
+  )
+
+}
 
 // const CardContent = React.forwardRef(
 //   function CardContent({ className, ...props }, ref) {
@@ -81,4 +93,4 @@ CardDescription.displayName = "CardDescription";
 // );
 // CardFooter.displayName = "CardFooter";
 
-export { Card, CardTitle, CardDescription, CardHeader }
+export { Card, CardTitle, CardDescription, CardHeader, FormCard }

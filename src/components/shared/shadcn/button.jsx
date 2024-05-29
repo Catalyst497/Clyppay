@@ -21,7 +21,7 @@ const buttonVariants = cva(
         disabled: "bg-muted text-primary-foreground hover:bg-primary/90"
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "h-16 px-4 py-2",
         sm: "h-9 rounded-full px-3",
         lg: "h-11 rounded-md px-8",
         full: "h-12 w-full rounded-full text-center", 

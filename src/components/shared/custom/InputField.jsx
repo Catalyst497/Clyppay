@@ -4,10 +4,10 @@ export default function InputField({
     name,
     label,
     type,
-    register,
+
     placeholder,
     onChange,
-    errors,
+    error,
     defaultValue,
     ...props
 }) {
@@ -18,7 +18,7 @@ export default function InputField({
                 {label ? label : name}{" "}
             </Label>
             <Input
-                {...register(name)}
+               
                 name={name}
                 type={type}
                 placeholder={placeholder}
@@ -27,9 +27,9 @@ export default function InputField({
                 // defaultValue  = {defaultValue}
                 {...props}
             />
-            {errors[name] && (
-                <span className="text-sm text-red-500">
-                    {errors[name].message}
+            {error && (
+                <span className="text-xs text-muted">
+                    {error}
                 </span>
             )}
         </Fieldset>

@@ -5,7 +5,6 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/shared/shadcn/card";
-import InputField from "@/components/shared/custom/InputField";
 import SocialLoginSection from "@/components/shared/custom/SocialLogin";
 import useLoginLogic from "./useLoginLogic";
 import clyp from "@/assets/icons/logo_icon.svg";
@@ -16,6 +15,7 @@ import { Link } from "react-router-dom";
 import { Checkbox } from "@/components/shared/shadcn/formElements";
 
 function Login() {
+  // Get formik instance, submission state, and submit handler from the custom hook
   const { formik, isSubmitting, handleSubmit } = useLoginLogic();
 
   return (
@@ -31,51 +31,52 @@ function Login() {
 
           <CardTitle className="">Welcome back!</CardTitle>
           <CardDescription className="text-center">
-            To log in your account with Clyppay, please put in your email
-            address in the field below
+            To log in to your account with Clyppay, please enter your email address and password.
           </CardDescription>
         </CardHeader>
 
-        <FloatingLabelInput
-          name="email"
-          type="email"
-          value={formik.values?.email}
-          label="Email Address"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.errors.email}
-        />
+        <form onSubmit={formik.handleSubmit}>
+          <FloatingLabelInput
+            name="email"
+            type="email"
+            value={formik.values.email}
+            label="Email Address"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.errors.email}
+          />
 
-        <FloatingLabelInput
-          name="password"
-          type="password"
-          label="Enter Your Password"
-          value={formik.values?.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.errors.password}
-        />
+          <FloatingLabelInput
+            name="password"
+            type="password"
+            label="Enter Your Password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.errors.password}
+          />
 
-        <div class="flex items-center justify-between pt-4">
-          <div>
-            <Checkbox />
-            <span> Remember me </span>
+          <div className="flex items-center justify-between pt-4">
+            <div>
+              <Checkbox />
+              <span> Remember me </span>
+            </div>
+
+            <Link to="/forgot" className="text-primary">Forgot Password?</Link>
           </div>
 
-          <Link to="/forgot" className = "text-primary">Forgot Password?</Link>
-        </div>
-
-        <Button
-          size="full"
-          className="mt-4"
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Logging in..." : "Continue"}
-        </Button>
+          <Button
+            type="submit"
+            size="full"
+            className="mt-4"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Logging in..." : "Continue"}
+          </Button>
+        </form>
 
         <SocialLoginSection
-          tagline="Don’t have an account ?"
+          tagline="Don’t have an account?"
           linkText="Register here"
           to={"/signup"}
         />

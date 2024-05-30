@@ -1,6 +1,7 @@
-import useFormValidation from '@/hooks/useFormValidation';
+import useForm from '@/hooks/useForm';
 import * as Yup from 'yup';
 
+// Validation schema for the login form
 const loginSchema = {
   email: Yup.string().email('Invalid email address').required('Email is required'),
   password: Yup.string()
@@ -11,16 +12,18 @@ const loginSchema = {
     ),
 };
 
+// Initial values for the login form
 const initialValues = {
   email: '',
   password: '',
 };
 
+// Function to handle form submission
 async function onSubmit(values) {
-  // Submit logic
+  // Example logic for form submission
   console.log('Form submitted with values:', values);
-  // Example: send form data to backend
-  // const response = await fetch('/api/submitForm', {
+  // Send form data to backend (this is just an example)
+  // const response = await fetch('/api/login', {
   //   method: 'POST',
   //   body: JSON.stringify(values),
   //   headers: {
@@ -28,15 +31,17 @@ async function onSubmit(values) {
   //   },
   // });
   // if (response.ok) {
-  //   console.log('Form submitted successfully');
+  //   console.log('Login successful');
   // } else {
-  //   throw new Error('Form submission failed');
+  //   throw new Error('Login failed');
   // }
 }
 
+// Custom hook to manage form validation logic
 export default function useLoginLogic() {
-  const { formik, isSubmitting } = useFormValidation(initialValues, loginSchema, onSubmit);
+  const { formik, isSubmitting } = useForm(initialValues, loginSchema, onSubmit);
 
+  // Function to trigger form submission
   const handleSubmit = () => {
     formik.handleSubmit();
   };

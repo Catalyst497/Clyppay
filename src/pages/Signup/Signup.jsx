@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useMultistepForm from "@/hooks/useMultistepForm";
-import StepOne from "@/components/signup/StepOne";
+import StepOne from "@/pages/Signup/StepOne";
+
 import { headerHeight } from "@/lib/Constants";
 
 const steps = [
@@ -31,14 +32,11 @@ function SignupPage() {
     setCurrentStepIndex(0);
     setIsOpen(false);
   };
-
+  
   console.log(currentStep);
 
   return (
-        <div
-      style={{ minHeight: `calc(100vh - ${headerHeight})` }}
-      className="flex h-full w-full items-center justify-center"
-    >
+    <div style={{ minHeight: `calc(100vh - ${headerHeight})` }}>
       {currentStep({
         next: goToNextStep,
         prev: goToPreviousStep,
@@ -50,3 +48,6 @@ function SignupPage() {
 }
 
 export default SignupPage;
+
+
+

@@ -45,7 +45,7 @@ export default function Sidebar() {
     ];
 
     return (
-        <aside className="h-[calc(100vh-96px)] w-64 bg-muted-lighter">
+        <aside className="h-[calc(100vh-96px)] w-64 bg-background">
             <nav className="flex flex-col justify-between h-full px-10 py-16">
                 <ul className="space-y-7 text-md font-bold ">
                     {navItems.map((x, index) => (

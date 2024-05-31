@@ -5,15 +5,14 @@ import * as Yup from 'yup';
 const useForm = (initialValues, validationSchema, onSubmit) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Initialize Formik for form state and validation management
   const formik = useFormik({
     initialValues,
     validationSchema: Yup.object(validationSchema),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values, formikHelpers) => {
       try {
         setIsSubmitting(true);
-        await onSubmit(values); // Call the provided onSubmit function
-        resetForm(); // Reset the form after successful submission
+        await onSubmit(values, formikHelpers);
+        formikHelpers.resetForm();
       } catch (error) {
         console.error('Form submission error:', error);
       } finally {

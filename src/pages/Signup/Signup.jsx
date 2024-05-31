@@ -20,19 +20,16 @@ function SignupPage() {
     goToPreviousStep,
   } = useMultistepForm(steps);
   
-  const [formData, setFormData] = useState({});
 
-  const updateFields = (fields) => {
-    setFormData((prev) => ({ ...prev, ...fields }));
-  };
+ 
 
-  return (
+  return ( 
     <div style={{ minHeight: `calc(100vh - ${headerHeight})` }} className="flex h-full w-full items-center justify-center">
       {currentStep({
         next: goToNextStep, // Pass function to go to the next step
         prev: goToPreviousStep, // Pass function to go to the previous step
-        updateFields, // Pass function to update form data
-        formData, // Pass current form data
+   
+      
       })}
     </div>
   );

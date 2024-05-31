@@ -9,7 +9,7 @@ import { headerHeight } from "@/lib/Constants";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Header({ page }) {
+function Header() {
     const { user } = useAuth();
     const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -41,25 +41,23 @@ function Header({ page }) {
                 </Link>
                 {/* left nav items */}
                 {user && (
-                    <div className="flex space-x-20">
+                    <div className="flex flex-row-reverse justify-between w-[30%]">
                         {/* avatar */}
                         <div className="flex items-center space-x-2">
                             <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
                                 <img src={Avatar} alt="user photo" className="object-contain " />
                             </div>
-                            <span className="font-bold ">
-                                Welcome {user?.name ?? "user"}
-                            </span>
+                           
                         </div>
                         {/* quick actions */}
-                        <div className="flex items-center space-x-4">
-                            <span>
+                        <div className="flex items-center space-x-10">
+                            <span className="cursor-pointer">
                                 <img src={blueCircle} alt="" />
                             </span>
-                            <span>
+                            <span className="cursor-pointer">
                                 <img src={scan} alt="scan" />
                             </span>
-                            <span>
+                            <span className="cursor-pointer">
                                 <img src={notifications} alt="notifications" />
                             </span>
                         </div>

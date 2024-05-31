@@ -6,23 +6,16 @@ const AuthContext = createContext();
 
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(null);
      
   const [currentTheme,setCurrentTheme] = useState();
 
 
-  const login = (name) =>
-    // setOpenModals((prev)=> ({
-    //   ...prev,
 
-    // }
-    //   ))
-    setUser({ name });
-  const logout = () => setUser(null);
 
   return (
     <AuthContext.Provider
-      value={{ user,  login, logout, }}
+      value={{ user,  setUser,  }}
     >
       {children}
     </AuthContext.Provider>

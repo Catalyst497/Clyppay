@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import useMultistepForm from "@/hooks/useMultistepForm";
-import StepOne from "@/pages/Signup/InitialForm";
+import StepOne from "@/pages/Forgot/InitialForm";
 import StepTwo from "@/components/shared/custom/ConfirmEmail";
-import StepThree from "@/pages/Signup/VerifyID"; // Import the new step
+import StepThree from "@/pages/Forgot/ResetPassword";
+import StepFour from "@/pages/Forgot/ResetSuccess";
 import { headerHeight } from "@/lib/Constants";
 
 // Define the steps of the multi-step form
@@ -10,10 +11,11 @@ const steps = [
   (props) => <StepOne {...props} />,
   (props) => <StepTwo {...props} />,
   (props) => <StepThree {...props} />,
+  (props) => <StepFour {...props} />,
   // Add other steps as needed
 ];
 
-function SignupPage() {
+function ForgotPage() {
   const {
     currentStep,
     goToNextStep,
@@ -38,4 +40,4 @@ function SignupPage() {
   );
 }
 
-export default SignupPage;
+export default ForgotPage;

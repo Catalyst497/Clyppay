@@ -36,7 +36,7 @@ export default function ConfirmEmail({ formData,next }) {
                 <CardHeader className = "text-center lg:text-left" >
                     <CardTitle>Confirm your email</CardTitle>
                     <CardDescription>
-                        We just sent you an email to <b>{formData.email}</b>
+                    Input code sent to your email <b>{formData.email}</b>
                     </CardDescription>
                 </CardHeader>
 

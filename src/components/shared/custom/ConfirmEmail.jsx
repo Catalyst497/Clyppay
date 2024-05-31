@@ -4,7 +4,8 @@ import { FormCard, CardTitle, CardDescription, CardHeader } from "@/components/s
 import { Button } from "@/components/shared/shadcn/button";
 import * as Yup from "yup";
 import { FourDigitPassword } from "@/components/shared/shadcn/inputOtp";
-import EnterOtp from "@/components/shared/custom/EnterOtp";
+import clyp from "@/assets/icons/logo_icon.svg";
+
 
 // Validation schema for the OTP form
 const validationSchema = {
@@ -34,6 +35,9 @@ const ConfirmEmail = ({ next, prev, updateFields, formData }) => {
   return (
     <FormCard>
       <CardHeader className="flex flex-col items-center">
+      <div className="pb-5">
+          <img src={clyp} alt="Clyp" width="40px" />
+        </div>
         <CardTitle>Email Confirmation</CardTitle>
         <CardDescription className="text-center">
           Please enter the OTP sent to your email address <b>{formData?.email}</b>

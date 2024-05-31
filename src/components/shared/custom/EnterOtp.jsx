@@ -1,4 +1,3 @@
-import Modal from "@/components/shared/custom/Modal"
 import {
     CardTitle,
     CardDescription,
@@ -75,10 +74,7 @@ export default function EnterOtp({ formData, next }) {
                 </CardDescription>
             </CardHeader>
 
-            <FourDigitPassword
-              isSuccessful = {isSuccessful}  onComplete={handleComplete}
-
-            />
+      
 
             <div className="w-full flex justify-center text-sm md:text-sm">
             <div className="flex w-full justify-center items-center">

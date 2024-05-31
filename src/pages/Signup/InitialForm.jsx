@@ -13,7 +13,10 @@ import { Button } from "@/components/shared/shadcn/button";
 import * as Yup from "yup"
 import { api, handleApiError , updateAuthToken} from "@/lib/axiosProvider"
 
-const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
+
+
+
+const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/
 const validationSchema = {
   email: Yup.string().email('Invalid email address').required('Required'),
   phone: Yup.string().required('Required'),

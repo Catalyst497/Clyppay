@@ -40,6 +40,15 @@ function SwipeCard() {
 
 export default SwipeCard;
 
+function Icon(){
+  return (
+<div className="bg-muted flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
+          {/* <img className="w-[40px]" src={send} /> */}
+          <p>Send</p>
+        </div>
+  )
+}
+
 function Crypto() {
   return (
     <>
@@ -58,7 +67,7 @@ function Crypto() {
       </div>
 
       <div className="flex items-center justify-center space-x-5">
-        <div className="bg-muted flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
+      <div className="bg-muted flex flex-col items-center overflow-hidden rounded-full px-6 py-2">
           {/* <img className="w-[40px]" src={send} /> */}
           <p>Send</p>
         </div>

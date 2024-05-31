@@ -2,7 +2,6 @@ import React from "react"
 import { QuickAction } from "@/components/dashboard/QuickAction"
 
 import SwipeCard from "@/components/dashboard/SwipeCard"
-import AccountTabs from "@/components/dashboard/AccountTabs"
 // import TransactionHistory from "@/components/dashboard/TransactionHistory"
 
 import Portfolio from "@/components/dashboard/Portfolio"
@@ -14,7 +13,6 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/shared/shadcn/tabs"
-import SwipeCard from "@/components/dashboard/SwipeCard"
 
 function HomeTab() {
     const { user } = useAuth()
@@ -29,7 +27,7 @@ function HomeTab() {
             </TabsList>
 
             <TabsContent value="account">
-                //{" "}
+       
                 <div className="grid grid-cols-2 space-x-10 pb-10">
                     <div className="col-span-1">
                         {" "}

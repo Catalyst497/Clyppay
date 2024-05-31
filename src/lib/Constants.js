@@ -6,10 +6,11 @@ export const initialModalState = {
   };
 
  export const modalNames = {
-    loginModal: "login",
-    signupModal: "signup",
-    resetModal: "reset",
-    forgotModal: "forgot",
+   buyModal: "buy",
+   sellModal: "sell",
+   sendModal: "send",
+   receiveModal: "receive",
+   swapModal: "swap",
 
  }
 

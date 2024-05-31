@@ -1,41 +1,60 @@
-import {
-  Fieldset,
-} from "@/components/shared/shadcn/formElements";
-import { useState } from "react";
+import { Fieldset } from "@/components/shared/shadcn/formElements"
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
 
 const FloatingLabelInput = ({
-  label,
-  name,
-  type,
-  value, // Add value attribute
-  onChange,
-  error,
-  ...props
+    label,
+    name,
+    type,
+    value, // Add value attribute
+    onChange,
+    error,
+    ...props
 }) => {
-  const [touched, setTouched] = useState(false);
-  const handleBlur = (e) => {
-    onBlur(e);
-    setTouched(true);
-  };
-  return (
-    <Fieldset className="relative">
-      <input
-        type={type}
-        id={name}
-        name={name}
-        value={value} // Bind value attribute to formik value
-        onChange={onChange}
-        className= {`indent-1.5 mb-5 block rounded-full   px-2.5 pb-2.5 py-7 w-full border border-input border-1 text-sm text-black bg-transparent  appearance-none  dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-border  peer`}
-        placeholder=" "
-      />
-           {<p>{error}</p>}
-      <label
-        htmlFor={name}
-        className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-6 z-10 origin-[0] start-4 peer-focus:text-input peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
-      >
-        {label}
-      </label>
-    </Fieldset>
-  );
-};
-export default FloatingLabelInput;
+    const [touched, setTouched] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+
+    const handleBlur = (e) => {
+        onBlur(e)
+        setTouched(true)
+    }
+
+    const toggleShowPassword = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword)
+    }
+
+    return (
+        <Fieldset className="relative">
+            <input
+                type={showPassword ? "text" : type}
+                id={name}
+                name={name}
+                value={value} // Bind value attribute to formik value
+                onChange={onChange}
+                className={`border-1 peer mb-5 block   w-full appearance-none rounded-full border border-input bg-transparent px-2.5 py-7 pb-2.5 indent-1.5  text-sm  text-black focus:border-border focus:outline-none focus:ring-0  dark:focus:border-blue-500`}
+                placeholder=" "
+            />
+            {type === "password" && (
+                <button
+                    type="button"
+                    onClick={toggleShowPassword}
+                    className="absolute top-6 right-0 flex items-center pr-3"
+                >
+                    {showPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-500" />
+                    ) : (
+                        <Eye className="h-5 w-5 text-gray-500" />
+                    )}
+                </button>
+            )}
+            {<p>{error}</p>}
+            <label
+                htmlFor={name}
+                className="absolute start-4 top-6 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-input rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+            >
+                {label}
+            </label>
+        </Fieldset>
+    )
+}
+export default FloatingLabelInput

@@ -32,7 +32,7 @@ const Input = React.forwardRef(
                     <button
                         type="button"
                         onClick={toggleShowPassword}
-                        className="absolute inset-y-0 right-0 flex items-center pr-3"
+                        className="absolute inset-y-0  right-0  flex items-center pr-3"
                     >
                         {showPassword ? (
                             <EyeOff className="h-5 w-5 text-gray-500" />

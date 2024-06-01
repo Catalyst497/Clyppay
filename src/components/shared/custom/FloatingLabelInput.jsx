@@ -30,7 +30,7 @@ const FloatingLabelInput = ({
                 value={value} // Bind value attribute to formik value
                 onChange={onChange}
                 onBlur={onBlur}
-                className={`border-1 peer block   w-full appearance-none rounded-full border border-input bg-transparent px-2.5 py-7 pb-2.5 indent-1.5  text-sm  text-black focus:border-border focus:outline-none focus:ring-0  dark:focus:border-blue-500`}
+                className={`border-1 peer block   w-full appearance-none rounded-full border border-input bg-transparent px-2.5 py-7 pb-2.5 indent-1.5  text-sm  text-black focus:border-border focus:outline-none focus:ring-0  dark:focus:border-primary-500`}
                 placeholder=" "
             />
             {type === "password" && (

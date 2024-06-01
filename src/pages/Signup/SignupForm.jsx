@@ -12,6 +12,7 @@ import clyp from "@/assets/icons/logo_icon.svg";
 import { Button } from "@/components/shared/shadcn/button";
 import * as Yup from "yup";
 import { api, updateAuthToken } from "@/lib/axiosProvider";
+import { useAuth } from "@/context/AuthContext";
 
 const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
 const validationSchema = {
@@ -34,19 +35,27 @@ const initialValues = {
   password: "",
 };
 
-const StepOne = ({ next }) => {
+const SignupForm = ({ next }) => {
+      const {setUser} = useAuth()
+
+  
   const onSubmit = async (values, { setErrors }) => {
     try {
-      const response = await api.post("/user-gateway/register", values);
+      console.log(values)
+      const {data,status} = await api.post("/user-gateway/register", values);
 
-      if (response.status === 201) {
+      if (status === 201) {
+
+        setUser(data.user)
+    
         next();
-        await updateAuthToken(response?.data?.token);
+        return { success: true };
       } else {
-        setErrors({ apiError: response.data.message });
+        return { success: false, message: data?.message };
       }
     } catch (error) {
-      setErrors({ apiError: error.response?.data?.message || "Network error" });
+      console.log(error.response.data.error);
+      return { success: false, message: error.message || "Network error" };
     }
   };
 
@@ -98,7 +107,7 @@ const StepOne = ({ next }) => {
           error={formik.errors.password}
           touched={formik.touched.password}
         />
-
+  
         {formik.errors.apiError && (
           <div style={{ color: 'red', marginTop: '10px' }}>
             {formik.errors.apiError}
@@ -124,4 +133,4 @@ const StepOne = ({ next }) => {
   );
 };
 
-export default StepOne;
+export default SignupForm;

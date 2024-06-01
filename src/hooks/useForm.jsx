@@ -11,10 +11,15 @@ const useForm = (initialValues, validationSchema, onSubmit) => {
     onSubmit: async (values, formikHelpers) => {
       try {
         setIsSubmitting(true);
-        await onSubmit(values, formikHelpers);
-        formikHelpers.resetForm();
+        const submissionResult = await onSubmit(values, formikHelpers);
+        if (submissionResult.success) {
+          formikHelpers.resetForm();
+        } else {
+          formikHelpers.setErrors({ apiError: submissionResult.message });
+        }
       } catch (error) {
         console.error('Form submission error:', error);
+        formikHelpers.setErrors({ apiError: error.message || 'Network error' });
       } finally {
         setIsSubmitting(false);
       }

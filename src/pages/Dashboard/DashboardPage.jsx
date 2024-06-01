@@ -41,7 +41,7 @@ export default function Dashboard() {
             }
             return (
                 <Modal
-                    isOpen={openModal}
+                    isOpen={!!openModal}
                     closeModal={() => handleModalClose()}
                 >
                     <ModalComponent />

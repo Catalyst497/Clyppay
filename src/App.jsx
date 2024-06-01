@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Header from "@/components/shared/custom/Header";
-import Dashboard from "@/pages/Dashboard";
+import Dashboard from "@/pages/Dashboard/DashboardPage";
 import Onboarding from "@/pages/Onboarding/Onboarding";
 import { headerHeight } from "@/lib/Constants";
 import Login from "@/pages/login/Login";

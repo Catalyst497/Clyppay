@@ -10,8 +10,7 @@ import { RiEyeCloseLine } from "react-icons/ri"
 import DotNavigation from "@/components/shared/custom/DotNavigation"
 import { useState } from "react"
 import useSlideLogic from "@/hooks/useSlideLogic"
-import { useModal } from "@/context/ModalContext";
-
+import { useModal } from "@/context/ModalContext"
 
 function SwipeCard() {
     const [index, setCurrIndex] = useState(1)
@@ -46,11 +45,14 @@ function SwipeCard() {
 export default SwipeCard
 
 function Icon({ text, icon, modalName }) {
-  const { setOpenModal} = useModal();
+    const { setOpenModal } = useModal()
 
     return (
         <div className="flex items-center justify-center">
-            <div onClick={() => setOpenModal(modalName)} className="flex h-20 w-20 flex-col items-center justify-center rounded-full bg-muted-lighter p-4">
+            <div
+                onClick={() => setOpenModal(modalName)}
+                className="flex h-20 w-20 flex-col items-center justify-center rounded-full bg-muted-lighter p-4"
+            >
                 <img className="h-9 w-9" src={icon} alt="icon" />
                 <p className="text-foreground-bold mt-1 text-xs font-semibold capitalize">
                     {text}
@@ -79,9 +81,9 @@ function Crypto() {
 
             <div className="mt-2 flex items-center justify-center space-x-5">
                 <Icon text="send" icon={send} modalName={"send"} />
-                <Icon text="receive" icon={receive}  modalName={"receive"}/>
-                <Icon text="buy" icon={buy} modalName={"buy"}/>
-                <Icon text="sell" icon={sell} modalName={"sell"}/>
+                <Icon text="receive" icon={receive} modalName={"receive"} />
+                <Icon text="buy" icon={buy} modalName={"buy"} />
+                <Icon text="sell" icon={sell} modalName={"sell"} />
                 <Icon text="swap" icon={swap} modalName={"swap"} />
             </div>
         </>

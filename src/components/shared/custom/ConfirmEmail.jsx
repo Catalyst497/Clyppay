@@ -10,7 +10,7 @@ import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
 import { FourDigitPassword } from "@/components/shared/shadcn/inputOtp"
 import clyp from "@/assets/icons/logo_icon.svg"
-import { updateAuthToken } from "@/lib/axiosProvider"
+import { api,updateAuthToken } from "@/lib/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
 
 // Validation schema for the OTP form
@@ -26,20 +26,34 @@ const initialValues = {
 const ConfirmEmail = ({ next, prev, formData }) => {
     // State to track OTP verification status
     const [isVerified, setIsVerified] = useState(false)
-    const { setUser } = useAuth()
+    const { user } = useAuth()
     // Submit handler for the OTP form (when user submits each step)
     const onSubmit = async (values) => {
         try {
-            const response = await api.post(
+            const {data} = await api.post(
                 "/user-gateway/activate-user",
-                values,
+                {...user.id,...values},
             )
             updateAuthToken(data.authToken)
-            setUser(data.user_id)
             setIsVerified(true)
             next()
         } catch (error) {
-            console.log(error)
+            console.log(error.response.data.error);
+        }
+    }
+
+    const handleResend = async (event) => {
+        event.preventDefault()
+        try {
+            console.log(user)
+            const response = await api.post(
+                "/user-gateway/resend-auth-code",
+                user.id,
+            )
+      
+        } catch (error) {
+            console.log(error?.response?.data?.error);
+
         }
     }
 
@@ -58,13 +72,13 @@ const ConfirmEmail = ({ next, prev, formData }) => {
                 </div>
                 <CardTitle className = "text-center">Confirm your email address</CardTitle>
                 <CardDescription className="text-center">
-                    Please enter the OTP sent to your email address <b>{}</b>
+                    Please enter the OTP sent to your email address <b>{user.email}</b>
                 </CardDescription>
             </CardHeader>
 
             {/* Render OTP input form if not verified */}
             {!isVerified && (
-                <form>
+                <>
                     <FourDigitPassword
                         value={formik.values.otp}
                         onChange={formik.handleChange}
@@ -72,7 +86,8 @@ const ConfirmEmail = ({ next, prev, formData }) => {
                         error={formik.errors.otp}
                         onComplete={formik.handleSubmit}
                     />
-                </form>
+                    <p className="text-sm text-center">Didn't receive the code <button className="capitalize text-primary" onClick={handleResend}>resend code</button></p>
+                </>
             )}
 
             {/* Render success message if OTP verified */}

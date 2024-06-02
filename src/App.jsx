@@ -6,11 +6,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import Header from "@/components/shared/custom/Header";
-import Dashboard from "@/pages/Dashboard";
+import Dashboard from "@/pages/Dashboard/DashboardPage";
 import Onboarding from "@/pages/Onboarding/Onboarding";
 import { headerHeight } from "@/lib/Constants";
 import Login from "@/pages/login/Login";
 import Signup from "@/pages/Signup/Signup";
+import ForgotPage from "./pages/Forgot/ForgotPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot" element={<ForgotPage />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
         </Routes>
       </div>

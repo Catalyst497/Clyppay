@@ -1,29 +1,29 @@
-import React, { createContext, useState, useContext } from "react";
+// authContext.js
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Create a context for authentication
 const AuthContext = createContext();
 
-
-
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(false);
-     
-  const [currentTheme,setCurrentTheme] = useState();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user,setUser]  = useState();
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    setIsAuthenticated(!!token);
+  }, []);
 
+  const login = (newToken) => {
+    localStorage.setItem("access_token", newToken);
+    setIsAuthenticated(true);
+  };
 
-  const login = (name) =>
-    // setOpenModals((prev)=> ({
-    //   ...prev,
-
-    // }
-    //   ))
-    setUser({ name });
-  const logout = () => setUser(null);
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    setIsAuthenticated(false);
+    window.location.href = "/connect";
+  };
 
   return (
-    <AuthContext.Provider
-      value={{ user,  login, logout, }}
-    >
+    <AuthContext.Provider value={{ isAuthenticated, login, logout,user,setUser }}>
       {children}
     </AuthContext.Provider>
   );

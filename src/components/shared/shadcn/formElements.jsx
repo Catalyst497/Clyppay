@@ -32,7 +32,7 @@ const Input = React.forwardRef(
                     <button
                         type="button"
                         onClick={toggleShowPassword}
-                        className="absolute inset-y-0 right-0 flex items-center pr-3"
+                        className="absolute inset-y-0  right-0  flex items-center pr-3"
                     >
                         {showPassword ? (
                             <EyeOff className="h-5 w-5 text-gray-500" />
@@ -48,7 +48,7 @@ const Input = React.forwardRef(
 Input.displayName = "Input"
 
 const labelVariants = cva(
-    "text-sm pl-2 pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+    "text-sm text-foreground-bold pl-2 pb-2 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
 )
 
 const Label = React.forwardRef(({ className, ...props }, ref) => (

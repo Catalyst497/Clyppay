@@ -5,7 +5,7 @@ import StepTwo from "@/components/shared/custom/EnterPin";
 // Define the steps of the multi-step form
 const steps = [
   (props) => <StepOne {...props} />,
-  (props) => <StepOne title = "Create Transaction Pin" subtext = "Create transaction pin to complete transaction." buttonText = "Create Pin" {...props} />,
+  (props) => <StepTwo title = "Create Transaction Pin" subtext = "Create transaction pin to complete transaction." buttonText = "Create Pin" {...props} />,
   
 ];
 

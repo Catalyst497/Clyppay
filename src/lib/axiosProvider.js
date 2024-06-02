@@ -53,7 +53,7 @@ axiosInstance.interceptors.response.use(
     if (error?.response?.status === 401) {
       localStorage.removeItem("access_token");
       localStorage.removeItem("user");
-      window.location.href = "/connect";
+      window.location.href = "/login";
     }
 
     return Promise.reject(error);
@@ -104,7 +104,7 @@ export const handleApiError = (error) => {
   if (error?.response?.status === 401) {
     localStorage.removeItem("access_token");
 
-    window.location.href = "/connect";
+    window.location.href = "/login";
   } else if (error.response && error.response.data) {
     const errorData = error.response.data;
     const missingFields = Object.keys(errorData).join(", ");

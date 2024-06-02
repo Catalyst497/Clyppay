@@ -10,7 +10,7 @@ import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
 import { FourDigitPassword } from "@/components/shared/shadcn/inputOtp"
 import clyp from "@/assets/icons/logo_icon.svg"
-import { api,updateAuthToken } from "@/lib/axiosProvider"
+import { api, updateAuthToken } from "@/lib/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
 
 // Validation schema for the OTP form
@@ -25,20 +25,44 @@ const initialValues = {
 
 const ConfirmEmail = ({ next, prev, formData }) => {
     // State to track OTP verification status
+    const { setUser } = useAuth()
     const [isVerified, setIsVerified] = useState(false)
-    const { user } = useAuth()
     // Submit handler for the OTP form (when user submits each step)
-    const onSubmit = async (values) => {
+
+    const onSubmit = async (values, formik) => {
         try {
-            const {data} = await api.post(
-                "/user-gateway/activate-user",
-                {...user.id,...values},
-            )
-            updateAuthToken(data.authToken)
-            setIsVerified(true)
-            next()
+            console.log("submitting..")
+    
+            const response = await api.post("/user-gateway/activate-user", {
+                user_id: formData.id,
+                authToken: values.otp,
+            })
+            const data = response?.data
+            console.log(response)
+            if (data.message === "success") {
+                setIsVerified(true);
+                setUser(data.user_data);
+                updateAuthToken(data.token)
+                next()
+                return { success: true }
+            } else {
+                console.log(data) //dev
+
+                formik.setErrors({ otp: data.details })
+                return {
+                    success: false,
+                }
+            }
         } catch (error) {
-            console.log(error.response.data.error);
+            console.log(error)
+            console.log(error?.response?.data?.details || error?.message) //dev
+            formik.setErrors({
+                otp:
+                    error?.response?.data?.details ||
+                    error?.message ||
+                    "An unexpected error occurred. Please try again.",
+            })
+            return { success: false }
         }
     }
 
@@ -50,10 +74,10 @@ const ConfirmEmail = ({ next, prev, formData }) => {
                 "/user-gateway/resend-auth-code",
                 user.id,
             )
-      
         } catch (error) {
-            console.log(error?.response?.data?.error);
+            console.log(error)
 
+            console.log(error?.response?.data?.error)
         }
     }
 
@@ -70,31 +94,46 @@ const ConfirmEmail = ({ next, prev, formData }) => {
                 <div className="pb-5">
                     <img src={clyp} alt="Clyp" width="40px" />
                 </div>
-                <CardTitle className = "text-center">Confirm your email address</CardTitle>
+                <CardTitle className="text-center">
+                    Confirm your email address
+                </CardTitle>
                 <CardDescription className="text-center">
-                    Please enter the OTP sent to your email address <b>{user.email}</b>
+                    Please enter the OTP sent to your email address{" "}
+                    <b>{formData.email }</b>
                 </CardDescription>
             </CardHeader>
 
             {/* Render OTP input form if not verified */}
-            {!isVerified && (
-                <>
-                    <FourDigitPassword
-                        value={formik.values.otp}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.otp}
-                        onComplete={formik.handleSubmit}
-                    />
-                    <p className="text-sm text-center">Didn't receive the code <button className="capitalize text-primary" onClick={handleResend}>resend code</button></p>
-                </>
-            )}
+
+            <FourDigitPassword
+                name={"otp"}
+                value={formik.values.otp}
+                onChange={(fieldName, fieldValue) =>
+                    formik.setFieldValue(fieldName, fieldValue)
+                }
+                onBlur={formik.handleBlur}
+                error={formik.errors.otp}
+                onComplete={(value) => {
+                    formik.handleSubmit()
+                }}
+                touched={formik.touched.otp}
+                previouslyFocused={() => formik.setTouched({ otp: true })}
+            />
+
+            <p className="text-center text-sm">
+                Didn't receive the code{" "}
+                <button
+                    className="capitalize text-primary"
+                    onClick={handleResend}
+                >
+                    resend code
+                </button>
+            </p>
 
             {/* Render success message if OTP verified */}
-            {isVerified && <p>OTP Verified Successfully!</p>}
 
-            <Button size="full" className="mt-2" onClick={next}>
-                Continue
+            <Button size="full" className="mt-2" disabled={!isVerified}>
+                {isSubmitting ? "verifying" : "Continue"}
             </Button>
         </FormCard>
     )

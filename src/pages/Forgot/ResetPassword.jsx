@@ -97,6 +97,8 @@ const ResetPassword = ({ next, updateFields, formData }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={formik.errors.password}
+          touched={formik.touched.password}
+
                 />
                 <FloatingLabelInput
                     name="confirmPassword"
@@ -106,6 +108,8 @@ const ResetPassword = ({ next, updateFields, formData }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={formik.errors.confirmPassword}
+          touched={formik.touched.confirmPassword}
+
                 />
 
                 <Button

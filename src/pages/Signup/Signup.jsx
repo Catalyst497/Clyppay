@@ -14,6 +14,12 @@ const steps = [
 ];
 
 function SignupPage() {
+  const [formData, setFormData] = useState({});
+
+  const updateFields = (fields) => {
+    setFormData((prev) => ({ ...prev, ...fields }));
+  };
+  
   const {
     currentStep,
     goToNextStep,
@@ -28,7 +34,8 @@ function SignupPage() {
       {currentStep({
         next: goToNextStep, // Pass function to go to the next step
         prev: goToPreviousStep, // Pass function to go to the previous step
-   
+        updateFields, // Pass function to update form data
+        formData, // Pass current form data
       
       })}
     </div>

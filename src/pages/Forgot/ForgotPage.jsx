@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import useMultistepForm from "@/hooks/useMultistepForm";
-import StepOne from "@/pages/Forgot/InitialForm";
+import StepOne from "@/pages/Forgot/ForgotPasswordForm";
 import StepTwo from "@/components/shared/custom/ConfirmEmail";
 import StepThree from "@/pages/Forgot/ResetPassword";
 import StepFour from "@/pages/Forgot/ResetSuccess";
 import { headerHeight } from "@/lib/Constants";
+
 
 // Define the steps of the multi-step form
 const steps = [

@@ -31,6 +31,7 @@ const initialValues = {
 export function SendForm({next}) {
     
     const onSubmit = async (values, { setErrors }) => {
+
         next();
         
         // try {
@@ -51,7 +52,7 @@ export function SendForm({next}) {
 
 
     return (
-        <form onClick={formik.submit} className="w-full">
+        <form onClick={formik.handleSubmit} className="w-full">
             <SelectField placeholder="choose coin" options={CoinOptions} />
             <SelectField
                 placeholder="choose network"
@@ -65,6 +66,8 @@ export function SendForm({next}) {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.errors.wallet}
+          touched={formik.touched.wallet}
+
             />
             <FloatingLabelInput
                 name="amount"
@@ -74,6 +77,8 @@ export function SendForm({next}) {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.errors.amount}
+          touched={formik.touched.amount}
+
             />
 
             <Button

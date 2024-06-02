@@ -1,6 +1,4 @@
-"use client"
-
-import * as React from "react"
+import React, { useState } from "react"
 import { OTPInput, OTPInputContext, REGEXP_ONLY_DIGITS } from "input-otp"
 import { Dot } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -66,28 +64,54 @@ const InputOTPSeparator = React.forwardRef(({ ...props }, ref) => (
 ))
 InputOTPSeparator.displayName = "InputOTPSeparator"
 
-const FourDigitPassword = ({ onComplete, isSuccessful }) => {
-    const handleChange = (value) => {
+const FourDigitPassword = ({
+    previouslyFocused,
+    onComplete,
+    value,
+    onChange,
+    name,
+    isSuccessful,
+    error,
+    onBlur,
+    touched,
+}) => {
+    const [focused, setFocused] = useState(false)
+    const handleChange = async (value) => {
+        await onChange(name, value)
         if (value.length === 4) {
             onComplete(value)
         }
     }
-    return (
-        <InputOTP
-            maxLength={4}
-            pattern={REGEXP_ONLY_DIGITS}
-            onChange={handleChange}
-        >
-            <InputOTPGroup>
-                <InputOTPSlot index={0} isSuccessful={isSuccessful} />
-                <InputOTPSlot index={1} isSuccessful={isSuccessful} />
-                <InputOTPSlot index={2} isSuccessful={isSuccessful} />
 
-                <InputOTPSlot index={3} isSuccessful={isSuccessful} />
-            </InputOTPGroup>
-        </InputOTP>
+    function handleBlur() {
+        setFocused(true) //note this is to correct the behaviour of input-otp which is called when user clicks on the input and when user clicks out
+        if (focused) return previouslyFocused()
+    }
+
+    return (
+        <div>
+            <InputOTP
+                id={name}
+                name={name}
+                maxLength={4}
+                value={value}
+                pattern={REGEXP_ONLY_DIGITS}
+                onChange={handleChange}
+                // onFocus={handleFocus}
+                onBlur={handleBlur}
+            >
+                <InputOTPGroup>
+                    <InputOTPSlot index={0} isSuccessful={isSuccessful} />
+                    <InputOTPSlot index={1} isSuccessful={isSuccessful} />
+                    <InputOTPSlot index={2} isSuccessful={isSuccessful} />
+                    <InputOTPSlot index={3} isSuccessful={isSuccessful} />
+                </InputOTPGroup>
+            </InputOTP>
+            {touched && error && <p className="mb-2  text-xs text-center text-red-500 ">{error}</p>}
+        </div>
     )
 }
+
 export {
     InputOTP,
     InputOTPGroup,

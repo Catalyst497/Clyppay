@@ -13,7 +13,7 @@ import useSlideLogic from "@/hooks/useSlideLogic"
 import { useModal } from "@/context/ModalContext"
 
 function SwipeCard() {
-    const [index, setCurrIndex] = useState(1)
+    const [index, setCurrIndex] = useState(0)
     const { numSlides, activeIndex, goToNextSlide, goToPrevSlide } =
         useSlideLogic(<Crypto />, <Fiat />)
 

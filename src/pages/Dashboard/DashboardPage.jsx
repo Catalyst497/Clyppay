@@ -6,20 +6,20 @@ import HomeTab from "./HomeTab/HomeTab";
 import StatisticsTab from "./StatisticsTab";
 import { useAuth } from "@/context/AuthContext";
 import { useModal } from "@/context/ModalContext";
-import ReceiveForm from "@/components/popups/receive/ReceiveForm";
-import SendForm from "@/components/popups/send/SendForm";
-import BuyForm from "@/components/popups/buy/BuyForm";
-import SellForm from "@/components/popups/sell/SellForm";
-import SwapForm from "@/components/popups/swap/SwapForm";
+import ReceiveModal from "@/components/popups/receive/ReceiveModal";
+import SendModal from "@/components/popups/send/SendIndexModal";
+import BuyModal from "@/components/popups/buy/BuyModal";
+import SellModal from "@/components/popups/sell/SellModal";
+import SwapModal from "@/components/popups/swap/SwapModal";
 import { modalNames } from "@/lib/Constants";
 import Modal from "@/components/shared/custom/Modal";
 
 const modalComponents = {
-    buyModal: BuyForm,
-    sellModal: SellForm,
-    sendModal: SendForm,
-    receiveModal: ReceiveForm,
-    swapModal: SwapForm,
+    buyModal: BuyModal,
+    sellModal: SellModal,
+    sendModal: SendModal,
+    receiveModal: ReceiveModal,
+    swapModal: SwapModal,
 };
 
 

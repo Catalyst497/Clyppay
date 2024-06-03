@@ -23,34 +23,35 @@ export default {
                 //foreground -  text
                 border: "hsl(var(--border))",
                 input: {
-                    DEFAULT:"hsl(var(--input))",
+                    DEFAULT: "hsl(var(--input))",
                 },
-             
+                label: "hsl(var(--label))",
+
                 background: "hsl(var(--background))",
+                backgroundDashboard: "hsl(var(--background-dashboard))",
                 foreground: "hsl(var(--foreground))",
-                ring: "hsl(var(--primary))",
-            
-                    // red: "rgb(var(--red))",
-
-                
-                primary: {
-                    DEFAULT: "hsl(var(--primary))",
-                    foreground: "hsl(var(--primary-foreground))",
+                foreground: {
+                    DEFAULT: "hsl(var(--foreground))",
+                    bold: "hsl(var(--foreground-bold))",
                 },
-
                 card: {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
-
+                primary: {
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
+                    dark: "hsl(var(--primary-dark))",
+                },
                 muted: {
                     DEFAULT: "hsl(var(--muted))",
-                  
-                  
                     lighter: "hsl(var(--muted-lighter))",
                     lightest: "hsl(var(--muted-lightest))",
                     foreground: "hsl(var(--muted-foreground))",
                 },
+                ring: "hsl(var(--ring))",
+
+                // red: "rgb(var(--red))",
             },
 
             backgroundImage: {

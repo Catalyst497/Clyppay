@@ -10,12 +10,14 @@
 @layer base {
   html {
     font-family: Nunito, sans-serif;
+    background: #EFF2F7;
    
 
   }
   :root {
     /* white background and black text */
     --background: 0 0% 99%;
+    --background-dashboard: #F9FAFC;
     --foreground: 60 1% 28%;
     --foreground-bold: 210 10% 16%;
 
@@ -40,7 +42,7 @@
     
     --red: #F00000
 
-    --
+    
 
 
     /* --secondary: 0 0% 96.1%;
@@ -51,9 +53,13 @@
 
     --destructive: 340, 100%, 61%;
     --destructive-foreground: 0 0% 98%; */
+    --input: 225 11% 30%;
+    --label: 227 6% 46%;
+    
+    
+    --border: 212 27% 90%;
+    --ring: 225 11% 30%;
 
-    --border: 0 0% 89.8%;
-    --input: 227 6%  46%;
     /* --ring: 0 0% 3.9%; */
 
     --radius: 0.5rem;

@@ -22,7 +22,7 @@ const FloatingLabelInput = ({
     }
 
     return (
-        <Fieldset className="relative mb-5">
+        <Fieldset className="relative mb-5 w-full">
             <input
                 type={showPassword ? "text" : type}
                 id={name}
@@ -30,7 +30,7 @@ const FloatingLabelInput = ({
                 value={value} // Bind value attribute to formik value
                 onChange={onChange}
                 onBlur={onBlur}
-                className={`border-1 peer block   w-full appearance-none rounded-full border border-input bg-transparent px-2.5 py-7 pb-2.5 indent-1.5  text-sm  text-black focus:border-border focus:outline-none focus:ring-0  dark:focus:border-primary-500`}
+                className={`border-1 peer block   w-full appearance-none rounded-full border border-border bg-transparent px-2.5 py-7 pb-2.5 indent-1.5  text-sm  text-input focus:outline-none focus:ring-1 focus:ring-ring focus:ring-inset-1 dark:focus:border-primary-500`}
                 placeholder=" "
             />
             {type === "password" && (
@@ -40,16 +40,16 @@ const FloatingLabelInput = ({
                     className="absolute top-6 right-0 flex items-center pr-3"
                 >
                     {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-500" />
+                        <EyeOff className="h-5 w-5 text-label" />
                     ) : (
-                        <Eye className="h-5 w-5 text-gray-500" />
+                        <Eye className="h-5 w-5 text-label" />
                     )}
                 </button>
             )}
-            {touched && error && <p className="text-xs pl-5 pt-2">{error}</p>}
+            {touched && error && <p className="text-xs pl-5 pt-2 text-label">{error}</p>}
             <label
                 htmlFor={name}
-                className="absolute start-4 top-6 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-input rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                className="absolute start-4 top-6 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-label duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-input rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-label peer-focus:dark:text-label"
             >
                 {label}
             </label>

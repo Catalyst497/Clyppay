@@ -18,7 +18,7 @@ function HomeTab() {
     const { user } = useAuth()
 
     return (
-        <Tabs defaultValue="account" className="w-full">
+        <Tabs defaultValue="account" className="w-full bg-backgroundDashboard">
             <h2 className="pb-2 text-lg">Hello {user?.name ?? "User"}</h2>
             <TabsList className="flex space-x-5">
                 <TabsTrigger value="account">Account</TabsTrigger>

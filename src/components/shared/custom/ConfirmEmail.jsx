@@ -69,9 +69,10 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
             formik.setStatus("failed")
             formik.setErrors({
                 apiError:
+                error?.response?.data?.details ||
                     error?.response?.data?.error ||
                     error?.message ||
-                    "An unexpected error occurred. Please try again.",
+                    "Network Error",
             })
             return { success: false }
         }
@@ -84,11 +85,11 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
         try {
             const { email, ...rest } = formData
             const modifiedData = {
-                identifier: email,
-                ...rest,
+                user_id: email,
+          
             }
             const response = await api.post(
-                "/user-gateway/retrive-password-email",
+                "/user-gateway/resend-auth-code",
                 modifiedData,
             )
             console.log(response)
@@ -109,8 +110,12 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
         } catch (error) {
             console.log(error)
             console.log(error.response?.data?.error)
-            formik.setErrors({ apiError: error.response?.data?.error || "Network Error" })
-
+            setErrors({
+              apiError:
+                  error?.response?.data?.details ||error?.response?.data?.error ||
+                  error?.message ||
+                  "Network Error",
+          })
             return { success: false }
         }
     }

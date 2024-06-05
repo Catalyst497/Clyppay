@@ -14,6 +14,11 @@ import clyp from "@/assets/icons/logo_icon.svg"
 import { Fieldset } from "@/components/shared/shadcn/formElements"
 import { Label } from "@radix-ui/react-label"
 import { useNavigate } from "react-router-dom"
+import { SelectField } from "@/components/shared/shadcn/select"
+import { useEffect,useState } from "react"
+import { api, updateAuthToken } from "@/lib/axiosProvider"
+
+
 
 // Validation schema for the form
 const validationSchema = {
@@ -27,6 +32,8 @@ const initialValues = {
   verificationMethod: "",
 }
 
+
+
 // Options for the verification methods
 const verificationMethods = [
   { value: "passport", label: "Passport" },
@@ -35,39 +42,38 @@ const verificationMethods = [
   ]
   
   const VerifyID = ({ next, prev, updateFields, formData }) => {
+    const [countries, setCountries] = useState([])
     // Submit handler for the form
     const navigate = useNavigate()
-    const onSubmit = async (values) => {
-
+  
+    useEffect( async() => {
+        const response = await api.get("/user-gateway/get-available-countries")
+        console.log(response)
+    }, [])
+    
+    const onSubmit = async (values, { setErrors }) => {
+    //     try {
         
-        // try {
-        //   // Merge the form values with the existing formData
-        //   const updatedFormData = { ...formData, ...values }
-          
-        //   // Perform API call to create the user
-        //   console.log(updatedFormData)
-        //   const response = await api.post("/register", updatedFormData)
-
+    //         const response = await api.get("/user-gateway/get-available-countries", values)
             
-        //     // Check if the API call was successful
-        //     if (response.status === 200) {
-        //         // Proceed to the next step
-        //         // next();
-        //         await updateAuthToken(response?.data?.token)
-        //         navigate("/dashboard")
-        //     } else {
-        //         // Handle API error
-        //         console.error("Error creating user:", response.data.error)
-        //         console.log(updatedFormData)
-        //         // Display error message to the user
-        //         // You can also handle errors by setting formik errors
-        //     }
-        // } catch (error) {
-        //     // Handle network error
-        //     console.error("Network error:", error)
-        //     // Display error message to the user
-        //     // You can also handle errors by setting formik errors
-        // }
+    //         updateFields({...values,id: response?.data?.user.id})
+    //         next();
+    //         console.log(response.data)
+
+    //         return { success: true }
+    //     } catch (error) {
+    //         console.log(
+    //             error?.response?.data?.details || error?.message, // status and reason
+    //         ) // return { success: false, message: error?.message || "Network error" }
+
+    //         setErrors({
+    //             apiError:
+    //                 error?.response?.data?.details ||error?.response?.data?.error ||
+    //                 error?.message ||
+    //                 "Network Error",
+    //         })
+    //         return { success: false }
+    //     }
     }
 
     // Custom hook to handle form state and validation
@@ -100,24 +106,8 @@ const verificationMethods = [
                 </Fieldset>
 
                 <div className="mb-4">
-                    <Select
-                        name="nationality"
-                        options={options}
-                        value={options.find(
-                            (option) =>
-                                option.value === formik.values.nationality,
-                        )}
-                        onChange={(option) =>
-                            formik.setFieldValue("nationality", option.value)
-                        }
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.errors.nationality &&
-                        formik.touched.nationality && (
-                            <div className="text-sm text-red-500">
-                                {formik.errors.nationality}
-                            </div>
-                        )}
+                    <SelectField   placeholder="Select nationality" options={[]} />
+                   
                 </div>
 
                 {/* Verification method radio buttons */}

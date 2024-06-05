@@ -59,8 +59,12 @@ const ForgotPasswordForm = ({ next, updateFields }) => {
     } catch (error) {
         console.log(error)
         console.log(error.response?.data?.error)
-        formik.setErrors({ apiError: error.response?.data?.error  || "Network error!" })
-
+        setErrors({
+          apiError:
+              error?.response?.data?.details ||error?.response?.data?.error ||
+              error?.message ||
+              "Network Error",
+      })
         return { success: false }
     }
 }

@@ -41,9 +41,9 @@ const LoginForm = ({ updateFields }) => {
     const { state } = useLocation()
     const from = state?.from?.pathname || "/dashboard"
 
-    const onSubmit = async (event, values, formik) => {
+    const onSubmit = async ( values, formik) => {
         console.log("loading.")
-        event.preventDefault(); // Prevent default form submission behavior
+        // event.preventDefault();
         try {
             const { email, ...rest } = values;
             const modifiedData = {
@@ -53,21 +53,27 @@ const LoginForm = ({ updateFields }) => {
             const response = await api.post("/user-gateway/login", modifiedData);
             const data = response?.data;
             console.log(response);
-            if (data?.message === "success") {
-                // Update the necessary states or perform navigation here
-                console.log("Login successful");
-            return { success: false }
+            // if (data?.message === "success") {
+            //     // Update the necessary states or perform navigation here
+            //     console.log("Login successful");
+            // return { success: false }
 
-            } else {
-                console.log(data);
-                formik.setErrors({ apiError: data?.details });
-            return { success: false }
+            // } else {
+            //     // console.log(data);
+            //     // formik.setErrors({ apiError: data?.details });
+            // return { success: false }
 
-            }
+            // }
         } catch (error) {
-            console.log(error);
-            console.log(error?.response?.data?.error);
-            formik.setErrors({ apiError: error?.response?.data?.error || "Network error!" });
+            // console.log(error);
+            // console.log(error?.response?.data?.error);
+           
+            // setErrors({
+            //     apiError:
+            //         error?.response?.data?.details ||error?.response?.data?.error ||
+            //         error?.message ||
+            //         "An unexpected error occurred. Please try again.",
+            // })         console.log(error);
             return { success: false }
 
         }
@@ -98,7 +104,7 @@ const LoginForm = ({ updateFields }) => {
                 </CardDescription>
             </CardHeader>
 
-            <form onSubmit={(event) => onSubmit(event, formik.values, formik)}>
+            <form >
                 <FloatingLabelInput
                     name="email"
                     type="email"
@@ -133,10 +139,11 @@ const LoginForm = ({ updateFields }) => {
                 </div>
 
                 <Button
-                    type="submit"
+                    type="button"
                     size="full"
                     className="mt-4"
                     disabled={isSubmitting}
+                    onClick = {() => formik.handleSubmit()}
                 >
                     {isSubmitting ? "Logging in...." : "Continue"}
                 </Button>

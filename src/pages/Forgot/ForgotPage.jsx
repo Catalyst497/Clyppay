@@ -10,7 +10,7 @@ import { headerHeight } from "@/lib/Constants";
 // Define the steps of the multi-step form
 const steps = [
   (props) => <StepOne {...props} />,
-  (props) => <StepTwo {...props} />,
+  (props) => <StepTwo {...props} type = "reset"/>,
   (props) => <StepThree {...props} />,
   (props) => <StepFour {...props} />,
   // Add other steps as needed

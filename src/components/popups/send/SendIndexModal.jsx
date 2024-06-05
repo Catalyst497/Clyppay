@@ -26,7 +26,7 @@ function SendIndexModal() {
     const { currentStep, goToNextStep, goToPreviousStep } = useMultistepForm(steps);
 
     return (
-        <div className="w-full">
+        <div className="w-full h-full">
           
             {currentStep({
                 updateFields,

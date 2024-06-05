@@ -61,7 +61,7 @@ export default function Dashboard() {
         <div className="flex space-x-5">
             <Sidebar />
             <div className="ml-64 p-4  gap-4">
-                {renderModal()}
+                {/* {renderModal()} */}
                 <Routes>
                     <Route path="/*" element={<HomeTab />} />
                     <Route path="home/*" element={<HomeTab />} />

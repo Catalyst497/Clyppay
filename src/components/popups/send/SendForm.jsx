@@ -1,73 +1,75 @@
-import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput"
-import { SelectField } from "@/components/shared/shadcn/select"
-import * as Yup from "yup"
-import useForm from "@/hooks/useForm"
-import { Button } from "@/components/shared/shadcn/button"
+import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput";
+import { SelectField } from "@/components/shared/shadcn/select";
+import * as Yup from "yup";
+import useForm from "@/hooks/useForm";
+import { Button } from "@/components/shared/shadcn/button";
+import { CardTitle } from "@/components/shared/shadcn/card";
 
 const CoinOptions = [
     { value: "coin1", label: "Coin1" },
     { value: "coin2", label: "Coin2" },
-]
+];
 
 const NetworkOptions = [
     { value: "network1", label: "Network1" },
     { value: "network2", label: "Network2" },
-]
-
-
+];
 
 const validationSchema = {
-    wallet: Yup.string()
-    // .email("Must be a valid email address")
-    .required("Required"),
-    amount: Yup.string().required("Required"),
-}
+    wallet: Yup.string().required("Required"),
+    amount: Yup.number().required("Required"),
+    coin: Yup.string().required("Required"),
+    network: Yup.string().required("Required"),
+};
 
 const initialValues = {
     wallet: "",
     amount: "",
-}
+    coin: "",
+    network: "",
+};
 
-export function SendForm({next}) {
-    
+export function SendForm({ next, updateFields, prev }) {
+    console.log(next,updateFields, prev)
     const onSubmit = async (values, { setErrors }) => {
-
-        next();
-        
-        // try {
-            //   const response = await api.post("/user-gateway/register", values);
+        try {
+            updateFields({ ...values });
+            console.log(values)
+            // next();
             
-            //   if (response.status === 201) {
-        //     next();
-        //     await updateAuthToken(response?.data?.token);
-        //   } else {
-        //     setErrors({ apiError: response.data.message });
-        //   }
-        // } catch (error) {
-            //   setErrors({ apiError: error.response?.data?.message || "Network error" });
-        // }
-    };
-    const { formik, isSubmitting } = useForm(initialValues, validationSchema, onSubmit);
-    
+            return { success: true };
+        } catch (error) {
+            console.log(
+                error?.response?.data?.details || error?.message
+            );
 
+            setErrors({
+                apiError:
+                    error?.response?.data?.details ||
+                    error?.message ||
+                    "An unexpected error occurred. Please try again.",
+            });
+            return { success: false };
+        }
+    };
+
+    const { formik, isSubmitting } = useForm(initialValues, validationSchema, onSubmit);
 
     return (
-        <form onClick={formik.handleSubmit} className="w-full">
+        <form onSubmit={formik.handleSubmit} className="w-full flex flex-col items-center">
+            <CardTitle>Send Crypto</CardTitle>
             <SelectField placeholder="choose coin" options={CoinOptions} />
-            <SelectField
-                placeholder="choose network"
-                options={NetworkOptions}
-            />
+            <SelectField placeholder="choose network" options={NetworkOptions} />
             <FloatingLabelInput
                 name="wallet"
                 type="text"
-                value={formik.values.wallet}
                 label="Paste wallet address"
+                value={formik.values.wallet}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.errors.wallet}
-          touched={formik.touched.wallet}
-
+                touched={formik.touched.wallet}
+                className="w-full"
             />
             <FloatingLabelInput
                 name="amount"
@@ -77,10 +79,15 @@ export function SendForm({next}) {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.errors.amount}
-          touched={formik.touched.amount}
-
+                touched={formik.touched.amount}
             />
-
+            <Button size="full" variant="disabled" className="font-bold">
+                Amount to be sent after fee is deducted
+            </Button>
+            <p className="font-bold my-4">or</p>
+            <Button size="full" variant="outline">
+                Scan QR code
+            </Button>
             <Button
                 type="submit"
                 size="full"
@@ -88,9 +95,9 @@ export function SendForm({next}) {
                 disabled={isSubmitting}
             >
                 {isSubmitting ? "Sending Crypto..." : "Send Crypto"}
-            </Button>  
+            </Button>
         </form>
-    )
+    );
 }
 
-export default SendForm
+export default SendForm;

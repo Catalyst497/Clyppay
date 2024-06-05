@@ -17,7 +17,7 @@ export default function Modal({ children, isOpen, closeModal }) {
                 }
             }}
         >
-            <DialogContent className="side-scroller w-full  max-h-[80%] min-h-[70%] overflow-y-scroll">
+            <DialogContent className="side-scroller w-full  max-h-[90%] min-h-[70%] overflow-y-scroll">
                 <div className="mx-auto w-full max-w-[90%] pt-6 md:max-w-[70%]">
                     {children}
                 </div>

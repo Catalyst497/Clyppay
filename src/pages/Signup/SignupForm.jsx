@@ -11,7 +11,7 @@ import SocialLoginSection from "@/components/shared/custom/SocialLogin"
 import clyp from "@/assets/icons/logo_icon.svg"
 import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
-import { api, updateAuthToken } from "@/lib/axiosProvider"
+import { api } from "@/lib/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
 
 const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/
@@ -55,9 +55,9 @@ const SignupForm = ({ next , updateFields}) => {
 
             setErrors({
                 apiError:
-                    error?.response?.data?.details ||
+                    error?.response?.data?.details ||error?.response?.data?.error ||
                     error?.message ||
-                    "An unexpected error occurred. Please try again.",
+                    "Network Error",
             })
             return { success: false }
         }

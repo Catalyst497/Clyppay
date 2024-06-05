@@ -42,13 +42,12 @@ export function SendForm({ next, updateFields, prev }) {
             console.log(
                 error?.response?.data?.details || error?.message
             );
-
             setErrors({
                 apiError:
-                    error?.response?.data?.details ||
+                    error?.response?.data?.details ||error?.response?.data?.error ||
                     error?.message ||
-                    "An unexpected error occurred. Please try again.",
-            });
+                    "Network Error",
+            })
             return { success: false };
         }
     };

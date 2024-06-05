@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import useMultistepForm from "@/hooks/useMultistepForm";
 import StepOne from "@/pages/Forgot/ForgotPasswordForm";
 import StepTwo from "@/components/shared/custom/ConfirmEmail";
-import StepThree from "@/pages/Forgot/ResetPassword";
-import StepFour from "@/pages/Forgot/ResetSuccess";
 import { headerHeight } from "@/lib/Constants";
 
 
@@ -11,8 +9,6 @@ import { headerHeight } from "@/lib/Constants";
 const steps = [
   (props) => <StepOne {...props} />,
   (props) => <StepTwo {...props} type = "reset"/>,
-  (props) => <StepThree {...props} />,
-  (props) => <StepFour {...props} />,
   // Add other steps as needed
 ];
 

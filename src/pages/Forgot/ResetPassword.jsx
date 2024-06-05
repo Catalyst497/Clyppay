@@ -11,8 +11,12 @@ import clyp from "@/assets/icons/logo_icon.svg"
 import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
 import { api, handleApiError, updateAuthToken } from "@/lib/axiosProvider"
+import { useAuth } from "@/context/AuthContext"
+
+
 
 const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/
+
 const validationSchema = {
     password: Yup.string()
         .min(8, "Password must be at least 8 characters")
@@ -27,23 +31,22 @@ const validationSchema = {
 }
 
 const initialValues = {
-    
+
     password: "",
     confirmPassword:"",
 }
 
-const ResetPassword = ({ next, updateFields, formData }) => {
-    const onSubmit = (values) => {
-        updateFields(values)
+const ResetPassword = ({ next }) => {
+    const { user } = useAuth()
+
+ console.log(user)
         const onSubmit = async (values) => {
             try {
-                // Merge the form values with the existing formData
-                const updatedFormData = { ...formData, ...values }
 
-                // Perform API call to create the user
-                console.log(updatedFormData)
-                const response = await api.post("/register", updatedFormData)
-
+                const response = await api.post(
+                    "/user-gateway/change-password",
+                    values,
+                )
                 // Check if the API call was successful
                 if (response.status === 200) {
                     // Proceed to the next step
@@ -63,7 +66,8 @@ const ResetPassword = ({ next, updateFields, formData }) => {
                 // You can also handle errors by setting formik errors
             }
         }
-    }
+    
+    
 
     const { formik, isSubmitting } = useForm(
         initialValues,

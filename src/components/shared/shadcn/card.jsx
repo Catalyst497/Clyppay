@@ -62,7 +62,7 @@ CardDescription.displayName = "CardDescription";
 
 function FormCard({ children }) {
   return (
-    <Card className="max-w-[300px] md:max-w-[550px] border rounded-xl py-7">
+    <Card className=" w-[700px] border rounded-xl py-7">
       <div className="w-[90%] md:w-[80%] mx-auto">{children}</div>
     </Card>
   );

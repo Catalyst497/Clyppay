@@ -26,11 +26,12 @@ const FloatingLabelInput = ({
         type={showPassword ? "text" : type}
         id={name}
         name={name}
+        autoComplete= "off"
         value={value} // Bind value attribute to formik value
         onChange={onChange}
         onBlur={onBlur}
-        className={`border-1 peer block   w-full appearance-none rounded-full border border-border bg-transparent px-2.5 py-7 pb-2.5 indent-1.5  text-sm  text-input focus:outline-none focus:ring-1 focus:ring-ring focus:ring-inset-1 dark:focus:border-primary-500`}
-        placeholder=" "
+        className={`border-1 peer block   w-full appearance-none rounded-full border ${apiError  ? 'border-red-500': 'border-border'}  bg-transparent px-2.5 py-7 pb-2.5 indent-1.5  text-sm  text-input focus:outline-none focus:ring-1 ${apiError ? 'focus:ring-red-500': 'focus:ring-ring' } focus:ring-inset-1 dark:focus:border-primary-500`}
+        placeholder=""
       />
       {type === "password" && (
         <button
@@ -45,6 +46,7 @@ const FloatingLabelInput = ({
           )}
         </button>
       )}
+      {/* {console.log(apiError)} */}
       {touched && error && (
         <p className="text-xs pl-5 pt-2 text-label">{error}</p>
       )}

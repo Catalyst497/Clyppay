@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "@/components/shared/shadcn/card";
 import {
-  sendPasswordResetEmail
+  
 } from "@/lib/apiRequests"
 import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput";
 import SocialLoginSection from "@/components/shared/custom/SocialLogin";
@@ -28,23 +28,43 @@ const initialValues = {
 const ForgotPasswordForm = ({ next, updateFields }) => {
   const onSubmit = async (values, formik) => {
     try {
-      updateFields(values);
-      const response = await sendPasswordResetEmail(values);
+      updateFields(values)
+      const { email, ...rest } = values;
+      const modifiedData = {
+        identifier: email,
+        ...rest,
+      };
+        const response = await api.post(
+            "/user-gateway/retrive-password-email",
+            modifiedData,
+        )
 
-      if (response.success) {
-        next();
-        return { success: true };
-      } else {
-        formik.setErrors({ email: response.details });
-        return {
-          success: false,
-        };
-      }
+        const data = response?.data
+        console.log(response)
+
+        //if api request returned successful
+        if (data?.message === "success") {
+  console.log("success")
+            // next()
+            return { success: true }
+        }
+         //if api request failed but returned data
+         else {
+            console.log(data) 
+            formik.setErrors({ apiError: data?.details })
+            return {
+                success: false,
+            }
+        }
     } catch (error) {
-      console.log(error);
-      return { success: false, message: error.message };
+        console.log(error)
+        console.log(error.response?.data?.error)
+        formik.setErrors({ apiError: error.response?.data?.error  || "Network error!" })
+
+        return { success: false }
     }
-  };
+}
+
 
   const { formik, isSubmitting } = useForm(
     initialValues,
@@ -53,6 +73,7 @@ const ForgotPasswordForm = ({ next, updateFields }) => {
   );
 
   return (
+    
     <FormCard>
       <CardHeader className="flex flex-col items-center">
         <div className="pb-5">
@@ -66,6 +87,8 @@ const ForgotPasswordForm = ({ next, updateFields }) => {
         </CardDescription>
       </CardHeader>
 
+
+  
       <form onSubmit={formik.handleSubmit}>
         <FloatingLabelInput
           name="email"
@@ -76,6 +99,7 @@ const ForgotPasswordForm = ({ next, updateFields }) => {
           onBlur={formik.handleBlur}
           error={formik.errors.email}
           touched={formik.touched.email}
+          apiError = {formik.errors.apiError}
         />
 
         <Button

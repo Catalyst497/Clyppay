@@ -1,25 +1,6 @@
 import { api } from "@/lib/axiosProvider";
 
-export const sendPasswordResetEmail = async (values) => {
-  const { email, ...rest } = values;
-  const modifiedData = {
-    identifier: email,
-    ...rest,
-  };
 
-  try {
-    const response = await api.post(
-      "/user-gateway/retrive-password-email",
-      modifiedData
-    );
-    const data = response?.data;
-    return { success: data.message === "success", details: data.details };
-  } catch (error) {
-    console.error(error);
-    console.error(error.response?.data?.error);
-    throw new Error(error.message || "Network error");
-  }
-};
 
 // Function to activate user
 export const activateUser = async (identifier, authToken) => {

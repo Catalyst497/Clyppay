@@ -11,6 +11,7 @@ import Onboarding from "@/pages/Onboarding/Onboarding";
 import Login from "@/pages/login/Login";
 import Signup from "@/pages/Signup/Signup";
 import ForgotPage from "@/pages/Forgot/ForgotPage";
+// import ResetPage from "@/pages/Reset/ResetPage";
 import ProtectedRoute from "@/components/shared/custom/ProtectedRoute";
 
 function App() {
@@ -22,10 +23,13 @@ function App() {
           <Route path="onboarding" element={<Onboarding />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          {/* <Route element = {<ProtectedRoute /> }>
+          <Route path="reset" element={<ResetPage />} />
+          </Route> */}
           <Route path="forgot" element={<ForgotPage />} />
-          <Route element = <ProtectedRoute /> >
           <Route path="dashboard/*" element={<Dashboard />} />
-          </Route>
+          {/* <Route element = {<ProtectedRoute /> }> */}
+          {/* </Route> */}
         </Route>
       </Routes>
     </Router>

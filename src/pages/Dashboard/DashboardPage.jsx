@@ -6,11 +6,11 @@ import HomeTab from "./HomeTab/HomeTab";
 import StatisticsTab from "./StatisticsTab";
 import { useAuth } from "@/context/AuthContext";
 import { useModal } from "@/context/ModalContext";
-import ReceiveModal from "@/components/popups/receive/ReceiveModal";
-import SendModal from "@/components/popups/send/SendIndexModal";
-import BuyModal from "@/components/popups/buy/BuyModal";
-import SellModal from "@/components/popups/sell/SellModal";
-import SwapModal from "@/components/popups/swap/SwapModal";
+import ReceiveModal from "@/components/popups/receive/ReceiveModalIndex";
+import SendModal from "@/components/popups/send/SendModalIndex";
+import BuyModal from "@/components/popups/buy/BuyModalIndex";
+import SellModal from "@/components/popups/sell/SellModalIndex";
+import SwapModal from "@/components/popups/swap/SwapModalIndex";
 import { modalNames } from "@/lib/Constants";
 import Modal from "@/components/shared/custom/Modal";
 

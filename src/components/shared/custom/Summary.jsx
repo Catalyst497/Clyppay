@@ -14,111 +14,93 @@ import { api, updateAuthToken } from "@/lib/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
 import { activateUser, resetUser } from "@/lib/apiRequests"
 
-// Validation schema for the OTP form
-const validationSchema = {
-    otp: Yup.string().length(4, "OTP must be 4 digits").required("Required"),
+const summary = {
+    network: "BSC",
+    Address: "0sbfcjh879839239iihkshnc89w90euydhios909",
+    Amount: "0.00005750 BTC",
+    Fee: "0.00000011 BTC",
+    Source: "Crypto Wallet",
+    Date: "12-05-2024 | 09:33:00",
 }
 
-// Initial values for the OTP form
-const initialValues = {
-    otp: "",
-
-}
-
-const ConfirmEmail = ({ next, prev, formData, type }) => {
+const Summary = ({ isReceipt = false,status,title }) => {
     // State to track OTP verification status
     const { setUser } = useAuth()
-    
 
     // Submit handler for the OTP form (when user submits each step)
 
     const onSubmit = async (values, formik) => {
-        try {
-            console.log("submitting..")
-            next();
+        // try {
+        //     console.log("submitting..")
+        //     next()
 
-            // const data = response?.data
-            // console.log(response)
-            // if (data?.message === "success") {
-            //     //sets token, verified status, success status and sets user in state
-            //     setIsVerified(true)
-            //     setUser(data?.user_data)
-            //     formik.setStatus("success")
-            //     updateAuthToken(data?.token)
-            //     next()
-            //     return { success: true }
-            // } else {
-            //     console.log(data)
-            //     formik.setStatus("failed")
-            //     formik.setErrors({ apiError: data?.details })
-            //     return {
-            //         success: false,
-            //     }
-            // }
-        } catch (error) {
-            console.log(error)
-            console.log(error?.response?.data?.error)
-            formik.setStatus("failed")
-            formik.setErrors({
-                apiError:
-                    error?.response?.data?.details ||
-                    error?.response?.data?.error ||
-                    error?.message ||
-                    "Network Error",
-            })
-            return { success: false }
-        }
+        //     // const data = response?.data
+        //     // console.log(response)
+        //     // if (data?.message === "success") {
+        //     //     //sets token, verified status, success status and sets user in state
+        //     //     setIsVerified(true)
+        //     //     setUser(data?.user_data)
+        //     //     formik.setStatus("success")
+        //     //     updateAuthToken(data?.token)
+        //     //     next()
+        //     //     return { success: true }
+        //     // } else {
+        //     //     console.log(data)
+        //     //     formik.setStatus("failed")
+        //     //     formik.setErrors({ apiError: data?.details })
+        //     //     return {
+        //     //         success: false,
+        //     //     }
+        //     // }
+        // } catch (error) {
+        //     console.log(error)
+        //     console.log(error?.response?.data?.error)
+        //     formik.setStatus("failed")
+        //     formik.setErrors({
+        //         apiError:
+        //             error?.response?.data?.details ||
+        //             error?.response?.data?.error ||
+        //             error?.message ||
+        //             "Network Error",
+        //     })
+        //     return { success: false }
+        // }
     }
 
     // Custom hook to handle form state and validation
-    const { formik, isSubmitting } = useForm(
-        initialValues,
-        validationSchema,
-        onSubmit,
-    )
+    const successButtonStyles = 'bg-[#D6FFE2] text-[#008F2D]'
+    const failureButtonStyles = 'bg-red-200 text-red-500'
 
     return (
-        <div className="flex flex-col justify-between h-full">
-            
-                <CardHeader className="mt-5 flex flex-col items-center">
-                    <CardTitle className="text-center">
-                    Transaction Pin
-                    </CardTitle>
-                    <CardDescription className="text-center">
-                    Input transaction pin to complete transaction.
-                    </CardDescription>
-                </CardHeader>
+        <div className="flex h-full flex-col justify-between">
+            <CardHeader className="mt-5 flex flex-col items-center">
+                <CardTitle className="text-center">
+                  {!isReceipt  &&  title}  
+                  {isReceipt  &&  status === "success" ?  "Transaction Success" : "Transaction Failure"}	  
+                </CardTitle>
+                {isReceipt && <button className= {`rounded-full py-2 px-6 text-xs ${ status === "success" ? successButtonStyles : failureButtonStyles}`} >{status}</button>}
+                <b className="text-2xl font-bold">-0.00005739 BTC</b>
+            </CardHeader>
 
-                {/* Render OTP input form if not verified */}
-                <FourDigitPassword
-                    name={"otp"}
-                    value={formik.values.otp}
-                    onChange={(fieldName, fieldValue) =>
-                        formik.setFieldValue(fieldName, fieldValue)
-                    }
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.otp}
-                    onComplete={(value) => {
-                        formik.handleSubmit()
-                    }}
-                    touched={formik.touched.otp}
-                    previouslyFocused={() => formik.setTouched({ otp: true })}
-                    apiError={formik.errors.apiError}
-                    status={formik.status}
-                />
-           
+            <ul className="pb-10">
+                {Object.entries(summary).map(([key, value]) => (
+                    <li key={key} className="mb-2 flex justify-between flex-wrap">
+                        <span className="capitalize">{key}</span> <b>{value}</b>
+                    </li>
+                ))}
+            </ul>
 
             {/* Render success message if OTP verified */}
             <Button
                 size="full"
-                className="mb-2"
+                className="mb-2 capitalize"
                 // disabled={!isVerified}
-                onClick={formik.handleSubmit}
+                // onClick={formik.handleSubmit}
             >
-                Create Pin
+                {isReceipt ? "Share receipt" : "Send crypto"}
             </Button>
         </div>
     )
 }
 
-export default ConfirmEmail
+export default Summary

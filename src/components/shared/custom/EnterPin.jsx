@@ -16,17 +16,17 @@ import { activateUser, resetUser } from "@/lib/apiRequests"
 
 // Validation schema for the OTP form
 const validationSchema = {
-    otp: Yup.string().length(4, "OTP must be 4 digits").required("Required"),
+    pin: Yup.string().length(4, "Pin must be 4 digits").required("Required"),
 }
 
 // Initial values for the OTP form
 const initialValues = {
-    otp: "",
+    pin: "",
 
 }
 
 const ConfirmEmail = ({ next, prev, formData, type }) => {
-    // State to track OTP verification status
+    // State to track pin verification status
     const { setUser } = useAuth()
     
 
@@ -91,18 +91,18 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
 
                 {/* Render OTP input form if not verified */}
                 <FourDigitPassword
-                    name={"otp"}
-                    value={formik.values.otp}
+                    name={"pin"}
+                    value={formik.values.pin}
                     onChange={(fieldName, fieldValue) =>
                         formik.setFieldValue(fieldName, fieldValue)
                     }
                     onBlur={formik.handleBlur}
-                    error={formik.errors.otp}
+                    error={formik.errors.pin}
                     onComplete={(value) => {
                         formik.handleSubmit()
                     }}
-                    touched={formik.touched.otp}
-                    previouslyFocused={() => formik.setTouched({ otp: true })}
+                    touched={formik.touched.pin}
+                    previouslyFocused={() => formik.setTouched({ pin: true })}
                     apiError={formik.errors.apiError}
                     status={formik.status}
                 />

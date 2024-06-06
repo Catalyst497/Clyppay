@@ -11,35 +11,36 @@ import checkboxes from "@/assets/images/Checkboxes.svg"
 import { Button } from "@/components/shared/shadcn/button"
 import { useNavigate } from "react-router-dom"
 
-const ResetSuccess = ({ next, updateFields, formData }) => {
+const Success = ({ title,subtext,linkText, to, next, nextPage }) => {
     const navigate = useNavigate()
  
 
 
     return (
-        <FormCard>
+        <>
             <CardHeader className="flex flex-col items-center">
-                <div className="pb-5">
+                {/* <div className="pb-5">
                     <img src={clyp} alt="Clyp" width="40px" />
-                </div>
-                <img src={checkboxes} alt="success" width="80px" />
+                </div> */}
+                <img src={checkboxes} alt="success" width="150px" />
 
-                <CardTitle className = "text-center">Password Change Successful</CardTitle>
+                <CardTitle className = "text-center pt-10"> {title} </CardTitle>
                 <CardDescription className="text-center">
-                Your Password has been changed successfully
+  {subtext}
                 </CardDescription>
             </CardHeader>
 
+
             <Button
-                type="submit"
+                type="button"
                 size="full"
                 className="mt-4"
-                onClick={navigate("/login")}
+                onClick={ () => nextPage ? next() : navigate(to)}
             >
-                Proceed to Login
+             {linkText}
             </Button>
-        </FormCard>
+        </>
     )
 }
 
-export default ResetSuccess
+export default Success

@@ -10,45 +10,43 @@ const CoinOptions = [
     { value: "coin2", label: "Coin2" },
 ]
 
-const NetworkOptions = [
-    { value: "network1", label: "Network1" },
-    { value: "network2", label: "Network2" },
+const CurrencyOptions = [
+    { value: "currency1", label: "currency1" },
+    { value: "currency2", label: "currency2" },
 ]
 
 const validationSchema = {
-    wallet: Yup.string().required("Required"),
-    amount: Yup.number().required("Required"),
     coin: Yup.string().required("Required"),
-    network: Yup.string().required("Required"),
+    currency: Yup.string().required("Required"),
+    amount: Yup.number().required("Required"),
 }
 
 const initialValues = {
-    wallet: "",
-    amount: "",
     coin: "",
-    network: "",
+    currency: "",
+    amount: "",
 }
 
-export function SendForm({ next, updateFields, prev }) {
+export function BuyForm({ next, updateFields, prev }) {
 
     const onSubmit = async (values, { setErrors }) => {
-        try {
-            updateFields({ ...values })
-            console.log(values)
-            next();
+        // try {
+        //     updateFields({ ...values })
+        //     console.log(values)
+        //     next();
 
-            return { success: true }
-        } catch (error) {
-            console.log(error?.response?.data?.details || error?.message)
-            setErrors({
-                apiError:
-                    error?.response?.data?.details ||
-                    error?.response?.data?.error ||
-                    error?.message ||
-                    "Network Error",
-            })
-            return { success: false }
-        }
+        //     return { success: true }
+        // } catch (error) {
+        //     console.log(error?.response?.data?.details || error?.message)
+        //     setErrors({
+        //         apiError:
+        //             error?.response?.data?.details ||
+        //             error?.response?.data?.error ||
+        //             error?.message ||
+        //             "Network Error",
+        //     })
+        //     return { success: false }
+        // }
     }
 
     const { formik, isSubmitting } = useForm(
@@ -62,7 +60,7 @@ console.log(formik.values)
             onSubmit={formik.handleSubmit}
             className="flex w-full flex-col items-center"
         >
-            <CardTitle>Send Crypto</CardTitle>
+            <CardTitle>Buy Crypto</CardTitle>
             <SelectField
                 name="coin"
                 value={formik.values.coin}
@@ -71,23 +69,13 @@ console.log(formik.values)
                 options={CoinOptions}
             />
             <SelectField
-                name="network"
-                value={formik.values.network}
+                name="currency"
+                value={formik.values.currency}
                 onChange={formik.setFieldValue}
-                placeholder="choose network"
-                options={NetworkOptions}
+                placeholder="choose rate currency"
+                options={CurrencyOptions}
             />
-            <FloatingLabelInput
-                name="wallet"
-                type="text"
-                label="Paste wallet address"
-                value={formik.values.wallet}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.errors.wallet}
-                touched={formik.touched.wallet}
-                className="w-full"
-            />
+          
             <FloatingLabelInput
                 name="amount"
                 type="text"
@@ -101,20 +89,24 @@ console.log(formik.values)
             <Button size="full" variant="disabled" className="font-bold">
                 Amount to be sent after fee is deducted
             </Button>
-            <p className="my-4 font-bold">or</p>
-            <Button size="full" variant="outline">
-                Scan QR code
-            </Button>
-            <Button
+      
+      <div         className="mt-10 w-full">
+      <Button
                 type="submit"
                 size="full"
-                className="mt-4"
+                
+        
                 disabled={isSubmitting}
             >
-                {isSubmitting ? "Sending Crypto..." : "Send Crypto"}
+               Pay with Fiat Account 
             </Button>
+            <Button size="full" variant="ghost" className="mt-4">
+            Pay with Bank Transfer
+            </Button>
+      </div>
+           
         </form>
     )
 }
 
-export default SendForm
+export default BuyForm

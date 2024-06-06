@@ -10,52 +10,63 @@ import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
 import { FourDigitPassword } from "@/components/shared/shadcn/inputOtp"
 import clyp from "@/assets/icons/logo_icon.svg"
-import { api,updateAuthToken } from "@/lib/axiosProvider"
+import { api, updateAuthToken } from "@/lib/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
+import { activateUser, resetUser } from "@/lib/apiRequests"
 
 // Validation schema for the OTP form
 const validationSchema = {
-    otp: Yup.string().length(4, "OTP must be 4 digits").required("Required"),
+    pin: Yup.string().length(4, "Pin must be 4 digits").required("Required"),
 }
 
 // Initial values for the OTP form
 const initialValues = {
-    otp: "",
+    pin: "",
+
 }
 
-const ConfirmEmail = ({ next, prev, formData }) => {
-    // State to track OTP verification status
-    const [isVerified, setIsVerified] = useState(false)
-    const { user } = useAuth()
+const ConfirmEmail = ({ next, prev, formData, type }) => {
+    // State to track pin verification status
+    const { setUser } = useAuth()
+    
+
     // Submit handler for the OTP form (when user submits each step)
-    const onSubmit = async (values) => {
+
+    const onSubmit = async (values, formik) => {
         try {
-            const {data} = await api.post(
-                "/user-gateway/activate-user",
-                {...user.id,...values},
-            )
-            updateAuthToken(data.authToken)
-            setIsVerified(true)
-            next()
+            console.log("submitting..")
+            next();
+
+            // const data = response?.data
+            // console.log(response)
+            // if (data?.message === "success") {
+            //     //sets token, verified status, success status and sets user in state
+            //     setIsVerified(true)
+            //     setUser(data?.user_data)
+            //     formik.setStatus("success")
+            //     updateAuthToken(data?.token)
+            //     next()
+            //     return { success: true }
+            // } else {
+            //     console.log(data)
+            //     formik.setStatus("failed")
+            //     formik.setErrors({ apiError: data?.details })
+            //     return {
+            //         success: false,
+            //     }
+            // }
         } catch (error) {
-            console.log(error.response.data.error);
-        }
-    }
-
-    const handleResend = async (event) => {
-        event.preventDefault()
-        try {
-            console.log(user)
-            const response = await api.post(
-                "/user-gateway/resend-auth-code",
-                user.id,
-            )
-      
-        } catch (error) {
-      console.log(error)
-
-            console.log(error?.response?.data?.error);
-
+            console.log(error)
+            console.log(error?.response?.data?.error)
+            formik.setStatus("failed")
+            formik.setErrors({
+                apiError:
+                    error?.response?.data?.details ||
+                    error?.response?.data?.error ||
+                    error?.message ||
+                    "Network Error",
+            })
+            return { success: false }
         }
     }
 
@@ -65,38 +76,46 @@ const ConfirmEmail = ({ next, prev, formData }) => {
         validationSchema,
         onSubmit,
     )
-console.log(user)
-    return (
-        <div>
-            <CardHeader className="flex flex-col items-center">
-                <div className="pb-5">
-                    <img src={clyp} alt="Clyp" width="40px" />
-                </div>
-                <CardTitle className = "text-center">Confirm your email address</CardTitle>
-                <CardDescription className="text-center">
-                    Please enter the OTP sent to your email address <b>{user.email}</b>
-                </CardDescription>
-            </CardHeader>
 
-            {/* Render OTP input form if not verified */}
-            {!isVerified && (
-                <>
-                    <FourDigitPassword
-                        value={formik.values.otp}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.otp}
-                        onComplete={formik.handleSubmit}
-                    />
-                    <p className="text-sm text-center">Didn't receive the code <button className="capitalize text-primary" onClick={handleResend}>resend code</button></p>
-                </>
-            )}
+    return (
+        <div className="flex flex-col justify-between h-full">
+            
+                <CardHeader className="mt-5 flex flex-col items-center">
+                    <CardTitle className="text-center">
+                    Transaction Pin
+                    </CardTitle>
+                    <CardDescription className="text-center">
+                    Input transaction pin to complete transaction.
+                    </CardDescription>
+                </CardHeader>
+
+                {/* Render OTP input form if not verified */}
+                <FourDigitPassword
+                    name={"pin"}
+                    value={formik.values.pin}
+                    onChange={(fieldName, fieldValue) =>
+                        formik.setFieldValue(fieldName, fieldValue)
+                    }
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.pin}
+                    onComplete={(value) => {
+                        formik.handleSubmit()
+                    }}
+                    touched={formik.touched.pin}
+                    previouslyFocused={() => formik.setTouched({ pin: true })}
+                    apiError={formik.errors.apiError}
+                    status={formik.status}
+                />
+           
 
             {/* Render success message if OTP verified */}
-            {isVerified && <p>OTP Verified Successfully!</p>}
-
-            <Button size="full" className="mt-2" onClick={next}>
-                Continue
+            <Button
+                size="full"
+                className="mb-2"
+                // disabled={!isVerified}
+                onClick={formik.handleSubmit}
+            >
+                Create Pin
             </Button>
         </div>
     )

@@ -29,7 +29,7 @@ const initialValues = {
     network: "",
 }
 
-export function SendForm({ next, updateFields, prev }) {
+export function ReceiveForm({ next, updateFields, prev }) {
 
     const onSubmit = async (values, { setErrors }) => {
         try {
@@ -62,7 +62,7 @@ console.log(formik.values)
             onSubmit={formik.handleSubmit}
             className="flex w-full flex-col items-center"
         >
-            <CardTitle>Send Crypto</CardTitle>
+            <CardTitle>Receive Crypto</CardTitle>
             <SelectField
                 name="coin"
                 value={formik.values.coin}
@@ -88,33 +88,15 @@ console.log(formik.values)
                 touched={formik.touched.wallet}
                 className="w-full"
             />
-            <FloatingLabelInput
-                name="amount"
-                type="text"
-                value={formik.values.amount}
-                label="Enter Amount"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.errors.amount}
-                touched={formik.touched.amount}
-            />
-            <Button size="full" variant="disabled" className="font-bold">
-                Amount to be sent after fee is deducted
-            </Button>
+           
+          
             <p className="my-4 font-bold">or</p>
-            <Button size="full" variant="outline">
-                Scan QR code
+            <Button size="full" variant="default">
+                Generate QR code
             </Button>
-            <Button
-                type="submit"
-                size="full"
-                className="mt-4"
-                disabled={isSubmitting}
-            >
-                {isSubmitting ? "Sending Crypto..." : "Send Crypto"}
-            </Button>
+            
         </form>
     )
 }
 
-export default SendForm
+export default ReceiveForm

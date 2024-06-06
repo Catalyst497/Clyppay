@@ -2,7 +2,7 @@ import React from 'react'
 
 function SwapForm() {
   return (
-    <div>Form</div>
+    <div>SwapForm</div>
   )
 }
 

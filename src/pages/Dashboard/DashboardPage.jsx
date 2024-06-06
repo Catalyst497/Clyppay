@@ -6,13 +6,14 @@ import HomeTab from "./HomeTab/HomeTab";
 import StatisticsTab from "./StatisticsTab";
 import { useAuth } from "@/context/AuthContext";
 import { useModal } from "@/context/ModalContext";
-import ReceiveModal from "@/components/popups/receive/ReceiveModal";
-import SendModal from "@/components/popups/send/SendIndexModal";
-import BuyModal from "@/components/popups/buy/BuyModal";
-import SellModal from "@/components/popups/sell/SellModal";
-import SwapModal from "@/components/popups/swap/SwapModal";
+import ReceiveModal from "@/components/popups/receive/ReceiveModalIndex";
+import SendModal from "@/components/popups/send/SendModalIndex";
+import BuyModal from "@/components/popups/buy/BuyModalIndex";
+import SellModal from "@/components/popups/sell/SellModalIndex";
+import SwapModal from "@/components/popups/swap/SwapModalIndex";
 import { modalNames } from "@/lib/Constants";
 import Modal from "@/components/shared/custom/Modal";
+import Wallets from "@/components/popups/Money";
 
 const modalComponents = {
     buyModal: BuyModal,
@@ -57,7 +58,8 @@ export default function Dashboard() {
         <div className="flex space-x-5">
             <Sidebar />
             <div className="ml-64 p-4  gap-4">
-          {openModal && renderModal()}
+          {/* {openModal && renderModal()} */}
+          <Wallets />
                 <Routes>
                     <Route path="/*" element={<HomeTab />} />
                     <Route path="home/*" element={<HomeTab />} />

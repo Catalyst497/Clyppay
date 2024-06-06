@@ -13,6 +13,7 @@ import SellModal from "@/components/popups/sell/SellModalIndex";
 import SwapModal from "@/components/popups/swap/SwapModalIndex";
 import { modalNames } from "@/lib/Constants";
 import Modal from "@/components/shared/custom/Modal";
+import Wallets from "@/components/popups/Money";
 
 const modalComponents = {
     buyModal: BuyModal,
@@ -57,7 +58,8 @@ export default function Dashboard() {
         <div className="flex space-x-5">
             <Sidebar />
             <div className="ml-64 p-4  gap-4">
-          {openModal && renderModal()}
+          {/* {openModal && renderModal()} */}
+          <Wallets />
                 <Routes>
                     <Route path="/*" element={<HomeTab />} />
                     <Route path="home/*" element={<HomeTab />} />

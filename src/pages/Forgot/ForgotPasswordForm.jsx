@@ -34,7 +34,7 @@ const ForgotPasswordForm = ({ next, updateFields }) => {
         identifier: email,
         ...rest,
       };
-        const response = await api.post(
+        const response = await api.default.post(
             "/user-gateway/retrive-password-email",
             modifiedData,
         )

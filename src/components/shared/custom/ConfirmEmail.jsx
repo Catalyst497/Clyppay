@@ -81,7 +81,7 @@ const ConfirmEmail = ({ next, formData, type }) => {
                 user_id: formData.id,
             }
             console.log(modifiedData)
-            const response = await api.post(
+            const response = await api.default.post(
                 "/user-gateway/resend-auth-code",
                 modifiedData,
             )

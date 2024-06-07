@@ -12,7 +12,7 @@ const endpoints = {
 // Function to make a GET request to the API
 const get = async (endpoint, params) => {
   try {
-    const response = await api.get(endpoint, { params });
+    const response = await api.default.get(endpoint, { params });
     console.log(response.data)
     return response.data;
   } catch (error) {

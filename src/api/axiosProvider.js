@@ -1,115 +1,129 @@
-import axios, { AxiosError } from "axios"
-import { useEffect } from "react"
+// api.js
 
-let API_URL = import.meta.env.VITE_API_URL
+import axios from "axios";
 
-const axiosInstance = axios.create({
-    baseURL: API_URL,
-})
+const defaultAPI = import.meta.env.VITE_API_URL;
+const cryptoAPI = import.meta.env.VITE_CRYPTO_API_URL;
 
-let token = null
+// Helper function to create axios instances
+const createAxiosInstance = (baseURL) => {
+  const instance = axios.create({ baseURL });
 
-if (localStorage.getItem("access_token")) {
-    axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
-        "access_token",
-    )}`
-    axiosInstance.defaults.headers.Authorization = `Bearer ${localStorage.getItem(
-        "access_token",
-    )}`
-}
+  // Set token if available
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
 
-export const updateAuthToken = async (new_token, save) => {
-    token = new_token
-console.log("token", new_token, save)
-    if (save) {
-        localStorage.setItem("access_token", new_token)
-        console.log('token saved')
-    }
-    axiosInstance.defaults.headers.common.Authorization = "Bearer " + new_token
-    axiosInstance.defaults.headers.Authorization = "Bearer " + new_token
-}
-
-axiosInstance.interceptors.request.use(
-    async (config) => {
-        const fetch_token = localStorage.getItem("access_token")
-        if (fetch_token) {
-            await updateAuthToken(fetch_token, true)
-            config.headers.Authorization = `Bearer ${fetch_token}`
-        }
-
-        return config
+  // Request interceptor to attach token
+  instance.interceptors.request.use(
+    (config) => {
+      const fetch_token = localStorage.getItem("access_token");
+      if (fetch_token) {
+        config.headers.Authorization = `Bearer ${fetch_token}`;
+      }
+      return config;
     },
+    (error) => Promise.reject(error)
+  );
+
+  // Response interceptor to handle errors
+  instance.interceptors.response.use(
+    (response) => response,
     (error) => {
-        return Promise.reject(error)
-    },
-)
-
-axiosInstance.interceptors.response.use(
-    (response) => {
-        return response
-    },
-    (error) => {
-        console.error(error?.toString())
-
-        if (error?.response?.status === 401) {
-            localStorage.removeItem("access_token")
-            localStorage.removeItem("user")
-        }
-
-        return Promise.reject(error)
-    },
-)
-
-const makeRequest = async (method, path, data, headers = {}) => {
-    const endpoint = path
-        ? `${API_URL}${path.charAt(0) === "/" ? "" : "/"}${path}`
-        : null
-    if (!endpoint) throw new Error("API request error: No endpoint provided")
-
-    let config = {
-        method: method,
-        url: endpoint,
-        data: data,
-        headers: {
-            "Content-Type": "application/json",
-            ...headers,
-        },
+      if (error?.response?.status === 401) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
+      }
+      return Promise.reject(error);
     }
+  );
 
-    console.debug(
-        `🚀 Requesting Api: %c${config.method.toUpperCase()} ===> %c${config?.url}\n`,
-        "color: yellow",
-        "color: yellow",
-    )
+  return instance;
+};
 
-    try {
-        const res = await axiosInstance(config)
-        return res
-    } catch (err) {
-        return Promise.reject(err)
-    }
-}
+// Creating axios instances
+const defaultAxios = createAxiosInstance(defaultAPI);
+const cryptoAxios = createAxiosInstance(cryptoAPI);
 
+// Function to update authentication token
+export const updateAuthToken = async (newToken, save = true) => {
+  if (save) {
+    localStorage.setItem("access_token", newToken);
+  }
+  // Update token for all instances
+  defaultAxios.defaults.headers.common.Authorization = `Bearer ${newToken}`;
+  cryptoAxios.defaults.headers.common.Authorization = `Bearer ${newToken}`;
+};
+
+// Generic function to make requests
+const makeRequest = async (instance, method, path, data, headers = {}) => {
+  const endpoint = path ? `${path.charAt(0) === "/" ? "" : "/"}${path}` : null;
+  if (!endpoint) throw new Error("API request error: No endpoint provided");
+
+  let config = {
+    method,
+    url: endpoint,
+    data,
+    headers: {
+      "Content-Type": "application/json",
+      ...headers,
+    },
+  };
+
+  console.debug(
+    `🚀 Requesting Api: %c${config.method.toUpperCase()} ===> %c${
+      config?.url
+    }\n`,
+    "color: yellow",
+    "color: yellow"
+  );
+
+  try {
+    const res = await instance(config);
+    return res;
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+// API object to handle requests
 export const api = {
-    get: async (path, headers = {}) =>
-        await makeRequest("get", path, null, headers),
-    post: async (path, data, headers = {}) =>
-        await makeRequest("post", path, data, headers),
-    patch: async (path, data, headers = {}) =>
-        await makeRequest("patch", path, data, headers),
-    put: async (path, data, headers = {}) =>
-        await makeRequest("put", path, data, headers),
-    delete: async (path, data, headers = {}) =>
-        await makeRequest("delete", path, data, headers),
-}
+  default: {
+    get: (path, headers = {}) =>
+      makeRequest(defaultAxios, "get", path, null, headers),
+    post: (path, data, headers = {}) =>
+      makeRequest(defaultAxios, "post", path, data, headers),
+    patch: (path, data, headers = {}) =>
+      makeRequest(defaultAxios, "patch", path, data, headers),
+    put: (path, data, headers = {}) =>
+      makeRequest(defaultAxios, "put", path, data, headers),
+    delete: (path, data, headers = {}) =>
+      makeRequest(defaultAxios, "delete", path, data, headers),
+  },
+  crypto: {
+    get: (path, headers = {}) =>
+      makeRequest(cryptoAxios, "get", path, null, headers),
+    post: (path, data, headers = {}) =>
+      makeRequest(cryptoAxios, "post", path, data, headers),
+    patch: (path, data, headers = {}) =>
+      makeRequest(cryptoAxios, "patch", path, data, headers),
+    put: (path, data, headers = {}) =>
+      makeRequest(cryptoAxios, "put", path, data, headers),
+    delete: (path, data, headers = {}) =>
+      makeRequest(cryptoAxios, "delete", path, data, headers),
+  },
+};
 
+// Utility function for error handling
 export const returnApiError = (error) => {
-   const message =  error?.details ||
+  const message =
+    error?.details ||
     error?.response?.data?.details ||
     error?.response?.data?.error ||
     error?.message ||
     "Network Error";
-    console.log(error)
-    console.log(message)
-    return message
-}
+  console.log(error);
+  console.log(message);
+  return message;
+};

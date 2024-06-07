@@ -7,7 +7,7 @@ export const activateUser = async (identifier, authToken) => {
   console.log("activating user")
   console.log(identifier,authToken)
   
-  const response = await api.post("/user-gateway/activate-user", {
+  const response = await api.default.post("/user-gateway/activate-user", {
     user_id: identifier,
     authToken: authToken,
   });
@@ -19,7 +19,7 @@ export const activateUser = async (identifier, authToken) => {
 export const resetUser = async (identifier, otp) => {
   
 console.log("resetting")
-  const response = await api.post(
+  const response = await api.default.post(
     "/user-gateway/confirm-code-forgot-password",
     {
       identifier: identifier,

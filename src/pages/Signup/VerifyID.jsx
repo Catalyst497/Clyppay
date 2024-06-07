@@ -40,8 +40,8 @@ const initialValues = {
 // Options for the verification methods
 const verificationMethods = [
     { icon: nationalId, value: "NIN", label: "National ID Card" },
-    { icon: passport, value: "passport", label: "Passport" },
-    { icon: driverLicense, value: "driverLicense", label: "Driver's License" },
+    { icon: passport, value: "PASSPORT", label: "Passport" },
+    { icon: driverLicense, value: "DRIVERS", label: "Driver's License" },
 ]
 
 const VerifyID = ({ next, prev, updateFields, formData }) => {
@@ -55,13 +55,14 @@ const VerifyID = ({ next, prev, updateFields, formData }) => {
             const modifiedData = {
                 identifier: formData.id,
                 type:  values.verificationMethod,
-                // name: formData.name,
+                first_name: values.first_name,
+                last_name: values.last_name,
                 country: values.nationality,
                 country_id:  data?.countries.find(x => x.name  === values.nationality)?.id || null
                
             }
             updateFields((prev => ({...prev,...modifiedData})))
-            const response = await api.post("/user-gateway/kyc-validation", modifiedData)
+            const response = await api.default.post("/user-gateway/kyc-validation", modifiedData)
            
             console.log(response)
             if ( response?.data.message === "success") {

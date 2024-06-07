@@ -41,7 +41,7 @@ const SignupForm = ({ next, updateFields }) => {
     const onSubmit = async (values, { setErrors }) => {
         try {
          
-            const response = await api.post("/user-gateway/register", values)
+            const response = await api.default.post("/user-gateway/register", values)
             
             updateFields( response?.data?.user)
             next()

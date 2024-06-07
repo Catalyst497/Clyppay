@@ -28,8 +28,8 @@ function HomeTab() {
 
             <TabsContent value="account">
        
-                <div className="grid grid-cols-2 space-x-10 pb-10">
-                    <div className="col-span-1">
+                <div className="grid grid-cols-2 gap-10 pb-10">
+                    <div className="col-span-1 ">
                         {" "}
                         <div>
                   

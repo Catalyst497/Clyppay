@@ -28,7 +28,7 @@ https://documenter.getpostman.com/view/34832393/2sA3JQ4KPe
 #### KYC
 
 [x] Get countries (get-available-countries: token)
-[ ] kyc validation (kyc-validation: identifier,type,first_name,last_name,country,country_id)
+[x] kyc validation (kyc-validation: identifier,type,first_name,last_name,country,country_id)
 [ ] Upload kyc image (kyc-image-: filename,file,type)
 ---
 #### User data

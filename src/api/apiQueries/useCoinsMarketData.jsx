@@ -6,7 +6,7 @@ const fetchCoinsMarketData = async (currency, skip, limit) => {
     console.log(currency, skip, limit)
 
     const { data } = await api.get(
-        `market-api/fetch-coins-market-data?currency=${currency}&skip=${skip}&limit=${limit}`
+        `market-api/fetch-coins-market-data`
     );
     return data;
 };

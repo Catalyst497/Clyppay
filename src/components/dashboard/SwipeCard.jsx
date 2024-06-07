@@ -27,7 +27,7 @@ function SwipeCard() {
     }
     return (
         <Card className="relative my-4 flex h-[60%] w-full flex-col self-end py-4">
-            <div className="mx-auto w-[60%]">
+            <div className="mx-auto w-[85%]">
                 <div className="card-slide">
                     {activeIndex === 0 ? <Crypto /> : <Fiat />}
                 </div>
@@ -51,7 +51,7 @@ function Icon({ text, icon, modalName }) {
         <div className="flex items-center justify-center">
             <div
                 onClick={() => setOpenModal(modalName)}
-                className="flex h-20 w-20 flex-col items-center justify-center rounded-full bg-muted-lighter p-4"
+                className="flex h-15 w-20 flex-col items-center justify-center rounded-full bg-muted-lighter p-4"
             >
                 <img className="h-9 w-9" src={icon} alt="icon" />
                 <p className="text-foreground-bold mt-1 text-xs font-semibold capitalize">
@@ -79,7 +79,7 @@ function Crypto() {
                 </div>
             </div>
 
-            <div className="mt-2 flex items-center justify-center space-x-5">
+            <div className="mt-2 flex flex-wrap items-center  gap-5">
                 <Icon text="send" icon={send} modalName={"send"} />
                 <Icon text="receive" icon={receive} modalName={"receive"} />
                 <Icon text="buy" icon={buy} modalName={"buy"} />

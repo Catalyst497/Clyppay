@@ -55,7 +55,8 @@ const VerifyID = ({ next, prev, updateFields, formData }) => {
             const modifiedData = {
                 identifier: formData.id,
                 type:  values.verificationMethod,
-                // name: formData.name,
+                first_name: values.first_name,
+                last_name: values.last_name,
                 country: values.nationality,
                 country_id:  data?.countries.find(x => x.name  === values.nationality)?.id || null
                

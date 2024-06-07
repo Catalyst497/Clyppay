@@ -6,6 +6,7 @@ import { api } from "../axiosProvider";
 // Define your API endpoints
 const endpoints = {
   getCountries: '/user-gateway/get-available-countries',
+  getCoinsMarketData: '/market-api/fetch-coins-market-data'
 
 };
 
@@ -24,3 +25,10 @@ const get = async (endpoint, params) => {
 export const getCountries = async () => {
   return get(endpoints.getCountries);
 };
+export const getCoinsMarketData = async () => {
+  return get(endpoints.getCoinsMarketData);
+};
+
+
+
+

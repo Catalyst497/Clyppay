@@ -60,9 +60,9 @@ axiosInstance.interceptors.response.use(
     },
 )
 
-const makeRequest = async (method, path, data, headers = {}) => {
+const makeRequest = async (method, path, data,customBaseURL = API_URL, headers = {}) => {
     const endpoint = path
-        ? `${API_URL}${path.charAt(0) === "/" ? "" : "/"}${path}`
+        ? `${customBaseURL}${path.charAt(0) === "/" ? "" : "/"}${path}`
         : null
     if (!endpoint) throw new Error("API request error: No endpoint provided")
 

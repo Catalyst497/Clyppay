@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 const useMultistepForm = (steps) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  // const [currentStepIndex, setCurrentStepIndex] =  useLocalStorage('multiStepFormCurrentStep', 0);;
+
 
   const currentStep = steps[currentStepIndex];
 

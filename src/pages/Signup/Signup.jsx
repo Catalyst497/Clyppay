@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import useMultistepForm from "@/hooks/useMultistepForm";
-import StepOne from "@/pages/Signup/SignupForm";
-import StepTwo from "@/components/shared/custom/ConfirmEmail";
+import Form from "@/pages/Signup/SignupForm";
+import ConfirmEmailWithOtp from "@/components/shared/custom/ConfirmEmail";
 import StepThree from "@/pages/Signup/VerifyID";
 import { headerHeight } from "@/lib/Constants";
 
 // Define the steps of the multi-step form
 const steps = [
-  (props) => <StepOne {...props} />,
-  (props) => <StepTwo {...props} type="activate" />,
+  (props) => <Form {...props} />,
+  (props) => <ConfirmEmailWithOtp {...props} type="activate" />,
   (props) => <StepThree {...props} />,
   // Add other steps as needed
 ];

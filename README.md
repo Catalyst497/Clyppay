@@ -8,6 +8,47 @@ https://www.figma.com/file/f03I9S6djNLzEPQi3rfv0H/Clyp-Redesign?type=design&node
 
 https://documenter.getpostman.com/view/34832393/2sA3JQ4KPe
 
+### Auth (user-gateway)
+
+#### Sign up
+[x] create user (register: email,phone,password)
+[x] confirm email and activate user (activate-user
+: user_id, token)
+[ ] resend activation code (resend-auth-code: user_id)
+
+---
+
+#### Login
+ [ ] login user (login: identifier and password)
+
+[ ] forgot password (retrive-password-email: identfier)
+[ ] confirm password retrieval code (confirm-code-forgot-password: identfier,token)
+
+---
+#### KYC
+
+[ ] Get countries (get-available-countries: token)
+[ ] kyc validation (kyc-validation: identifier,type,first_name,last_name,country,country_id)
+[ ] Upload kyc image (kyc-image-: filename,file,type)
+---
+#### User data
+ [ ] Get user data (get-full-user-data: token )
+---
+#### Reset
+ [ ] Change password (change-password: password,newPassword)
+[ ] update user (update-user: email,phone)
+[ ] delete user (delete: user_id)
+---
+#### Pin
+[ ] set pin (set-pin: pin)
+
+### Crypto gathway (market-api)
+
+[ ] Coins List Market Prices (fetch-coins-market-data?currency=usd&skip=4&limit=20)
+[ ] Coin Market Chart (
+fetch-coins-market-chart?currency=usd&coin_id=bitcoin&days_ago=1
+)
+
 ##
 
 -   Adding link to <header>

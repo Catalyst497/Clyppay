@@ -6,20 +6,20 @@ import {
     CardDescription,
     CardHeader,
 } from "@/components/shared/shadcn/card"
-import SocialLoginSection from "@/components/shared/custom/SocialLogin"
 import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput"
+import SocialLoginSection from "@/components/shared/custom/SocialLogin"
 import clyp from "@/assets/icons/logo_icon.svg"
 import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
-import { Link, useNavigate, useLocation } from "react-router-dom"
-import { api, updateAuthToken } from "@/lib/axiosProvider"
+import { api } from "@/lib/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
-import { Checkbox } from "@/components/shared/shadcn/formElements"
-import { headerHeight } from "@/lib/Constants"
 
 const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/
 const validationSchema = {
     email: Yup.string().email("Invalid email address").required("Required"),
+    phone: Yup.string()
+        .min(10, "Phone number must be at least 10 characters")
+        .required("Required"),
     password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .matches(
@@ -31,54 +31,37 @@ const validationSchema = {
 
 const initialValues = {
     email: "",
+    phone: "",
     password: "",
 }
 
-const LoginForm = ({ updateFields }) => {
-    const { setUser } = useAuth()
+const SignupForm = ({ next , updateFields}) => {
 
-    const navigate = useNavigate()
-    const { state } = useLocation()
-    const from = state?.from?.pathname || "/dashboard"
 
-    const onSubmit = async ( values, formik) => {
-        console.log("loading.")
-        // event.preventDefault();
+    const onSubmit = async (values, { setErrors }) => {
         try {
-            const { email, ...rest } = values;
-            const modifiedData = {
-                identifier: email,
-                ...rest,
-            };
-            const response = await api.post("/user-gateway/login", modifiedData);
-            const data = response?.data;
-            console.log(response);
-            // if (data?.message === "success") {
-            //     // Update the necessary states or perform navigation here
-            //     console.log("Login successful");
-            // return { success: false }
+        
+            const response = await api.post("/user-gateway/login", values)
+            
+            updateFields({...values,id: response?.data?.user.id})
+            console.log(response.data)
+            // next();
 
-            // } else {
-            //     // console.log(data);
-            //     // formik.setErrors({ apiError: data?.details });
-            // return { success: false }
-
-            // }
+            return { success: true }
         } catch (error) {
-            // console.log(error);
-            // console.log(error?.response?.data?.error);
-           
-            // setErrors({
-            //     apiError:
-            //         error?.response?.data?.details ||error?.response?.data?.error ||
-            //         error?.message ||
-            //         "An unexpected error occurred. Please try again.",
-            // })         console.log(error);
-            return { success: false }
+            console.log(
+                error?.response?.data?.details || error?.message, // status and reason
+            ) // return { success: false, message: error?.message || "Network error" }
 
+            setErrors({
+                apiError:
+                    error?.response?.data?.details ||error?.response?.data?.error ||
+                    error?.message ||
+                    "Network Error",
+            })
+            return { success: false }
         }
-    };
-    
+    }
 
     const { formik, isSubmitting } = useForm(
         initialValues,
@@ -87,24 +70,20 @@ const LoginForm = ({ updateFields }) => {
     )
 
     return (
-        <div
-        style={{ minHeight: `calc(100vh - ${headerHeight})` }}
-        className="flex h-full w-full items-center justify-center"
-      >
         <FormCard>
             <CardHeader className="flex flex-col items-center">
                 <div className="pb-5">
                     <img src={clyp} alt="Clyp" width="40px" />
                 </div>
 
-                <CardTitle>Welcome back!</CardTitle>
+                <CardTitle>Welcome to Clyp!</CardTitle>
                 <CardDescription className="text-center">
-                    To log in your account with Clyppay, please put in your
-                    email address and password in the field below
+                    To create an account with Clyppay, please put in your email
+                    address in the field below
                 </CardDescription>
             </CardHeader>
 
-            <form >
+            <form onSubmit={formik.handleSubmit}>
                 <FloatingLabelInput
                     name="email"
                     type="email"
@@ -117,6 +96,17 @@ const LoginForm = ({ updateFields }) => {
                 />
 
                 <FloatingLabelInput
+                    name="phone"
+                    type="text"
+                    label="Phone Number"
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.phone}
+                    touched={formik.touched.phone}
+                />
+
+                <FloatingLabelInput
                     name="password"
                     type="password"
                     label="Password"
@@ -125,27 +115,21 @@ const LoginForm = ({ updateFields }) => {
                     onBlur={formik.handleBlur}
                     error={formik.errors.password}
                     touched={formik.touched.password}
-                    apiError={formik.errors.apiError}
                 />
 
-                <div className="flex items-center justify-between pt-4">
-                    <div>
-                        <Checkbox />
-                        <span> Remember me </span>
+                {formik.errors.apiError && (
+                    <div className="mt-3 text-center text-red-500">
+                        {formik.errors.apiError}
                     </div>
-                    <Link to="/forgot" className="text-primary">
-                        Forgot Password?
-                    </Link>
-                </div>
+                )}
 
                 <Button
-                    type="button"
+                    type="submit"
                     size="full"
                     className="mt-4"
                     disabled={isSubmitting}
-                    onClick = {() => formik.handleSubmit()}
                 >
-                    {isSubmitting ? "Logging in...." : "Continue"}
+                    {isSubmitting ? "Creating account..." : "Continue"}
                 </Button>
             </form>
 
@@ -155,8 +139,7 @@ const LoginForm = ({ updateFields }) => {
                 to="/login"
             />
         </FormCard>
-        </div>
     )
 }
 
-export default LoginForm
+export default SignupForm

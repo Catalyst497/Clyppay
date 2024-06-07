@@ -8,13 +8,13 @@ import {
 } from "@/components/shared/shadcn/card";
 import {
   
-} from "@/lib/apiRequests"
+} from "@/api/apiRequests"
 import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput";
 import SocialLoginSection from "@/components/shared/custom/SocialLogin";
 import clyp from "@/assets/icons/logo_icon.svg";
 import { Button } from "@/components/shared/shadcn/button";
 import * as Yup from "yup";
-import { api } from "@/lib/axiosProvider";
+import { api } from "@/api/axiosProvider";
 import { useAuth } from "@/context/AuthContext";
 
 const validationSchema = {

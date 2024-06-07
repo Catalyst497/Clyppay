@@ -11,14 +11,15 @@ import SocialLoginSection from "@/components/shared/custom/SocialLogin"
 import clyp from "@/assets/icons/logo_icon.svg"
 import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
-import { api } from "@/lib/axiosProvider"
+import { api, returnApiError } from "@/api/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
 
 const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/
 const validationSchema = {
+  
     email: Yup.string().email("Invalid email address").required("Required"),
     phone: Yup.string()
-        .min(10, "Phone number must be at least 10 characters")
+        .matches(/^[0-9]{11}$/, "Phone number must be exactly 11 digits")
         .required("Required"),
     password: Yup.string()
         .min(8, "Password must be at least 8 characters")
@@ -30,34 +31,32 @@ const validationSchema = {
 }
 
 const initialValues = {
+ 
     email: "",
     phone: "",
     password: "",
 }
 
-const SignupForm = ({ next , updateFields}) => {
-
-
+const SignupForm = ({ next, updateFields }) => {
     const onSubmit = async (values, { setErrors }) => {
         try {
-        
+         
             const response = await api.post("/user-gateway/register", values)
             
-            updateFields({...values,id: response?.data?.user.id})
-            next();
-            console.log(response.data)
+            updateFields( response?.data?.user)
+            next()
+            setErrors({
+                apiError:
+                    returnApiError(response?.data)
+            })
 
             return { success: true }
         } catch (error) {
-            console.log(
-                error?.response?.data?.details || error?.message, // status and reason
-            ) // return { success: false, message: error?.message || "Network error" }
+         // return { success: false, message: error?.message || "Network error" }
 
             setErrors({
                 apiError:
-                    error?.response?.data?.details ||error?.response?.data?.error ||
-                    error?.message ||
-                    "Network Error",
+                    returnApiError(error)
             })
             return { success: false }
         }
@@ -84,6 +83,7 @@ const SignupForm = ({ next , updateFields}) => {
             </CardHeader>
 
             <form onSubmit={formik.handleSubmit}>
+               
                 <FloatingLabelInput
                     name="email"
                     type="email"

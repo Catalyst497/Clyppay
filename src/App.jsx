@@ -27,9 +27,9 @@ function App() {
           <Route path="reset" element={<ResetPage />} />
           </Route> */}
           <Route path="forgot" element={<ForgotPage />} />
-          <Route element = {<ProtectedRoute /> }>
           <Route path="dashboard/*" element={<Dashboard />} />
-          </Route>
+          {/* <Route element = {<ProtectedRoute /> }>
+          </Route> */}
         </Route>
       </Routes>
     </Router>

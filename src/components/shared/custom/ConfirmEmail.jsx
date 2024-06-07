@@ -10,9 +10,10 @@ import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
 import { FourDigitPassword } from "@/components/shared/shadcn/inputOtp"
 import clyp from "@/assets/icons/logo_icon.svg"
-import { api, updateAuthToken } from "@/lib/axiosProvider"
+import { api, updateAuthToken, returnApiError } from "@/api/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
-import { activateUser, resetUser } from "@/lib/apiRequests"
+import { activateUser, resetUser } from "@/api/apiRequests"
+import PropTypes from "prop-types"
 
 // Validation schema for the OTP form
 const validationSchema = {
@@ -26,7 +27,7 @@ const initialValues = {
     resendMessage: "",
 }
 
-const ConfirmEmail = ({ next, prev, formData, type }) => {
+const ConfirmEmail = ({ next, formData, type }) => {
     // State to track OTP verification status
     const { setUser } = useAuth()
     const [isVerified, setIsVerified] = useState(false)
@@ -36,10 +37,9 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
     const onSubmit = async (values, formik) => {
         try {
             console.log("submitting..")
-
             let response
             if (type === "activate") {
-                response = await activateUser(formData.email, values.otp)
+                response = await activateUser(formData?.id, values.otp)
             }
             if (type === "reset") {
                 response = await resetUser(formData.email, values.otp)
@@ -50,30 +50,24 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
             if (data?.message === "success") {
                 //sets token, verified status, success status and sets user in state
                 setIsVerified(true)
-                setUser(data?.user_data)
                 formik.setStatus("success")
-                updateAuthToken(data?.token)
+                updateAuthToken(data?.token,true)
                 next()
                 return { success: true }
             } else {
-                console.log(data)
+                formik.setErrors({
+                    apiError: returnApiError(data),
+                })
                 formik.setStatus("failed")
-                formik.setErrors({ apiError: data?.details })
                 return {
                     success: false,
                 }
             }
         } catch (error) {
-            console.log(error)
-            console.log(error?.response?.data?.error)
-            formik.setStatus("failed")
             formik.setErrors({
-                apiError:
-                error?.response?.data?.details ||
-                    error?.response?.data?.error ||
-                    error?.message ||
-                    "Network Error",
+                apiError: returnApiError(error),
             })
+            formik.setStatus("failed")
             return { success: false }
         }
     }
@@ -83,11 +77,10 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
         event.preventDefault()
         console.log("resending")
         try {
-            const { email, ...rest } = formData
             const modifiedData = {
-                user_id: email,
-          
+                user_id: formData.id,
             }
+            console.log(modifiedData)
             const response = await api.post(
                 "/user-gateway/resend-auth-code",
                 modifiedData,
@@ -101,21 +94,17 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
             }
             //if api request failed but returned data
             else {
-                console.log(data)
-                formik.setErrors({ apiError: data?.details })
+              formik.setErrors({
+                apiError: returnApiError(data),
+            })
                 return {
                     success: false,
                 }
             }
         } catch (error) {
-            console.log(error)
-            console.log(error.response?.data?.error)
-            setErrors({
-              apiError:
-                  error?.response?.data?.details ||error?.response?.data?.error ||
-                  error?.message ||
-                  "Network Error",
-          })
+            formik.setErrors({
+                apiError: returnApiError(error),
+            })
             return { success: false }
         }
     }
@@ -165,7 +154,6 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
                 <button
                     className="capitalize text-primary"
                     onClick={(event) => handleResend(event, formik)}
-          
                 >
                     resend code
                     {/* {formik.values.isResending ? "Resending..." : "resend code"} */}
@@ -186,3 +174,9 @@ const ConfirmEmail = ({ next, prev, formData, type }) => {
 }
 
 export default ConfirmEmail
+
+ConfirmEmail.propTypes = {
+    next: PropTypes.func.isRequired,
+    formData: PropTypes.object.isRequired,
+    type: PropTypes.oneOf(["activate", "reset"]).isRequired,
+}

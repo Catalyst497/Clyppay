@@ -1,3 +1,5 @@
+// Pagination.jsx
+
 import React from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { PaginationEllipsis } from "@/components/shared/shadcn/pagination";
@@ -28,7 +30,6 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }) => 
         );
       }
     } else {
-      // Always show the first page
       pageNumbers.push(
         <button
           key={1}
@@ -39,12 +40,10 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }) => 
         </button>
       );
 
-      // Show an ellipsis if the current page is more than 3 away from the first page
       if (currentPage > 3) {
         pageNumbers.push(ellipsis);
       }
 
-      // Determine start and end points for page numbers around the current page
       const startPage = Math.max(2, currentPage - 1);
       const endPage = Math.min(totalPages - 1, currentPage + 1);
 
@@ -60,12 +59,10 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, onPageChange }) => 
         );
       }
 
-      // Show an ellipsis if the current page is more than 3 away from the last page
       if (currentPage < totalPages - 2) {
         pageNumbers.push(ellipsis);
       }
 
-      // Always show the last page
       pageNumbers.push(
         <button
           key={totalPages}

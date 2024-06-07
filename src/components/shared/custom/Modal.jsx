@@ -29,5 +29,4 @@ export default function Modal({ children, isOpen, widthClass, closeModal , width
 Modal.propTypes = {
     children: PropTypes.node.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired,
 }

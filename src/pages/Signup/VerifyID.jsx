@@ -7,84 +7,87 @@ import {
     CardHeader,
 } from "@/components/shared/shadcn/card"
 import { Button } from "@/components/shared/shadcn/button"
-import Select from "react-select"
-import countryList from "react-select-country-list"
+
 import * as Yup from "yup"
 import clyp from "@/assets/icons/logo_icon.svg"
 import { Fieldset } from "@/components/shared/shadcn/formElements"
 import { Label } from "@radix-ui/react-label"
-import { useNavigate } from "react-router-dom"
 import { SelectField } from "@/components/shared/shadcn/select"
-import { useEffect,useState } from "react"
-import { api, updateAuthToken } from "@/lib/axiosProvider"
-
-
+import { api ,returnApiError} from "@/api/axiosProvider"
+import { useCountries } from "@/api/apiQueries/getHooks"
+import passport from "@/assets/icons/passport-biometric.svg"
+import nationalId from "@/assets/icons/id-card.svg"
+import driverLicense from "@/assets/icons/license.svg"
+import { RadioGroup, RadioGroupItem } from "@/components/shared/shadcn/radio"
+import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput"
 
 // Validation schema for the form
 const validationSchema = {
-  nationality: Yup.string().required("Required"),
-  verificationMethod: Yup.string().required("Required"),
+      first_name : Yup.string().required("Required"),
+      last_name: Yup.string().required("Required"),
+    nationality: Yup.string().required("Required"),
+    verificationMethod: Yup.string().required("Required"),
 }
 
 // Initial values for the form
 const initialValues = {
-  nationality: "",
-  verificationMethod: "",
+    first_name : "",
+    last_name: "",
+    nationality: "",
+    verificationMethod: "",
 }
-
-
 
 // Options for the verification methods
 const verificationMethods = [
-  { value: "passport", label: "Passport" },
-    { value: "nationalId", label: "National ID" },
-    { value: "driverLicense", label: "Driver's License " },
-  ]
-  
-  const VerifyID = ({ next, prev, updateFields, formData }) => {
-    const [countries, setCountries] = useState([])
-    // Submit handler for the form
-    const navigate = useNavigate()
-  
-    useEffect( async() => {
-        const response = await api.get("/user-gateway/get-available-countries")
-        console.log(response)
-    }, [])
-    
-    const onSubmit = async (values, { setErrors }) => {
-    //     try {
-        
-    //         const response = await api.get("/user-gateway/get-available-countries", values)
-            
-    //         updateFields({...values,id: response?.data?.user.id})
-    //         next();
-    //         console.log(response.data)
+    { icon: nationalId, value: "NIN", label: "National ID Card" },
+    { icon: passport, value: "passport", label: "Passport" },
+    { icon: driverLicense, value: "driverLicense", label: "Driver's License" },
+]
 
-    //         return { success: true }
-    //     } catch (error) {
-    //         console.log(
-    //             error?.response?.data?.details || error?.message, // status and reason
-    //         ) // return { success: false, message: error?.message || "Network error" }
+const VerifyID = ({ next, prev, updateFields, formData }) => {
+    const { data, isLoading, isError } = useCountries()
+   
+    const onSubmit = async (values, {setErrors}) => {
+        console.log(values)
+        console.log(data)
+        try {
+     
+            const modifiedData = {
+                identifier: formData.id,
+                type:  values.verificationMethod,
+                // name: formData.name,
+                country: values.nationality,
+                country_id:  data?.countries.find(x => x.name  === values.nationality)?.id || null
+               
+            }
+            updateFields((prev => ({...prev,...modifiedData})))
+            const response = await api.post("/user-gateway/kyc-validation", modifiedData)
+           
+            console.log(response)
+            if ( response?.data.message === "success") {
+                // Update the necessary states or perform navigation here
+                console.log( response?.data)
+                return { success: true }
+            } else {
+       
+               setErrors({ apiError:returnApiError (data) });
+                return { success: false }
+            }
+        } catch (error) {
+            setErrors({
+                apiError: returnApiError(error),
+            })
 
-    //         setErrors({
-    //             apiError:
-    //                 error?.response?.data?.details ||error?.response?.data?.error ||
-    //                 error?.message ||
-    //                 "Network Error",
-    //         })
-    //         return { success: false }
-    //     }
+            return { success: false }
+        }
     }
 
-    // Custom hook to handle form state and validation
     const { formik, isSubmitting } = useForm(
         initialValues,
         validationSchema,
         onSubmit,
     )
 
-    // Get country options
-    const options = countryList().getData()
 
     return (
         <FormCard>
@@ -94,50 +97,62 @@ const verificationMethods = [
                 </div>
                 <CardTitle>Complete registration</CardTitle>
                 <CardDescription className="">
-                    We are required by law to verify your identity by collecting
-                    your ID and selfie{" "}
+                    We are required by law to verify your identity by collecting your ID and selfie
                 </CardDescription>
             </CardHeader>
 
             <form onSubmit={formik.handleSubmit}>
-                {/* Nationality selection dropdown */}
                 <Fieldset>
                     <Label className="">Enter your location</Label>
                 </Fieldset>
 
                 <div className="mb-4">
-                    <SelectField   placeholder="Select nationality" options={[]} />
-                   
+                <FloatingLabelInput
+                    name="first_name"
+                    type="text"
+                    label="Enter your first name"
+                    value={formik.values.first_name}
+                    onChange={formik.handleChange}
+                    error={formik.errors.first_name}
+                    onBlur={formik.handleBlur}
+                    touched={formik.touched.first_name}
+                />
+                <FloatingLabelInput
+                    name="last_name"
+                    type="text"
+                    label="Enter your last name"
+                    value={formik.values.last_name}
+                    onChange={formik.handleChange}
+                    error={formik.errors.last_name}
+                    onBlur={formik.handleBlur}
+                    touched={formik.touched.last_name}
+                />
+                    <SelectField
+                        onChange={formik.setFieldValue}
+                        name={"nationality"}
+                        placeholder="Select nationality"
+                        options={data?.countries}
+                        valueKey={"name"}
+                        alt={data?.countries?.countryCode}
+                        id={data?.countries?.id}
+                        isLoading={isLoading}
+                        iconKey={"image"}
+                    />
                 </div>
-
-                {/* Verification method radio buttons */}
-                <div className="mb-4">
-                    {verificationMethods.map((method) => (
-                        <div
-                            key={method.value}
-                            className="mb-2 flex items-center"
-                        >
-                            <input
-                                type="radio"
-                                name="verificationMethod"
-                                value={method.value}
-                                checked={
-                                    formik.values.verificationMethod ===
-                                    method.value
-                                }
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                            />
-                            <label className="ml-2">{method.label}</label>
-                        </div>
+                <Label htmlFor="verificationMethod" className="pt-4">Choose verification method</Label>
+                <RadioGroup
+                    value={formik.values.verificationMethod}
+                    onValueChange={(value) => formik.setFieldValue("verificationMethod", value)}
+                >
+                    {verificationMethods.map((option) => (
+                        <RadioGroupItem
+                            key={option.value}
+                            value={option.value}
+                            imageSrc={option.icon}
+                            label={option.label}
+                        />
                     ))}
-                    {formik.errors.verificationMethod &&
-                        formik.touched.verificationMethod && (
-                            <div className="text-sm text-red-500">
-                                {formik.errors.verificationMethod}
-                            </div>
-                        )}
-                </div>
+                </RadioGroup>
 
                 <Button
                     type="submit"

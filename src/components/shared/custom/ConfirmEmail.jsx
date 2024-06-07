@@ -10,9 +10,9 @@ import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
 import { FourDigitPassword } from "@/components/shared/shadcn/inputOtp"
 import clyp from "@/assets/icons/logo_icon.svg"
-import { api, updateAuthToken, returnApiError } from "@/lib/axiosProvider"
+import { api, updateAuthToken, returnApiError } from "@/api/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
-import { activateUser, resetUser } from "@/lib/apiRequests"
+import { activateUser, resetUser } from "@/api/apiRequests"
 import PropTypes from "prop-types"
 
 // Validation schema for the OTP form
@@ -51,7 +51,7 @@ const ConfirmEmail = ({ next, formData, type }) => {
                 //sets token, verified status, success status and sets user in state
                 setIsVerified(true)
                 formik.setStatus("success")
-                updateAuthToken(data?.token)
+                updateAuthToken(data?.token,true)
                 next()
                 return { success: true }
             } else {

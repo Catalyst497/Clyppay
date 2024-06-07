@@ -20,9 +20,10 @@ if (localStorage.getItem("access_token")) {
 
 export const updateAuthToken = async (new_token, save) => {
     token = new_token
-
+console.log("token", new_token, save)
     if (save) {
         localStorage.setItem("access_token", new_token)
+        console.log('token saved')
     }
     axiosInstance.defaults.headers.common.Authorization = "Bearer " + new_token
     axiosInstance.defaults.headers.Authorization = "Bearer " + new_token

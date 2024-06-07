@@ -8,7 +8,7 @@ import {
 import Layout from "./Layout";
 import Dashboard from "@/pages/Dashboard/DashboardPage";
 import Onboarding from "@/pages/Onboarding/Onboarding";
-import Login from "@/pages/login/Login2";
+import Login from "@/pages/login/Login";
 import Signup from "@/pages/Signup/Signup";
 import ForgotPage from "@/pages/Forgot/ForgotPage";
 // import ResetPage from "@/pages/Reset/ResetPage";

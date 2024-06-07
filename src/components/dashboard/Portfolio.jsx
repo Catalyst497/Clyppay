@@ -1,7 +1,7 @@
 // Portfolio.jsx
 
 import React, { useState, useEffect } from 'react';
-import { useCoinsMarketData } from '@/hooks/apiQueries/useCoinsMarketData';
+import { useCoinsMarketData } from '@/api/apiQueries/useCoinsMarketData';
 import Pagination from '@/components/shared/custom/Pagination'; // Adjust the import path as needed
 import { PortfolioItem } from '@/components/shared/custom/PortfolioItem'; // Adjust the import path as needed
 import { Card, CardTitle } from '@/components/shared/shadcn/card';

@@ -10,7 +10,7 @@ import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput"
 import clyp from "@/assets/icons/logo_icon.svg"
 import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
-import { api, handleApiError, updateAuthToken } from "@/lib/axiosProvider"
+import { api, handleApiError, updateAuthToken } from "@/api/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
 
 

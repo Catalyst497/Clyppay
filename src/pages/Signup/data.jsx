@@ -25,23 +25,15 @@ const slides = [
     },
     {
         index: 3,
-        title: "Selfie Verification",
+        title: "Face Verification",
         subtext:
             "We will compare the photo in your document with your selfie to confirm your identity",
         image: selfie,
         imageTitle: "Your face",
         imageBody: "Place your face in front of the camera",
+        
     },
-    {
-        index: 4,
-        title: "Selfie Verification",
-        subtext:
-            "We will compare the photo in your document with your selfie to confirm your identity",
-        image: selfie,
-        imageTitle: "Verification Pending",
-        imageBody:
-            "Your verification is being processed, you will receive a notification once verified.",
-    },
+   
 ]
 
 export default slides

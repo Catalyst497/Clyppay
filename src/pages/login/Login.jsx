@@ -6,20 +6,20 @@ import {
     CardDescription,
     CardHeader,
 } from "@/components/shared/shadcn/card"
-import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput"
 import SocialLoginSection from "@/components/shared/custom/SocialLogin"
+import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput"
 import clyp from "@/assets/icons/logo_icon.svg"
 import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
-import { api } from "@/lib/axiosProvider"
+import { Link, useNavigate, useLocation } from "react-router-dom"
+import { api, returnApiError } from "@/api/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
+import { Checkbox } from "@/components/shared/shadcn/formElements"
+import { headerHeight } from "@/lib/Constants"
 
 const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/
 const validationSchema = {
     email: Yup.string().email("Invalid email address").required("Required"),
-    phone: Yup.string()
-        .min(10, "Phone number must be at least 10 characters")
-        .required("Required"),
     password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .matches(
@@ -31,34 +31,42 @@ const validationSchema = {
 
 const initialValues = {
     email: "",
-    phone: "",
     password: "",
 }
 
-const SignupForm = ({ next , updateFields}) => {
+const LoginForm = ({ updateFields }) => {
+    const { setUser } = useAuth()
 
+    const navigate = useNavigate()
+    const { state } = useLocation()
+    const from = state?.from?.pathname || "/dashboard"
 
-    const onSubmit = async (values, { setErrors }) => {
+    const onSubmit = async (values, {setErrors}) => {
+        console.log("loading.")
+        // event.preventDefault();
         try {
-        
-            const response = await api.post("/user-gateway/login", values)
-            
-            updateFields({...values,id: response?.data?.user.id})
-            console.log(response.data)
-            // next();
-
-            return { success: true }
+            const { email, ...rest } = values
+            const modifiedData = {
+                identifier: email,
+                ...rest,
+            }
+            const response = await api.post("/user-gateway/login", modifiedData)
+            const data = response?.data
+            console.log(response)
+            if (data?.message === "success") {
+                // Update the necessary states or perform navigation here
+                console.log("Login successful")
+                return { success: false }
+            } else {
+       
+               setErrors({ apiError:returnApiError (data) });
+                return { success: false }
+            }
         } catch (error) {
-            console.log(
-                error?.response?.data?.details || error?.message, // status and reason
-            ) // return { success: false, message: error?.message || "Network error" }
-
             setErrors({
-                apiError:
-                    error?.response?.data?.details ||error?.response?.data?.error ||
-                    error?.message ||
-                    "Network Error",
+                apiError: returnApiError(error),
             })
+
             return { success: false }
         }
     }
@@ -70,76 +78,76 @@ const SignupForm = ({ next , updateFields}) => {
     )
 
     return (
-        <FormCard>
-            <CardHeader className="flex flex-col items-center">
-                <div className="pb-5">
-                    <img src={clyp} alt="Clyp" width="40px" />
-                </div>
-
-                <CardTitle>Welcome to Clyp!</CardTitle>
-                <CardDescription className="text-center">
-                    To create an account with Clyppay, please put in your email
-                    address in the field below
-                </CardDescription>
-            </CardHeader>
-
-            <form onSubmit={formik.handleSubmit}>
-                <FloatingLabelInput
-                    name="email"
-                    type="email"
-                    label="Email Address"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.errors.email}
-                    onBlur={formik.handleBlur}
-                    touched={formik.touched.email}
-                />
-
-                <FloatingLabelInput
-                    name="phone"
-                    type="text"
-                    label="Phone Number"
-                    value={formik.values.phone}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.phone}
-                    touched={formik.touched.phone}
-                />
-
-                <FloatingLabelInput
-                    name="password"
-                    type="password"
-                    label="Password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.password}
-                    touched={formik.touched.password}
-                />
-
-                {formik.errors.apiError && (
-                    <div className="mt-3 text-center text-red-500">
-                        {formik.errors.apiError}
+        <div
+            style={{ minHeight: `calc(100vh - ${headerHeight})` }}
+            className="flex h-full w-full items-center justify-center"
+        >
+            <FormCard>
+                <CardHeader className="flex flex-col items-center">
+                    <div className="pb-5">
+                        <img src={clyp} alt="Clyp" width="40px" />
                     </div>
-                )}
 
-                <Button
-                    type="submit"
-                    size="full"
-                    className="mt-4"
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting ? "Creating account..." : "Continue"}
-                </Button>
-            </form>
+                    <CardTitle>Welcome back!</CardTitle>
+                    <CardDescription className="text-center">
+                        To log in your account with Clyppay, please put in your
+                        email address and password in the field below
+                    </CardDescription>
+                </CardHeader>
 
-            <SocialLoginSection
-                tagline="Already have an account?"
-                linkText="Log in"
-                to="/login"
-            />
-        </FormCard>
+                <form>
+                    <FloatingLabelInput
+                        name="email"
+                        type="email"
+                        label="Email Address"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        error={formik.errors.email}
+                        onBlur={formik.handleBlur}
+                        touched={formik.touched.email}
+                    />
+
+                    <FloatingLabelInput
+                        name="password"
+                        type="password"
+                        label="Password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.password}
+                        touched={formik.touched.password}
+                        apiError={formik.errors.apiError}
+                    />
+
+                    <div className="flex items-center justify-between pt-4">
+                        <div>
+                            <Checkbox />
+                            <span> Remember me </span>
+                        </div>
+                        <Link to="/forgot" className="text-primary">
+                            Forgot Password?
+                        </Link>
+                    </div>
+
+                    <Button
+                        type="button"
+                        size="full"
+                        className="mt-4"
+                        disabled={isSubmitting}
+                        onClick={() => formik.handleSubmit()}
+                    >
+                        {isSubmitting ? "Logging in...." : "Continue"}
+                    </Button>
+                </form>
+
+                <SocialLoginSection
+                    tagline="Don't have an account?"
+                    linkText="Sign up"
+                    to="/signup"
+                />
+            </FormCard>
+        </div>
     )
 }
 
-export default SignupForm
+export default LoginForm

@@ -135,23 +135,33 @@ const SelectSeparator = React.forwardRef(({ className, ...props }, ref) => (
 ))
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
-export function SelectField({ name, value, onChange, placeholder, options }) {
+export function SelectField({
+    name,
+    value,
+    onChange,
+    placeholder,
+    options,
+    valueKey = "value",
+    label = "label",
+    isLoading,
+    id
+}) {
     const handleChange = (selectedValue) => {
         onChange(name, selectedValue)
     }
 
     return (
-        <Select name={name}  value={value} onValueChange={handleChange}>
-            <SelectTrigger className="mb-4 w-full py-7">
+        <Select  name={name} value={value} onValueChange={handleChange}>
+            <SelectTrigger className="mb-4 w-full py-7" disabled = {isLoading}>
                 <div className="capitalize text-label">
-                    <SelectValue className="" placeholder={placeholder} />
+                    <SelectValue className="" placeholder={isLoading ? "Loading...": placeholder}  />
                 </div>
             </SelectTrigger>
             <SelectContent className="bg-background">
                 <SelectGroup>
-                    {options.map((x) => (
-                        <SelectItem key={x.value} value={x.value}>
-                            {x.label}
+                    {options?.map((option, index) => (
+                        <SelectItem key={option?.id || index} value={option[valueKey]}>
+                     {     option[valueKey]}
                         </SelectItem>
                     ))}
                 </SelectGroup>

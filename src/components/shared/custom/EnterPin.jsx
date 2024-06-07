@@ -10,9 +10,9 @@ import { Button } from "@/components/shared/shadcn/button"
 import * as Yup from "yup"
 import { FourDigitPassword } from "@/components/shared/shadcn/inputOtp"
 import clyp from "@/assets/icons/logo_icon.svg"
-import { api, updateAuthToken } from "@/lib/axiosProvider"
+import { api, updateAuthToken } from "@/api/axiosProvider"
 import { useAuth } from "@/context/AuthContext"
-import { activateUser, resetUser } from "@/lib/apiRequests"
+import { activateUser, resetUser } from "@/api/apiRequests"
 
 // Validation schema for the OTP form
 const validationSchema = {

@@ -1,6 +1,6 @@
 // src/hooks/useCryptocurrencies.js
 import { useQuery } from "@tanstack/react-query"
-import { api } from "@/lib/axiosProvider"
+import { api } from "@/api/axiosProvider"
 
 const fetchCoinsMarketData = async (currency, skip, limit) => {
     console.log(currency, skip, limit)

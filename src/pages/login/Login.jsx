@@ -43,7 +43,7 @@ const LoginForm = ({ updateFields }) => {
 
     const onSubmit = async (values, {setErrors}) => {
         console.log("loading.")
-        // event.preventDefault();
+    
         try {
             const { email, ...rest } = values
             const modifiedData = {
@@ -56,6 +56,7 @@ const LoginForm = ({ updateFields }) => {
             if (data?.message === "success") {
                 // Update the necessary states or perform navigation here
                 console.log("Login successful")
+                navigate("/dashboard")
                 return { success: false }
             } else {
        

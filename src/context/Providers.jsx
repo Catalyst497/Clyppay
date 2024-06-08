@@ -1,7 +1,9 @@
+
 import React from "react"
 import { AuthProvider as MyAuthProvider } from "./AuthContext"
 import { ModalProvider } from "./ModalContext"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
 
 const queryClient = new QueryClient()
 

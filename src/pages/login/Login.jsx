@@ -50,7 +50,7 @@ const LoginForm = ({ updateFields }) => {
                 identifier: email,
                 ...rest,
             }
-            const response = await api.post("/user-gateway/login", modifiedData)
+            const response = await api.default.post("/user-gateway/login", modifiedData)
             const data = response?.data
             console.log(response)
             if (data?.message === "success") {

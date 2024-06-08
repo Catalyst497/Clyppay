@@ -5,7 +5,7 @@ import { api } from "@/api/axiosProvider"
 const fetchCoinsMarketData = async (currency, skip, limit) => {
     console.log(currency, skip, limit)
 
-    const { data } = await api.get(
+    const { data } = await api.crypto.get(
         `market-api/fetch-coins-market-data`
     );
     return data;

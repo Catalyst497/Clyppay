@@ -13,7 +13,7 @@ import clyp from "@/assets/icons/logo_icon.svg"
 import { Fieldset } from "@/components/shared/shadcn/formElements"
 import { Label } from "@radix-ui/react-label"
 import { SelectField } from "@/components/shared/shadcn/select"
-import { api ,returnApiError} from "@/api/axiosProvider"
+import { api, returnApiError } from "@/api/axiosProvider"
 import { useCountries } from "@/api/apiQueries/getHooks"
 import passport from "@/assets/icons/passport-biometric.svg"
 import nationalId from "@/assets/icons/id-card.svg"
@@ -23,16 +23,12 @@ import FloatingLabelInput from "@/components/shared/custom/FloatingLabelInput"
 
 // Validation schema for the form
 const validationSchema = {
-      first_name : Yup.string().required("Required"),
-      last_name: Yup.string().required("Required"),
     nationality: Yup.string().required("Required"),
     verificationMethod: Yup.string().required("Required"),
 }
 
 // Initial values for the form
 const initialValues = {
-    first_name : "",
-    last_name: "",
     nationality: "",
     verificationMethod: "",
 }
@@ -46,40 +42,23 @@ const verificationMethods = [
 
 const VerifyID = ({ next, prev, updateFields, formData }) => {
     const { data, isLoading, isError } = useCountries()
-   
-    const onSubmit = async (values, {setErrors}) => {
-        console.log(values)
-        console.log(data)
+
+    const onSubmit = async (values, { setErrors }) => {
         try {
-     
             const modifiedData = {
                 identifier: formData.id,
-                type:  values.verificationMethod,
-                first_name: values.first_name,
-                last_name: values.last_name,
+                type: values.verificationMethod,
                 country: values.nationality,
-                country_id:  data?.countries.find(x => x.name  === values.nationality)?.id || null
-               
+                country_id:
+                    data?.countries.find((x) => x.name === values.nationality)
+                        ?.id || null,
             }
-            updateFields((prev => ({...prev,...modifiedData})))
-            const response = await api.default.post("/user-gateway/kyc-validation", modifiedData)
-           
-            console.log(response)
-            if ( response?.data.message === "success") {
-                // Update the necessary states or perform navigation here
-                console.log( response?.data)
-                return { success: true }
-            } else {
-       
-               setErrors({ apiError:returnApiError (data) });
-                return { success: false }
-            }
+            updateFields((prev) => ({ ...prev, ...modifiedData }))
+            next()
+            console.log(modifiedData)
         } catch (error) {
-            setErrors({
-                apiError: returnApiError(error),
-            })
-
-            return { success: false }
+            console.error(error)
+            setErrors(returnApiError(error))
         }
     }
 
@@ -89,7 +68,6 @@ const VerifyID = ({ next, prev, updateFields, formData }) => {
         onSubmit,
     )
 
-
     return (
         <FormCard>
             <CardHeader className="flex flex-col items-center">
@@ -98,36 +76,16 @@ const VerifyID = ({ next, prev, updateFields, formData }) => {
                 </div>
                 <CardTitle>Complete registration</CardTitle>
                 <CardDescription className="">
-                    We are required by law to verify your identity by collecting your ID and selfie
+                    We are required by law to verify your identity by collecting
+                    your ID and selfie.
                 </CardDescription>
             </CardHeader>
 
             <form onSubmit={formik.handleSubmit}>
                 <Fieldset>
-                    <Label className="">Enter your location</Label>
-                </Fieldset>
-
-                <div className="mb-4">
-                <FloatingLabelInput
-                    name="first_name"
-                    type="text"
-                    label="Enter your first name"
-                    value={formik.values.first_name}
-                    onChange={formik.handleChange}
-                    error={formik.errors.first_name}
-                    onBlur={formik.handleBlur}
-                    touched={formik.touched.first_name}
-                />
-                <FloatingLabelInput
-                    name="last_name"
-                    type="text"
-                    label="Enter your last name"
-                    value={formik.values.last_name}
-                    onChange={formik.handleChange}
-                    error={formik.errors.last_name}
-                    onBlur={formik.handleBlur}
-                    touched={formik.touched.last_name}
-                />
+                    <Label htmlFor="nationality" className="">
+                        Enter your location
+                    </Label>
                     <SelectField
                         onChange={formik.setFieldValue}
                         name={"nationality"}
@@ -139,21 +97,27 @@ const VerifyID = ({ next, prev, updateFields, formData }) => {
                         isLoading={isLoading}
                         iconKey={"image"}
                     />
-                </div>
-                <Label htmlFor="verificationMethod" className="pt-4">Choose verification method</Label>
-                <RadioGroup
-                    value={formik.values.verificationMethod}
-                    onValueChange={(value) => formik.setFieldValue("verificationMethod", value)}
-                >
-                    {verificationMethods.map((option) => (
-                        <RadioGroupItem
-                            key={option.value}
-                            value={option.value}
-                            imageSrc={option.icon}
-                            label={option.label}
-                        />
-                    ))}
-                </RadioGroup>
+                </Fieldset>
+                <Fieldset>
+                    <Label htmlFor="verificationMethod" className="pt-4">
+                        Choose verification method
+                    </Label>
+                    <RadioGroup
+                        value={formik.values.verificationMethod}
+                        onValueChange={(value) =>
+                            formik.setFieldValue("verificationMethod", value)
+                        }
+                    >
+                        {verificationMethods.map((option) => (
+                            <RadioGroupItem
+                                key={option.value}
+                                value={option.value}
+                                imageSrc={option.icon}
+                                label={option.label}
+                            />
+                        ))}
+                    </RadioGroup>
+                </Fieldset>
 
                 <Button
                     type="submit"
@@ -161,7 +125,7 @@ const VerifyID = ({ next, prev, updateFields, formData }) => {
                     className="mt-4"
                     disabled={isSubmitting}
                 >
-                    {isSubmitting ? "Verifying..." : "Continue"}
+                    Proceed
                 </Button>
             </form>
         </FormCard>

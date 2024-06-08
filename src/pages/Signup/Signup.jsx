@@ -2,9 +2,10 @@ import React, { useState } from "react"
 import useMultistepForm from "@/hooks/useMultistepForm"
 import Form from "@/pages/Signup/SignupForm"
 import ConfirmEmailWithOtp from "@/components/shared/custom/ConfirmEmail"
-import StepThree from "@/pages/Signup/VerifyID"
+import ChooseVerification from "@/pages/Signup/VerifyID"
 import ScanID from "@/pages/Signup/ScanID"
 import { headerHeight } from "@/lib/Constants"
+import IdDetails from "./IdDetails"
 import ScanSlides from "./data"
 
 const front = ScanSlides[0]
@@ -13,7 +14,8 @@ const back = ScanSlides[1]
 const steps = [
     (props) => <Form {...props} />,
     (props) => <ConfirmEmailWithOtp {...props} type="activate" />,
-    (props) => <StepThree {...props} />,
+    (props) => <ChooseVerification {...props} />,
+    (props) => <IdDetails {...props} />,
     (props) => (
         <ScanID
             {...props}

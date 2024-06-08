@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
-    const { user } = useAuth();
+    const {isAuthenticated } = useAuth();
     const [hasScrolled, setHasScrolled] = useState(false);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function Header() {
                     <img src={Logo} alt="Clyppay" className="h-[40px] md:h-[50px]" />
                 </Link>
                 {/* left nav items */}
-                {user?.id && (
+                {isAuthenticated && (
                     <div className="flex flex-row-reverse justify-between w-[30%]">
                         {/* avatar */}
                         <div className="flex items-center space-x-2">

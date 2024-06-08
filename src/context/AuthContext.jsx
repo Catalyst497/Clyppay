@@ -9,6 +9,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
+
+    console.log(user)
     if (token) {
       setIsAuthenticated(true);
       setUser(token);
